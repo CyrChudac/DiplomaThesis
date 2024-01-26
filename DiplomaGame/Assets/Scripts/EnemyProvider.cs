@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameCreationCore;
+using GameCreatingCore;
 
 public abstract class EnemyProvider : MonoBehaviour
 {

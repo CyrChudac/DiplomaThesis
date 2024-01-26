@@ -14,7 +14,7 @@ TagManager:
   - 
   - Player
   - Enemy
-  - 
+  - EnemyKillZone
   - FriendlyWalk
   - EnemyWalk
   - FriendlyFly

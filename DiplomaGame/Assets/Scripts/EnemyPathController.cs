@@ -42,5 +42,8 @@ public class EnemyPathController : PathedGameObject
 	protected override void OnResetPath() {
         started = true;
         currentIndex = 0;
+        if(Path == null) {
+
+        }
 	}
 }

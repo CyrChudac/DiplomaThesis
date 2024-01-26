@@ -21,14 +21,15 @@ public class ViewconeCreator : ViewConeMaintainer
         = new Color(defaultBad.r, defaultBad.g, defaultBad.b, defaultAlpha);
 
     [SerializeField] private float middleLineWidth; 
-    [SerializeField] private float viewLength;
+
+    public float viewLength;
     [Tooltip("In seconds")]
     [Min(0.0001f)]
     [SerializeField] private float timeUntilFullView = 2f;
 
     [SerializeField] private GameObject player;
     [Tooltip("The minimal distance from the player when the viewcone is displayed.")]
-    [SerializeField] private float displayDistance;
+    [SerializeField] private float displayStartDistance;
 
     [Header("Events")]
 

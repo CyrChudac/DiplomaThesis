@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameCreatingCore;
 using UnityEngine.Events;
 using UnityEngine.Animations;
 using UnityEngine.UIElements;
@@ -83,7 +84,7 @@ public class ViewConeMaintainer : MonoBehaviour {
     /// <summary>
     /// Which direction does the first of the viewcone go
     /// </summary>
-    float StartingAngle => -viewAngle / 2;
+    float StartingAngle => - viewAngle / 2;
     /// <summary>
     /// Angle after which to check if there is an obstacle in the way
     /// </summary>
@@ -106,6 +107,8 @@ public class ViewConeMaintainer : MonoBehaviour {
         //create child
         GameObject go = new GameObject("viewcone: " + viewconePart.Name);
         go.transform.SetParent(transform);
+        //go.transform.rotation = Quaternion.Euler(0, 0, 180);
+        go.transform.localRotation = Quaternion.Euler(0, 0, 180);
         go.transform.localPosition = Vector3.zero;
         go.transform.localScale = Vector3.one;
         go.SetActive(viewconePart.DisplayThis);
@@ -131,6 +134,10 @@ public class ViewConeMaintainer : MonoBehaviour {
                     UpdateMesh(Meshes[i], curr, ViewconeParts[i].Length, dists);
                 }
                 curr += ViewconeParts[i].Length;
+            }
+        } else {
+            for(int i = 0; i < meshFilters.Length; i++) {
+                meshFilters[i].gameObject.SetActive(false);
             }
         }
     }
@@ -161,7 +168,7 @@ public class ViewConeMaintainer : MonoBehaviour {
         RaycastHit2D raycast;
         //find out what does the ray from the agent hit in the given angle
         raycast = Physics2D.Raycast(origin,
-            Vector2Utils.VectorFromAngle(angle - agent.transform.rotation.eulerAngles.z + 180),
+            Vector2Utils.VectorFromAngle(ChangeAngleAccordingToAgentRotation(angle)),
             maxLen,
             notSeeThrough);
         //if nothing, simply set the end of the view at this angle to max distance
@@ -172,6 +179,10 @@ public class ViewConeMaintainer : MonoBehaviour {
         else {
             return Vector3.Distance(raycast.point, origin);
         }
+    }
+
+    float ChangeAngleAccordingToAgentRotation(float angle) {
+        return angle - agent.transform.rotation.eulerAngles.z + 180;
     }
 
     private void UpdateMesh(Mesh mesh, float from, float length, float[] distances)
@@ -269,7 +280,7 @@ public class ViewConeMaintainer : MonoBehaviour {
             float maxLen = CumulLen();
             //find out what does the ray from the agent hit in the given angle
             raycast =  Physics2D.Raycast(origin, 
-                Vector2Utils.VectorFromAngle(currAngle + agent.transform.rotation.eulerAngles.y),
+                Vector2Utils.VectorFromAngle(ChangeAngleAccordingToAgentRotation(currAngle)),
                 maxLen,
                 whatToSpot | notSeeThrough);
             //if it's something and it is the thing we are spotting
@@ -312,25 +323,6 @@ public class ViewConeMaintainer : MonoBehaviour {
             }
         }
         spottedObjects = observed.Select(o => o.Distinct().ToList()).ToArray();
-    }
-}
-
-static class Vector2Utils {
-    public static Vector2 Scaled(Vector2 from, Vector2 scale) {
-        var res = new Vector2(from.x, from.y);
-        res.Scale(scale);
-        return res;
-    }
-    
-    /// <summary>
-    /// Make a vector pointing at a given angle.
-    /// </summary>
-    /// <param name="degrees">Angle in degrees</param>
-    /// <returns>A normalized 2D vector pointing at that angle</returns>
-    public static Vector2 VectorFromAngle(float degrees)
-    {
-        float angle = degrees * (Mathf.PI / 180f);
-        return new Vector2(-Mathf.Cos(angle), Mathf.Sin(angle));
     }
 }
 

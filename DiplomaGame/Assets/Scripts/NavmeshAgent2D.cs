@@ -48,7 +48,7 @@ public class NavmeshAgent2D : MonoBehaviour
 	}
 
 	private IEnumerator MoveCoroutine(NavMeshPath path) {
-        Debug.Log(path.corners.Length);
+        //Debug.Log(path.corners.Length);
         foreach(var c in path.corners) {
             //calculating the path again, should be superquick since the points are in line of free walk
             agent.SetDestination(CalculateDestination(c)); 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using GameCreationCore;
+using GameCreatingCore;
 
 public class LevelProviderDummy : LevelCreatorProvider, ILevelCreator
 {
@@ -27,7 +27,7 @@ public class LevelProviderDummy : LevelCreatorProvider, ILevelCreator
 			new List<Enemy>() {
 				new Enemy(
 					new Vector2(17, -17),
-					180,
+					0,
 					EnemyType.Basic,
 					null),
 				new Enemy(

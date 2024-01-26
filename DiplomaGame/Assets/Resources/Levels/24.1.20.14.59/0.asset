@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 0
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -80.73395, y: -108.42756}
+    - {x: -80.73395, y: 94.5814}
+    - {x: 19.888407, y: 94.5814}
+    - {x: 19.888407, y: -108.42756}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: 107.22382, y: 159.98212}
+    Rotation: 283
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  FriendlyStartPos: {x: -75.3642, y: -103.05781}
+  Goal:
+    Position: {x: 14.518658, y: 89.21165}
+    Radius: 5.3697486
+  references:
+    version: 2
+    RefIds: []

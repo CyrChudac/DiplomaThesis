@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using GameCreationCore;
+using GameCreatingCore;
 using NavMeshPlus.Components;
 using Unity.VisualScripting;
 
@@ -19,18 +19,22 @@ public class LevelInitializor : MonoBehaviour
     [SerializeField]
     private Material defaultMaterial;
     [SerializeField]
-    private GameObject player;
+    private PlayerProvider playerProvider;
+    [SerializeField]
+    private GameObject goal;
     [SerializeField]
     private List<NavMeshSurface> surfacesToBake;
     [SerializeField]
     private float outerMargin = 300f;
+    [SerializeField]
+    private CameraMovement camMovement;
 
     // Start is called before the first frame update
     void Start()
     {
         int seed = Random.Range(0, int.MaxValue);
         if(vocal)
-            Debug.Log($"Creating level using seed " + seed);
+            Debug.Log($"Initializing level using seed " + seed);
         var lr = levelProvider.GetLevelCreator().CreateLevel(seed);
         foreach(var o in lr.Obstacles) {
             CreateObstacle(o, false);
@@ -43,8 +47,14 @@ public class LevelInitializor : MonoBehaviour
 
         CreateEnemies(lr.Enemies);
 
-        var p = Instantiate(player);
+        var p = playerProvider.GetPlayer();
         p.transform.position = lr.FriendlyStartPos;
+
+        var g = Instantiate(goal, transform);
+        g.transform.position = lr.Goal.Position;
+        g.transform.localScale *= lr.Goal.Radius;
+
+        camMovement.SetBounds(lr.OuterObstacle.BoundingBox);
     }
 
     void CreateEnemies(IEnumerable<Enemy> enemies) {
@@ -62,14 +72,14 @@ public class LevelInitializor : MonoBehaviour
         go.transform.localPosition = Vector3.zero;
 
         var pc = go.AddComponent<PolygonCollider2D>();
-        pc.SetPath(0, obstacle.Shape);
+        pc.SetPath(0, obstacle.Shape.ToArray());
 
-        System.Func<List<Vector2>, GameObject, PolygonCollider2D> pcFun = 
+        System.Func<Vector2[], GameObject, PolygonCollider2D> pcFun = 
             outside ? AddOuterObstacleShape : AddObstacleShape;
 
 
         var mf = go.AddComponent<MeshFilter>();
-        var pc2D = pcFun(obstacle.Shape, gameObject);
+        var pc2D = pcFun(obstacle.Shape.ToArray(), gameObject);
         mf.mesh = pc2D.CreateMesh(false, false);
         Destroy(pc2D);
 
@@ -83,7 +93,7 @@ public class LevelInitializor : MonoBehaviour
             .FirstOrDefault();
         mr.material = mater?.Material ?? defaultMaterial;
 
-        AddObstacleEffects(obstacle, go, (g) => pcFun(obstacle.Shape, g));
+        AddObstacleEffects(obstacle, go, (g) => pcFun(obstacle.Shape.ToArray(), g));
 
         return go;
     }
@@ -100,24 +110,18 @@ public class LevelInitializor : MonoBehaviour
         if(obstacle.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable) {
             var ch = GetCollidingGameObject(obstacle.Shape, pcFun, go.transform, "FriendlyWalk");
             AddToNavmesh(ch);
-        }else if(obstacle.FriendlyWalkEffect == WalkObstacleEffect.Fliable) {
-            var ch = GetCollidingGameObject(obstacle.Shape, pcFun, go.transform, "FriendlyFly");
-            AddToNavmesh(ch);
         }
         if(obstacle.EnemyWalkEffect == WalkObstacleEffect.Unwalkable) {
             var ch = GetCollidingGameObject(obstacle.Shape, pcFun, go.transform, "EnemyWalk");
             AddToNavmesh(ch);
-        }else if(obstacle.EnemyWalkEffect == WalkObstacleEffect.Fliable) {
-            var ch = GetCollidingGameObject(obstacle.Shape, pcFun, go.transform, "EnemyFly");
-            AddToNavmesh(ch);
         }
     }
 
-    GameObject GetCollidingGameObject(List<Vector2> points, 
+    GameObject GetCollidingGameObject(IReadOnlyCollection<Vector2> points, 
         System.Func<GameObject, PolygonCollider2D> pcFun, Transform parent, string layer) {
-
+        //TODO: use the points... maybe?
         var go = new GameObject();
-        pcFun(go);
+        var res = pcFun(go);
         go.transform.SetParent(parent);
         go.layer = LayerMask.NameToLayer(layer);
         return go;
@@ -129,14 +133,14 @@ public class LevelInitializor : MonoBehaviour
         nvm.area = 1;
     }
     
-    PolygonCollider2D AddObstacleShape(List<Vector2> obstacleShape, GameObject go) {
+    PolygonCollider2D AddObstacleShape(Vector2[] obstacleShape, GameObject go) {
         var pc = go.AddComponent<PolygonCollider2D>();
         pc.pathCount = 1;
         pc.SetPath(0, obstacleShape);
         return pc;
     }
 
-    PolygonCollider2D AddOuterObstacleShape(List<Vector2> obstacleShape, GameObject go) {
+    PolygonCollider2D AddOuterObstacleShape(Vector2[] obstacleShape, GameObject go) {
         var pc = go.AddComponent<PolygonCollider2D>();
         float xMin = float.MaxValue, xMax = float.MinValue, yMin = float.MaxValue, yMax = float.MinValue;
         foreach(var vec in obstacleShape) {

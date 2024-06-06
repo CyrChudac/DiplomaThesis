@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using EvolAlgoBase.Exceptions;
 
 namespace EvolAlgoBase {
 	public class EvolutionaryAlgo<TIndividuum> {
@@ -56,5 +57,9 @@ namespace EvolAlgoBase {
 		}
 
 		private double GetTime() => System.DateTime.Now.Ticks;
+
+		public override string ToString() {
+			return $"{nameof(EvolutionaryAlgo<TIndividuum>)}";
+		}
 	}
 }

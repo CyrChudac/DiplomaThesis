@@ -17,20 +17,27 @@ namespace GameCreatingCore.StaticSettings
         /// How many seconds it takes the character to change from walk speed to run speed.
         /// </summary>
         [SerializeField]
-        public float RunStartTime = 0;
+        public float RunStartTime = defaultStartTime;
+        private const float defaultStartTime = 0;
         /// <summary>
         /// How many seconds it takes the character to change from run speed to walk speed.
         /// </summary>
         [SerializeField]
-        public float RunEndTime = 0;
+        public float RunEndTime = defaultEndTime;
+        private const float defaultEndTime = 0;
+
+        [SerializeField]
+        public readonly float TurningSpeed = defaultTurningSpeed;
+        private const float defaultTurningSpeed = 180;
 
         public MovementSettingsProcessed GetProcessed(StaticMovementSettings settings) {
-            return new MovementSettingsProcessed() {
-                WalkSpeed = WalkSpeedModifier * settings.Speed,
-                RunSpeed = RunSpeedModifier * settings.Speed,
-                RunStartTime = RunStartTime,
-                RunEndTime = RunEndTime
-            };
+            return new MovementSettingsProcessed(
+                walkSpeed: WalkSpeedModifier * settings.Speed,
+                runSpeed: RunSpeedModifier * settings.Speed,
+                runStartTime: RunStartTime,
+                runEndTime: RunEndTime,
+                turningSpeed: TurningSpeed
+            );
         }
 
     }
@@ -41,19 +48,32 @@ namespace GameCreatingCore.StaticSettings
         /// <summary>
         /// How many distance units the character traverses within a second while walking.
         /// </summary>
-        public float WalkSpeed;
+        public readonly float WalkSpeed;
         /// <summary>
         /// How many distance units the character traverses within a second while running.
         /// </summary>
-        public float RunSpeed;
+        public readonly float RunSpeed;
         /// <summary>
         /// How many seconds it takes the character to change from walk speed to run speed.
         /// </summary>
-        public float RunStartTime = 0;
+        public readonly float RunStartTime;
         /// <summary>
         /// How many seconds it takes the character to change from run speed to walk speed.
         /// </summary>
-        public float RunEndTime = 0;
+        public readonly float RunEndTime;
+        /// <summary>
+        /// How big angle in degrees does the character turn within 1 second.
+        /// </summary>
+        public readonly float TurningSpeed;
+
+        internal MovementSettingsProcessed(float walkSpeed, float runSpeed,
+            float runStartTime, float runEndTime, float turningSpeed) {
+            WalkSpeed = walkSpeed;
+            RunSpeed = runSpeed;
+            RunStartTime = runStartTime;
+            RunEndTime = runEndTime;
+            TurningSpeed = turningSpeed;
+        }
 
     }
 }

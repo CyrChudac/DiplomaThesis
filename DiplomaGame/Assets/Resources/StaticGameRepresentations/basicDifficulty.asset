@@ -15,6 +15,7 @@ MonoBehaviour:
   gameDifficulty: 3
   movementSettings:
     Speed: 10
+    CharacterMaxRadius: 4
   viewconeDescriptions:
   - enemyType: 0
     enemySettings:

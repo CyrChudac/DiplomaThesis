@@ -113,6 +113,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.AI.Navigation.Updater
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{18EC6E81-DA11-DB10-366D-3727C5C3E755}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{207113B4-74CE-CC91-D077-AED681596D24}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.2D.PixelPerfect", "Unity.2D.PixelPerfect.csproj", "{5AACAEA1-BD73-D395-2285-9A9D8F942B42}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.2D.PixelPerfect.Editor", "Unity.2D.PixelPerfect.Editor.csproj", "{F40F41FE-571B-F7AB-FC01-E9F9A703149A}"
@@ -427,6 +429,10 @@ Global
 		{18EC6E81-DA11-DB10-366D-3727C5C3E755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18EC6E81-DA11-DB10-366D-3727C5C3E755}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18EC6E81-DA11-DB10-366D-3727C5C3E755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{207113B4-74CE-CC91-D077-AED681596D24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{207113B4-74CE-CC91-D077-AED681596D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{207113B4-74CE-CC91-D077-AED681596D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{207113B4-74CE-CC91-D077-AED681596D24}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5AACAEA1-BD73-D395-2285-9A9D8F942B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5AACAEA1-BD73-D395-2285-9A9D8F942B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AACAEA1-BD73-D395-2285-9A9D8F942B42}.Release|Any CPU.ActiveCfg = Release|Any CPU

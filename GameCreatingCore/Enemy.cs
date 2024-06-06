@@ -18,5 +18,9 @@ namespace GameCreatingCore {
 			Type = type;
 			Path = path;
 		}
+
+		public override string ToString() {
+			return $"Enemy:{Type}; {Position}";
+		}
 	}
 }

@@ -26,6 +26,7 @@ namespace GameCreatingCore.StaticSettings
 
         private PlayerSettings playerSettings { get; }
         public PlayerSettingsProcessed PlayerSettings => playerSettings.ToProcessed(movementSettings);
+        public StaticMovementSettingsProcessed StaticMovementSettings => movementSettings.ToProcessed();
 
         public int GameDifficulty { get; }
 

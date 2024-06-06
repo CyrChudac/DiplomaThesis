@@ -123,6 +123,68 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &7541867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -84.70915, y: -20.101112}
+    - {x: -84.70915, y: 33.6357}
+    - {x: -2.237386, y: 33.6357}
+    - {x: -2.237386, y: -20.101112}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -81.99602, y: -17.387976}
+  Goal:
+    Position: {x: -4.9505234, y: 30.922564}
+    Radius: 2.7131374
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &9892989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -74.39109, y: -13.357261}
+    - {x: -74.39109, y: 28.246014}
+    - {x: -0.8976184, y: 28.246014}
+    - {x: -0.8976184, y: -13.357261}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -72.46961, y: -11.435785}
+  Goal:
+    Position: {x: -2.819094, y: 26.324537}
+    Radius: 1.9214755
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &13163185
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +234,68 @@ Transform:
   - {fileID: 1707807594}
   m_Father: {fileID: 531884384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &17663758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -57.999054, y: -19.823444}
+    - {x: -57.999054, y: 52.926666}
+    - {x: 1.6847129, y: 52.926666}
+    - {x: 1.6847129, y: -19.823444}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -55.077686, y: -16.902077}
+  Goal:
+    Position: {x: -1.2366555, y: 50.0053}
+    Radius: 2.9213684
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &29663613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -69.691795, y: -52.058144}
+    - {x: -69.691795, y: 11.881188}
+    - {x: 7.3678703, y: 11.881188}
+    - {x: 7.3678703, y: -52.058144}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -66.15007, y: -48.516422}
+  Goal:
+    Position: {x: 3.8261487, y: 8.339467}
+    Radius: 3.5417216
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &34035475
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3552b5f8b785044854f0faa62751b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FolderOrFilePath: Levels/24.1.20.16.58
+  FolderOrFilePath: Levels/24.2.29.2.33
+  specificFile: 74
 --- !u!4 &34035477
 Transform:
   m_ObjectHideFlags: 0
@@ -217,7 +342,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &71866409
+--- !u!114 &109073139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,101 +357,301 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -60.700787, y: -30.807932}
-    - {x: -60.700787, y: 44.38932}
-    - {x: 41.727135, y: 44.38932}
-    - {x: 41.727135, y: -30.807932}
+    - {x: -55.91419, y: -61.19389}
+    - {x: -55.91419, y: -17.487444}
+    - {x: 40.22794, y: -17.487444}
+    - {x: 40.22794, y: -61.19389}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -58.789837, y: -28.896982}
+  FriendlyStartPos: {x: -51.64478, y: -56.92448}
   Goal:
-    Position: {x: 39.816185, y: 42.47837}
-    Radius: 1.9109502
+    Position: {x: 35.95853, y: -21.756855}
+    Radius: 4.26941
   references:
     version: 2
     RefIds: []
---- !u!1 &107539560
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 107539561}
-  - component: {fileID: 107539563}
-  - component: {fileID: 107539562}
-  m_Layer: 0
-  m_Name: EnemyFlyMesh
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &107539561
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107539560}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 171865604}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &107539562
+--- !u!114 &111477001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107539560}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bd44a44cd62c64fbfc1eea95b24880, type: 3}
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideByGrid: 0
-  m_UseMeshPrefab: {fileID: 0}
-  m_CompressBounds: 0
-  m_OverrideVector: {x: 1, y: 1, z: 1}
---- !u!114 &107539563
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -81.20561, y: 2.8501363}
+    - {x: -81.20561, y: 41.267185}
+    - {x: -18.127054, y: 41.267185}
+    - {x: -18.127054, y: 2.8501363}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -77.895676, y: 6.160076}
+  Goal:
+    Position: {x: -21.436995, y: 37.957245}
+    Radius: 3.3099396
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &114304973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107539560}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e04976799df50f54ba128eff723155a7, type: 3}
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AgentTypeID: -1923039037
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 8247
-  m_UseGeometry: 1
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_BuildHeightMesh: 0
-  m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 0}
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 6.373945, y: -12.533506}
+    - {x: 6.373945, y: 45.95637}
+    - {x: 71.41403, y: 45.95637}
+    - {x: 71.41403, y: -12.533506}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 10.6224785, y: -8.284973}
+  Goal:
+    Position: {x: 67.1655, y: 41.70784}
+    Radius: 4.248533
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &115488043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -84.69376, y: -52.409016}
+    - {x: -84.69376, y: 29.85917}
+    - {x: -9.17019, y: 29.85917}
+    - {x: -9.17019, y: -52.409016}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -81.60516, y: -49.32042}
+  Goal:
+    Position: {x: -12.258788, y: 26.770573}
+    Radius: 3.088598
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &124030372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -60.944237, y: -47.998154}
+    - {x: -60.944237, y: 32.726467}
+    - {x: -4.002802, y: 32.726467}
+    - {x: -4.002802, y: -47.998154}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -57.448982, y: -44.5029}
+  Goal:
+    Position: {x: -7.4980555, y: 29.231213}
+    Radius: 3.4952536
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &140268491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -12.974652, y: -31.100134}
+    - {x: -12.974652, y: 50.33193}
+    - {x: 68.27552, y: 50.33193}
+    - {x: 68.27552, y: -31.100134}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -7.7937307, y: -25.919212}
+  Goal:
+    Position: {x: 63.094597, y: 45.15101}
+    Radius: 5.1809216
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &150269946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -32.22292, y: -43.37078}
+    - {x: -32.22292, y: 16.968098}
+    - {x: 79.83975, y: 16.968098}
+    - {x: 79.83975, y: -43.37078}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -28.724657, y: -39.87252}
+  Goal:
+    Position: {x: 76.34149, y: 13.469835}
+    Radius: 3.4982624
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &153773787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -47.776062, y: -30.838293}
+    - {x: -47.776062, y: 35.111877}
+    - {x: 15.848022, y: 35.111877}
+    - {x: 15.848022, y: -30.838293}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -44.698784, y: -27.761017}
+  Goal:
+    Position: {x: 12.770745, y: 32.0346}
+    Radius: 3.077277
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &155606378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -82.328766, y: -61.057373}
+    - {x: -82.328766, y: 8.136443}
+    - {x: 42.94611, y: 8.136443}
+    - {x: 42.94611, y: -61.057373}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -76.98703, y: -55.71564}
+  Goal:
+    Position: {x: 37.604378, y: 2.794711}
+    Radius: 5.341732
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &157974747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -52.957775, y: -55.17277}
+    - {x: -52.957775, y: -17.440666}
+    - {x: 52.1807, y: -17.440666}
+    - {x: 52.1807, y: -55.17277}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -50.340904, y: -52.5559}
+  Goal:
+    Position: {x: 49.563828, y: -20.057537}
+    Radius: 2.6168718
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &159064021
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +727,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 1.3333334
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 0}
@@ -435,12 +760,103 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 107539561}
   - {fileID: 1027333250}
-  - {fileID: 1588501104}
   - {fileID: 159064022}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &193294845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -74.92972, y: -15.100811}
+    - {x: -74.92972, y: 20.793802}
+    - {x: 37.09007, y: 20.793802}
+    - {x: 37.09007, y: -15.100811}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -71.19313, y: -11.364226}
+  Goal:
+    Position: {x: 33.353485, y: 17.057217}
+    Radius: 3.7365847
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &206483005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -78.03319, y: -32.925335}
+    - {x: -78.03319, y: 28.86693}
+    - {x: 1.2339355, y: 28.86693}
+    - {x: 1.2339355, y: -32.925335}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -75.390366, y: -30.28251}
+  Goal:
+    Position: {x: -1.4088894, y: 26.224106}
+    Radius: 2.642825
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &210730152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -73.279976, y: -22.103931}
+    - {x: -73.279976, y: 24.394093}
+    - {x: 20.489124, y: 24.394093}
+    - {x: 20.489124, y: -22.103931}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -68.80653, y: -17.630487}
+  Goal:
+    Position: {x: 16.01568, y: 19.920649}
+    Radius: 4.473444
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &227880778
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,17 +889,26 @@ MonoBehaviour:
   levelProvider: {fileID: 2051826006}
   enemyProvider: {fileID: 2142186318}
   vocal: 1
-  materials: []
+  materials:
+  - {fileID: 11400000, guid: 2fd053ebdd9ec3a46a3a9e9293c76b31, type: 2}
+  - {fileID: 11400000, guid: 3ecdfe478eb57514c898d7938225625b, type: 2}
+  - {fileID: 11400000, guid: 16e41caba99432b45907898d4c130d1c, type: 2}
+  - {fileID: 11400000, guid: 4ff1ddc7687edf64c859326e20bcd6dc, type: 2}
+  - {fileID: 11400000, guid: 0c14b9917e3a0f74f95f96e100b6d438, type: 2}
+  - {fileID: 11400000, guid: 628756773b64ed449b1a69b3c435d871, type: 2}
+  - {fileID: 11400000, guid: 94c4392ab2ed01c409933cfa4941a4ba, type: 2}
+  - {fileID: 11400000, guid: 77f9bd3731beeb5428547572556246e1, type: 2}
+  - {fileID: 11400000, guid: 268bda78116f81e4e8ab756cdb07fa42, type: 2}
+  - {fileID: 11400000, guid: 709ff602d49ff4c4da0d5d8f89d84825, type: 2}
   defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   playerProvider: {fileID: 690841276}
   goal: {fileID: 505901227126881574, guid: a1c17a7c6f4f3974ebb664644385ddaa, type: 3}
   surfacesToBake:
-  - {fileID: 107539563}
   - {fileID: 1027333252}
-  - {fileID: 1588501106}
   - {fileID: 159064024}
   outerMargin: 300
   camMovement: {fileID: 519420033}
+  gameController: {fileID: 975943773}
 --- !u!4 &227880780
 Transform:
   m_ObjectHideFlags: 0
@@ -502,6 +927,626 @@ Transform:
   - {fileID: 690841277}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &254254258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -21.526731, y: 9.746082}
+    - {x: -21.526731, y: 48.101635}
+    - {x: 32.85972, y: 48.101635}
+    - {x: 32.85972, y: 9.746082}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -16.80739, y: 14.465424}
+  Goal:
+    Position: {x: 28.140377, y: 43.382294}
+    Radius: 4.7193413
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &271525366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -43.286755, y: -15.730566}
+    - {x: -43.286755, y: 53.798893}
+    - {x: 18.188616, y: 53.798893}
+    - {x: 18.188616, y: -15.730566}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -40.826706, y: -13.270516}
+  Goal:
+    Position: {x: 15.728566, y: 51.338844}
+    Radius: 2.4600494
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &276508247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -57.6752, y: -10.409859}
+    - {x: -57.6752, y: 50.14759}
+    - {x: 17.910267, y: 50.14759}
+    - {x: 17.910267, y: -10.409859}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -53.475605, y: -6.2102623}
+  Goal:
+    Position: {x: 13.71067, y: 45.947994}
+    Radius: 4.1995964
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &280702093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -6.258416, y: -42.784863}
+    - {x: -6.258416, y: 22.722986}
+    - {x: 72.10654, y: 22.722986}
+    - {x: 72.10654, y: -42.784863}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -4.0121756, y: -40.538624}
+  Goal:
+    Position: {x: 69.8603, y: 20.476746}
+    Radius: 2.2462404
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &289421292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -10.884618, y: -51.77954}
+    - {x: -10.884618, y: 9.567489}
+    - {x: 42.47542, y: 9.567489}
+    - {x: 42.47542, y: -51.77954}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -6.53971, y: -47.43463}
+  Goal:
+    Position: {x: 38.130516, y: 5.222581}
+    Radius: 4.3449078
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &297539729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -32.94468, y: -12.725977}
+    - {x: -32.94468, y: 34.586773}
+    - {x: 31.802536, y: 34.586773}
+    - {x: 31.802536, y: -12.725977}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -30.45567, y: -10.236967}
+  Goal:
+    Position: {x: 29.313526, y: 32.097763}
+    Radius: 2.48901
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &309997821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -69.16127, y: -2.1303296}
+    - {x: -69.16127, y: 39.683537}
+    - {x: -17.794136, y: 39.683537}
+    - {x: -17.794136, y: -2.1303296}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -63.987118, y: 3.0438213}
+  Goal:
+    Position: {x: -22.968287, y: 34.509384}
+    Radius: 5.174151
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &333513877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -43.99306, y: -24.658459}
+    - {x: -43.99306, y: 23.688097}
+    - {x: 43.066833, y: 23.688097}
+    - {x: 43.066833, y: -24.658459}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -38.66489, y: -19.330288}
+  Goal:
+    Position: {x: 37.738663, y: 18.359926}
+    Radius: 5.3281713
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &334422536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -8.978356, y: -15.646341}
+    - {x: -8.978356, y: 52.994297}
+    - {x: 75.95846, y: 52.994297}
+    - {x: 75.95846, y: -15.646341}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -5.906328, y: -12.574313}
+  Goal:
+    Position: {x: 72.88643, y: 49.922268}
+    Radius: 3.0720284
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &337023950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -60.77469, y: -35.79217}
+    - {x: -60.77469, y: 13.895743}
+    - {x: 71.623726, y: 13.895743}
+    - {x: 71.623726, y: -35.79217}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -56.81566, y: -31.833143}
+  Goal:
+    Position: {x: 67.664696, y: 9.936714}
+    Radius: 3.959029
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &338306269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -22.923405, y: 14.066279}
+    - {x: -22.923405, y: 56.064587}
+    - {x: 29.844646, y: 56.064587}
+    - {x: 29.844646, y: 14.066279}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -19.35899, y: 17.630693}
+  Goal:
+    Position: {x: 26.280231, y: 52.50017}
+    Radius: 3.5644147
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &355476735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 9.757577, y: -53.55233}
+    - {x: 9.757577, y: 2.970844}
+    - {x: 62.365257, y: 2.970844}
+    - {x: 62.365257, y: -53.55233}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 12.868845, y: -50.441063}
+  Goal:
+    Position: {x: 59.25399, y: -0.14042449}
+    Radius: 3.1112685
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &359679368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -65.46567, y: -30.81595}
+    - {x: -65.46567, y: 44.51151}
+    - {x: 19.615992, y: 44.51151}
+    - {x: 19.615992, y: -30.81595}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -61.60712, y: -26.957401}
+  Goal:
+    Position: {x: 15.757442, y: 40.65296}
+    Radius: 3.8585486
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &359834863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -3.0289798, y: -21.216423}
+    - {x: -3.0289798, y: 26.443127}
+    - {x: 58.400196, y: 26.443127}
+    - {x: 58.400196, y: -21.216423}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -1.135783, y: -19.323227}
+  Goal:
+    Position: {x: 56.507, y: 24.54993}
+    Radius: 1.8931968
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &366302128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -82.75395, y: -61.930237}
+    - {x: -82.75395, y: -14.665336}
+    - {x: -10.180399, y: -14.665336}
+    - {x: -10.180399, y: -61.930237}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -79.73081, y: -58.9071}
+  Goal:
+    Position: {x: -13.203536, y: -17.688473}
+    Radius: 3.0231369
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &390398213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -32.521202, y: 1.9410608}
+    - {x: -32.521202, y: 56.148365}
+    - {x: 27.724087, y: 56.148365}
+    - {x: 27.724087, y: 1.9410608}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -30.204811, y: 4.2574515}
+  Goal:
+    Position: {x: 25.407696, y: 53.831974}
+    Radius: 2.3163908
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &400461173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -82.12402, y: -52.86312}
+    - {x: -82.12402, y: 41.366642}
+    - {x: 12.728481, y: 41.366642}
+    - {x: 12.728481, y: -52.86312}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -79.40138, y: -50.140476}
+  Goal:
+    Position: {x: 10.005837, y: 38.643997}
+    Radius: 2.7226439
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &404844972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -20.207123, y: -52.419823}
+    - {x: -20.207123, y: -2.9245026}
+    - {x: 74.11868, y: -2.9245026}
+    - {x: 74.11868, y: -52.419823}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -16.48494, y: -48.69764}
+  Goal:
+    Position: {x: 70.3965, y: -6.6466866}
+    Radius: 3.7221837
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &407553494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -76.83572, y: -3.2752457}
+    - {x: -76.83572, y: 47.535595}
+    - {x: 63.39705, y: 47.535595}
+    - {x: 63.39705, y: -3.2752457}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -71.880165, y: 1.6803074}
+  Goal:
+    Position: {x: 58.441498, y: 42.58004}
+    Radius: 4.955553
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &415803665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -12.15494, y: -55.930504}
+    - {x: -12.15494, y: 46.91851}
+    - {x: 79.33331, y: 46.91851}
+    - {x: 79.33331, y: -55.930504}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -7.7311044, y: -51.506668}
+  Goal:
+    Position: {x: 74.90948, y: 42.494675}
+    Radius: 4.4238353
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &428896520
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,6 +1645,8 @@ MonoBehaviour:
   mutateProb: 1
   rotateProb: 0.05
   _rotateMaxChange: 10
+  changePosProb: 0.1
+  changePosMax: 20
   _pathAddProb: 0.015
   _pathRemoveProb: 0.07
   _pathMutationProb: 0.971
@@ -672,6 +1719,285 @@ Transform:
   m_Children: []
   m_Father: {fileID: 531884384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &435509064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -35.978756, y: -48.10504}
+    - {x: -35.978756, y: 40.441025}
+    - {x: 27.308956, y: 40.441025}
+    - {x: 27.308956, y: -48.10504}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -32.017334, y: -44.14362}
+  Goal:
+    Position: {x: 23.347532, y: 36.479603}
+    Radius: 3.9614236
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &435740117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -86.39528, y: -41.772537}
+    - {x: -86.39528, y: 56.8355}
+    - {x: -20.77302, y: 56.8355}
+    - {x: -20.77302, y: -41.772537}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -82.70445, y: -38.081707}
+  Goal:
+    Position: {x: -24.46385, y: 53.14467}
+    Radius: 3.6908295
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &449013947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -72.203575, y: -18.72627}
+    - {x: -72.203575, y: 55.64958}
+    - {x: -19.891481, y: 55.64958}
+    - {x: -19.891481, y: -18.72627}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -68.05511, y: -14.577803}
+  Goal:
+    Position: {x: -24.03995, y: 51.50111}
+    Radius: 4.148468
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &459982902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -80.23395, y: -31.570995}
+    - {x: -80.23395, y: 29.622189}
+    - {x: -17.730932, y: 29.622189}
+    - {x: -17.730932, y: -31.570995}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -77.949036, y: -29.286081}
+  Goal:
+    Position: {x: -20.015846, y: 27.337275}
+    Radius: 2.2849147
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &467778790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -76.4982, y: -50.30107}
+    - {x: -76.4982, y: 0.7424795}
+    - {x: 27.675531, y: 0.7424795}
+    - {x: 27.675531, y: -50.30107}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -72.92888, y: -46.73175}
+  Goal:
+    Position: {x: 24.10621, y: -2.826841}
+    Radius: 3.5693207
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &505584308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -43.189274, y: -39.90345}
+    - {x: -43.189274, y: 45.801666}
+    - {x: 43.95469, y: 45.801666}
+    - {x: 43.95469, y: -39.90345}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -38.68833, y: -35.402508}
+  Goal:
+    Position: {x: 39.453747, y: 41.300724}
+    Radius: 4.500942
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &509521145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -27.023096, y: -57.32762}
+    - {x: -27.023096, y: 7.539578}
+    - {x: 27.932894, y: 7.539578}
+    - {x: 27.932894, y: -57.32762}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -23.668945, y: -53.973473}
+  Goal:
+    Position: {x: 24.578743, y: 4.185427}
+    Radius: 3.3541508
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &511500808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -49.556686, y: -46.888428}
+    - {x: -49.556686, y: -5.8481503}
+    - {x: 13.402463, y: -5.8481503}
+    - {x: 13.402463, y: -46.888428}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -47.014225, y: -44.345966}
+  Goal:
+    Position: {x: 10.860002, y: -8.390612}
+    Radius: 2.5424616
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &513405835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -75.8786, y: -50.172478}
+    - {x: -75.8786, y: 33.810917}
+    - {x: 71.02111, y: 33.810917}
+    - {x: 71.02111, y: -50.172478}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -72.144325, y: -46.4382}
+  Goal:
+    Position: {x: 67.286835, y: 30.076643}
+    Radius: 3.7342746
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,33 +2185,225 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a728f6994060d64b8e1b5e0fddc6e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popSize: 10
+  popSize: 200
   offspringMod: 1
-  generations: 2
+  generations: 500
   crossProb: 0.5
   previousPopulationBias: 0.9
-  elitism: 0.1
+  elitism: 0
   enemyEval: {fileID: 428896521}
   obstaclesEval: {fileID: 620592806}
+  levelTester: {fileID: 2119498444}
   bounds: {fileID: 13163186}
+  gameController: {fileID: 975943773}
   saveDirectory: Assets/Resources/Levels/
   mutateProb: 1
-  mutateObstsProb: 0
-  mutateEnemiesProb: 10
+  mutateObstsProb: 10
+  mutateEnemiesProb: 0
   mutateOuterObstProb: 0
-  boundsMinamalModifier: 0.3
+  boundsMinimalModifier: 0.3
   seed: 618677
   created:
-  - {fileID: 1366039375}
-  - {fileID: 804769350}
-  - {fileID: 1868889200}
-  - {fileID: 791519340}
-  - {fileID: 667624898}
-  - {fileID: 1916161190}
-  - {fileID: 71866409}
-  - {fileID: 899133240}
-  - {fileID: 1754769389}
-  - {fileID: 644488266}
+  - {fileID: 698145457}
+  - {fileID: 1696777455}
+  - {fileID: 721997869}
+  - {fileID: 1499592333}
+  - {fileID: 1567764506}
+  - {fileID: 407553494}
+  - {fileID: 623572522}
+  - {fileID: 109073139}
+  - {fileID: 1579383758}
+  - {fileID: 2059985571}
+  - {fileID: 124030372}
+  - {fileID: 1849084336}
+  - {fileID: 29663613}
+  - {fileID: 1642300997}
+  - {fileID: 1043001888}
+  - {fileID: 1077277952}
+  - {fileID: 1092889704}
+  - {fileID: 435740117}
+  - {fileID: 1670626904}
+  - {fileID: 1087908109}
+  - {fileID: 1177802484}
+  - {fileID: 1906402833}
+  - {fileID: 772915001}
+  - {fileID: 1199055541}
+  - {fileID: 1769724890}
+  - {fileID: 1958050649}
+  - {fileID: 271525366}
+  - {fileID: 111477001}
+  - {fileID: 2025635304}
+  - {fileID: 334422536}
+  - {fileID: 2006724611}
+  - {fileID: 1824670882}
+  - {fileID: 509521145}
+  - {fileID: 1590123058}
+  - {fileID: 333513877}
+  - {fileID: 1661091205}
+  - {fileID: 549199031}
+  - {fileID: 1339049852}
+  - {fileID: 2090964566}
+  - {fileID: 309997821}
+  - {fileID: 763908448}
+  - {fileID: 254254258}
+  - {fileID: 1073359333}
+  - {fileID: 390398213}
+  - {fileID: 893577703}
+  - {fileID: 592607207}
+  - {fileID: 2092598693}
+  - {fileID: 1756976017}
+  - {fileID: 467778790}
+  - {fileID: 1185096335}
+  - {fileID: 355476735}
+  - {fileID: 2056333132}
+  - {fileID: 1817585972}
+  - {fileID: 1902396546}
+  - {fileID: 899373731}
+  - {fileID: 809812656}
+  - {fileID: 1447652550}
+  - {fileID: 1902554033}
+  - {fileID: 1614589135}
+  - {fileID: 1083494384}
+  - {fileID: 662700298}
+  - {fileID: 1636698297}
+  - {fileID: 337023950}
+  - {fileID: 913977635}
+  - {fileID: 1936106975}
+  - {fileID: 982117521}
+  - {fileID: 1134307912}
+  - {fileID: 1602444115}
+  - {fileID: 1126256887}
+  - {fileID: 511500808}
+  - {fileID: 1666181522}
+  - {fileID: 907367805}
+  - {fileID: 415803665}
+  - {fileID: 1158093114}
+  - {fileID: 1856464136}
+  - {fileID: 743461993}
+  - {fileID: 1611117233}
+  - {fileID: 2010876428}
+  - {fileID: 817774970}
+  - {fileID: 2102802857}
+  - {fileID: 115488043}
+  - {fileID: 928911262}
+  - {fileID: 1836321323}
+  - {fileID: 1117207309}
+  - {fileID: 591550975}
+  - {fileID: 1710743779}
+  - {fileID: 673250689}
+  - {fileID: 1428591176}
+  - {fileID: 1707370212}
+  - {fileID: 546153188}
+  - {fileID: 961054323}
+  - {fileID: 772004414}
+  - {fileID: 338306269}
+  - {fileID: 778499905}
+  - {fileID: 359679368}
+  - {fileID: 1194305417}
+  - {fileID: 863052016}
+  - {fileID: 155606378}
+  - {fileID: 1500610435}
+  - {fileID: 1853053740}
+  - {fileID: 633600467}
+  - {fileID: 1826063881}
+  - {fileID: 9892989}
+  - {fileID: 1469287706}
+  - {fileID: 2078693231}
+  - {fileID: 1754302377}
+  - {fileID: 803148196}
+  - {fileID: 1710826501}
+  - {fileID: 631691372}
+  - {fileID: 2023220221}
+  - {fileID: 1585614283}
+  - {fileID: 1906718522}
+  - {fileID: 157974747}
+  - {fileID: 813876768}
+  - {fileID: 150269946}
+  - {fileID: 1797419726}
+  - {fileID: 1272861162}
+  - {fileID: 1199568418}
+  - {fileID: 400461173}
+  - {fileID: 1831452329}
+  - {fileID: 1845242405}
+  - {fileID: 1974778036}
+  - {fileID: 1092051786}
+  - {fileID: 359834863}
+  - {fileID: 7541867}
+  - {fileID: 682853528}
+  - {fileID: 1683361023}
+  - {fileID: 1001772078}
+  - {fileID: 755019016}
+  - {fileID: 1900527056}
+  - {fileID: 1227019220}
+  - {fileID: 1520011081}
+  - {fileID: 1576021365}
+  - {fileID: 1460529690}
+  - {fileID: 978661289}
+  - {fileID: 114304973}
+  - {fileID: 505584308}
+  - {fileID: 17663758}
+  - {fileID: 854706447}
+  - {fileID: 1879907561}
+  - {fileID: 1943903670}
+  - {fileID: 435509064}
+  - {fileID: 1972827394}
+  - {fileID: 657755368}
+  - {fileID: 140268491}
+  - {fileID: 1205173083}
+  - {fileID: 920421761}
+  - {fileID: 2143949233}
+  - {fileID: 2079757852}
+  - {fileID: 297539729}
+  - {fileID: 280702093}
+  - {fileID: 1501276259}
+  - {fileID: 1254362246}
+  - {fileID: 449013947}
+  - {fileID: 276508247}
+  - {fileID: 404844972}
+  - {fileID: 2014644293}
+  - {fileID: 1019666069}
+  - {fileID: 610633457}
+  - {fileID: 1392933465}
+  - {fileID: 2041030174}
+  - {fileID: 549920655}
+  - {fileID: 2055316154}
+  - {fileID: 1578008747}
+  - {fileID: 912129181}
+  - {fileID: 153773787}
+  - {fileID: 1756987970}
+  - {fileID: 2041717052}
+  - {fileID: 366302128}
+  - {fileID: 879403781}
+  - {fileID: 1604961918}
+  - {fileID: 1150616541}
+  - {fileID: 1113356352}
+  - {fileID: 991565400}
+  - {fileID: 909488731}
+  - {fileID: 1101593850}
+  - {fileID: 206483005}
+  - {fileID: 753150149}
+  - {fileID: 210730152}
+  - {fileID: 459982902}
+  - {fileID: 193294845}
+  - {fileID: 1153212146}
+  - {fileID: 1826579878}
+  - {fileID: 289421292}
+  - {fileID: 1027492121}
+  - {fileID: 765508962}
+  - {fileID: 2029040208}
+  - {fileID: 1129182185}
+  - {fileID: 737640240}
+  - {fileID: 929844521}
+  - {fileID: 1782196111}
+  - {fileID: 562641788}
+  - {fileID: 1893567303}
+  - {fileID: 623838349}
+  - {fileID: 612229298}
+  - {fileID: 513405835}
+  - {fileID: 1484895427}
+  - {fileID: 1544268547}
+  - {fileID: 1705770676}
+  - {fileID: 550294106}
 --- !u!4 &531884384
 Transform:
   m_ObjectHideFlags: 0
@@ -902,8 +2420,164 @@ Transform:
   - {fileID: 428896522}
   - {fileID: 13163187}
   - {fileID: 620592807}
+  - {fileID: 2119498445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546153188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -82.724556, y: -61.308067}
+    - {x: -82.724556, y: 31.881046}
+    - {x: 46.0341, y: 31.881046}
+    - {x: 46.0341, y: -61.308067}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -77.867744, y: -56.451256}
+  Goal:
+    Position: {x: 41.177288, y: 27.024235}
+    Radius: 4.8568115
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &549199031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -40.85017, y: -43.593727}
+    - {x: -40.85017, y: 52.63218}
+    - {x: 41.055473, y: 52.63218}
+    - {x: 41.055473, y: -43.593727}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -39.016068, y: -41.759624}
+  Goal:
+    Position: {x: 39.22137, y: 50.798077}
+    Radius: 1.8341043
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &549920655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -80.40429, y: -48.511227}
+    - {x: -80.40429, y: -8.971191}
+    - {x: 19.584974, y: -8.971191}
+    - {x: 19.584974, y: -48.511227}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -77.373695, y: -45.480633}
+  Goal:
+    Position: {x: 16.55438, y: -12.001785}
+    Radius: 3.0305943
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &550294106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -80.36372, y: -30.798828}
+    - {x: -80.36372, y: 45.651283}
+    - {x: 4.8853064, y: 45.651283}
+    - {x: 4.8853064, y: -30.798828}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -78.53806, y: -28.973164}
+  Goal:
+    Position: {x: 3.0596423, y: 43.82562}
+    Radius: 1.8256639
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &562641788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -79.82475, y: -55.303825}
+    - {x: -79.82475, y: 32.8488}
+    - {x: -1.5103279, y: 32.8488}
+    - {x: -1.5103279, y: -55.303825}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -74.974686, y: -50.453754}
+  Goal:
+    Position: {x: -6.3603983, y: 27.99873}
+    Radius: 4.8500705
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &578323756
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,6 +2609,130 @@ Transform:
   m_Children: []
   m_Father: {fileID: 13163187}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &591550975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -25.6201, y: -49.195522}
+    - {x: -25.6201, y: 54.960556}
+    - {x: 70.596405, y: 54.960556}
+    - {x: 70.596405, y: -49.195522}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -21.200138, y: -44.77556}
+  Goal:
+    Position: {x: 66.176445, y: 50.540592}
+    Radius: 4.419963
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &592607207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -61.442287, y: -18.097826}
+    - {x: -61.442287, y: 41.7497}
+    - {x: 25.782806, y: 41.7497}
+    - {x: 25.782806, y: -18.097826}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -56.362125, y: -13.017664}
+  Goal:
+    Position: {x: 20.702644, y: 36.669537}
+    Radius: 5.080162
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &610633457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -79.693794, y: -13.345451}
+    - {x: -79.693794, y: 54.104904}
+    - {x: 81.19011, y: 54.104904}
+    - {x: 81.19011, y: -13.345451}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -76.0615, y: -9.713161}
+  Goal:
+    Position: {x: 77.557816, y: 50.472614}
+    Radius: 3.6322904
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &612229298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -33.16249, y: -32.9251}
+    - {x: -33.16249, y: 53.363026}
+    - {x: 39.350674, y: 53.363026}
+    - {x: 39.350674, y: -32.9251}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -30.626007, y: -30.388615}
+  Goal:
+    Position: {x: 36.81419, y: 50.82654}
+    Radius: 2.5364838
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,6 +2844,96 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9c885a13affe346a7249ef7e217f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mutationProb: 0.07
+  addObstacleProbCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0149679035
+      value: 0.3966744
+      inSlope: -0.2635574
+      outSlope: -0.2635574
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.69210845
+      value: 0.21031919
+      inSlope: -0.039616477
+      outSlope: -0.039616477
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.022218551
+    - serializedVersion: 3
+      time: 13.006133
+      value: -0.00026391447
+      inSlope: -0.01710108
+      outSlope: -0.01710108
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  removeObstacleProbCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.00017616665
+      value: 0.01441159
+      inSlope: 0.079813555
+      outSlope: 0.079813555
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.1000676
+      value: 0.10222596
+      inSlope: 0.016291758
+      outSlope: 0.016291758
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 14.888102
+      value: 0.29425117
+      inSlope: 0.04449406
+      outSlope: 0.04449406
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 16.00169
+      value: 0.7730027
+      inSlope: 0.42991787
+      outSlope: 0.42991787
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  offsetObstacleProb: 0.95
+  offsetObstacleMax: 0.3
+  offsetOuterObstacleMax: 0.03
+  changeFriendlyWalkProb: 0
+  changeEnemyWalkProb: 0
+  changeFriendlyVisionProb: 0
+  changeEnemyVisionProb: 0.03
+  initFriendlyWalkable: 0
+  initEnemyWalkable: 0
+  initFriendlySeeThrough: 0
+  initEnemySeeThrough: 0.5
+  minInitObstacleArea: 40
+  maxInitObstacleArea: 300
+  minObstacleOneAxisWidth: 5
 --- !u!4 &620592807
 Transform:
   m_ObjectHideFlags: 0
@@ -1061,7 +2949,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 531884384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &644488266
+--- !u!114 &623572522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1076,23 +2964,23 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -49.392403, y: -15.376291}
-    - {x: -49.392403, y: 32.008526}
-    - {x: 46.512985, y: 32.008526}
-    - {x: 46.512985, y: -15.376291}
+    - {x: -60.700787, y: -30.807932}
+    - {x: -60.700787, y: 44.38932}
+    - {x: 41.727135, y: 44.38932}
+    - {x: 41.727135, y: -30.807932}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -44.88228, y: -10.866168}
+  FriendlyStartPos: {x: -58.789837, y: -28.896982}
   Goal:
-    Position: {x: 42.00286, y: 27.498402}
-    Radius: 4.5101233
+    Position: {x: 39.816185, y: 42.47837}
+    Radius: 1.9109502
   references:
     version: 2
     RefIds: []
---- !u!114 &667624898
+--- !u!114 &623838349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1107,19 +2995,205 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -31.183842, y: -14.88265}
-    - {x: -31.183842, y: 39.579998}
-    - {x: 65.465965, y: 39.579998}
-    - {x: 65.465965, y: -14.88265}
+    - {x: -73.79474, y: 6.9077873}
+    - {x: -73.79474, y: 54.39466}
+    - {x: 63.58624, y: 54.39466}
+    - {x: 63.58624, y: 6.9077873}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -27.061924, y: -10.760733}
+  FriendlyStartPos: {x: -71.191185, y: 9.511342}
   Goal:
-    Position: {x: 61.344048, y: 35.45808}
-    Radius: 4.121918
+    Position: {x: 60.982685, y: 51.791107}
+    Radius: 2.603555
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &631691372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -40.60998, y: -60.340275}
+    - {x: -40.60998, y: 10.3394}
+    - {x: 52.96803, y: 10.3394}
+    - {x: 52.96803, y: -60.340275}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -37.16365, y: -56.893944}
+  Goal:
+    Position: {x: 49.521698, y: 6.893071}
+    Radius: 3.446329
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &633600467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -53.71005, y: -53.96226}
+    - {x: -53.71005, y: 43.447487}
+    - {x: 40.332916, y: 43.447487}
+    - {x: 40.332916, y: -53.96226}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -48.74304, y: -48.99525}
+  Goal:
+    Position: {x: 35.365906, y: 38.480476}
+    Radius: 4.9670115
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &657755368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -69.62614, y: -40.88388}
+    - {x: -69.62614, y: 36.152386}
+    - {x: 8.381463, y: 36.152386}
+    - {x: 8.381463, y: -40.88388}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -66.020966, y: -37.27871}
+  Goal:
+    Position: {x: 4.7762938, y: 32.547215}
+    Radius: 3.6051695
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &662700298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -46.70834, y: -15.8670635}
+    - {x: -46.70834, y: 25.728363}
+    - {x: 46.91916, y: 25.728363}
+    - {x: 46.91916, y: -15.8670635}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -43.674248, y: -12.832971}
+  Goal:
+    Position: {x: 43.885067, y: 22.694271}
+    Radius: 3.0340927
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &673250689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 27.218573, y: -43.806206}
+    - {x: 27.218573, y: 6.7324142}
+    - {x: 79.96312, y: 6.7324142}
+    - {x: 79.96312, y: -43.806206}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 32.014153, y: -39.010628}
+  Goal:
+    Position: {x: 75.16754, y: 1.9368343}
+    Radius: 4.79558
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &682853528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -61.264782, y: -38.42557}
+    - {x: -61.264782, y: 18.11573}
+    - {x: 76.885376, y: 18.11573}
+    - {x: 76.885376, y: -38.42557}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -56.712536, y: -33.873325}
+  Goal:
+    Position: {x: 72.33313, y: 13.563484}
+    Radius: 4.5522456
   references:
     version: 2
     RefIds: []
@@ -1169,7 +3243,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 227880780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &791519340
+--- !u!114 &698145457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1184,23 +3258,23 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -20.302711, y: -27.524614}
-    - {x: -20.302711, y: 41.401024}
-    - {x: 79.85884, y: 41.401024}
-    - {x: 79.85884, y: -27.524614}
+    - {x: -45.100525, y: -42.079384}
+    - {x: -45.100525, y: 32.025112}
+    - {x: 7.371255, y: 32.025112}
+    - {x: 7.371255, y: -42.079384}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -18.096447, y: -25.31835}
+  FriendlyStartPos: {x: -43.140404, y: -40.119263}
   Goal:
-    Position: {x: 77.65257, y: 39.19476}
-    Radius: 2.2062652
+    Position: {x: 5.411132, y: 30.06499}
+    Radius: 1.960123
   references:
     version: 2
     RefIds: []
---- !u!114 &804769350
+--- !u!114 &721997869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1215,23 +3289,23 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -77.51966, y: -41.229496}
-    - {x: -77.51966, y: 26.359955}
-    - {x: 61.821278, y: 26.359955}
-    - {x: 61.821278, y: -41.229496}
+    - {x: -63.119137, y: -38.69828}
+    - {x: -63.119137, y: 10.195257}
+    - {x: 76.01375, y: 10.195257}
+    - {x: 76.01375, y: -38.69828}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -73.81896, y: -37.528797}
+  FriendlyStartPos: {x: -59.813343, y: -35.392487}
   Goal:
-    Position: {x: 58.12058, y: 22.659256}
-    Radius: 3.700699
+    Position: {x: 72.707954, y: 6.8894644}
+    Radius: 3.3057926
   references:
     version: 2
     RefIds: []
---- !u!114 &899133240
+--- !u!114 &737640240
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1246,19 +3320,794 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -55.91419, y: -61.19389}
-    - {x: -55.91419, y: -17.487444}
-    - {x: 40.22794, y: -17.487444}
-    - {x: 40.22794, y: -61.19389}
+    - {x: -54.04203, y: -33.131924}
+    - {x: -54.04203, y: 41.70536}
+    - {x: 63.121895, y: 41.70536}
+    - {x: 63.121895, y: -33.131924}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -51.64478, y: -56.92448}
+  FriendlyStartPos: {x: -52.216667, y: -31.30656}
   Goal:
-    Position: {x: 35.95853, y: -21.756855}
-    Radius: 4.26941
+    Position: {x: 61.29653, y: 39.879997}
+    Radius: 1.8253627
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &743461993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -84.03626, y: -48.894295}
+    - {x: -84.03626, y: 7.863194}
+    - {x: -26.456715, y: 7.863194}
+    - {x: -26.456715, y: -48.894295}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -82.02828, y: -46.886314}
+  Goal:
+    Position: {x: -28.464693, y: 5.855215}
+    Radius: 2.007979
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &753150149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -9.176528, y: -31.663061}
+    - {x: -9.176528, y: 15.71905}
+    - {x: 74.01204, y: 15.71905}
+    - {x: 74.01204, y: -31.663061}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -7.1395226, y: -29.626057}
+  Goal:
+    Position: {x: 71.97504, y: 13.682045}
+    Radius: 2.0370052
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &755019016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -9.050917, y: -42.479282}
+    - {x: -9.050917, y: 55.138577}
+    - {x: 61.956776, y: 55.138577}
+    - {x: 61.956776, y: -42.479282}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -4.926374, y: -38.35474}
+  Goal:
+    Position: {x: 57.832233, y: 51.014034}
+    Radius: 4.1245427
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &763908448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -65.05864, y: -40.57401}
+    - {x: -65.05864, y: 42.12551}
+    - {x: 4.696685, y: 42.12551}
+    - {x: 4.696685, y: -40.57401}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -62.2651, y: -37.780468}
+  Goal:
+    Position: {x: 1.9031448, y: 39.33197}
+    Radius: 2.79354
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &765508962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -27.00084, y: -31.78981}
+    - {x: -27.00084, y: 36.544926}
+    - {x: 37.088577, y: 36.544926}
+    - {x: 37.088577, y: -31.78981}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -25.110233, y: -29.899204}
+  Goal:
+    Position: {x: 35.19797, y: 34.65432}
+    Radius: 1.8906054
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &772004414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -0.9999292, y: -38.47357}
+    - {x: -0.9999292, y: 32.15014}
+    - {x: 70.3261, y: 32.15014}
+    - {x: 70.3261, y: -38.47357}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 4.2791653, y: -33.194477}
+  Goal:
+    Position: {x: 65.04701, y: 26.871044}
+    Radius: 5.2790947
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &772915001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -60.0464, y: -30.373953}
+    - {x: -60.0464, y: 17.874174}
+    - {x: 55.09114, y: 17.874174}
+    - {x: 55.09114, y: -30.373953}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -55.6058, y: -25.933353}
+  Goal:
+    Position: {x: 50.650543, y: 13.433575}
+    Radius: 4.440599
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &778499905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -11.247341, y: -54.186874}
+    - {x: -11.247341, y: -7.987041}
+    - {x: 47.527916, y: -7.987041}
+    - {x: 47.527916, y: -54.186874}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -6.544501, y: -49.484035}
+  Goal:
+    Position: {x: 42.825077, y: -12.689881}
+    Radius: 4.7028403
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &803148196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -76.97908, y: -52.441463}
+    - {x: -76.97908, y: 13.783114}
+    - {x: 13.691653, y: 13.783114}
+    - {x: 13.691653, y: -52.441463}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -74.71955, y: -50.181934}
+  Goal:
+    Position: {x: 11.432126, y: 11.523587}
+    Radius: 2.2595274
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &809812656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -52.31871, y: -1.1877682}
+    - {x: -52.31871, y: 38.7598}
+    - {x: 25.922882, y: 38.7598}
+    - {x: 25.922882, y: -1.1877682}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -47.67266, y: 3.4582818}
+  Goal:
+    Position: {x: 21.276833, y: 34.11375}
+    Radius: 4.64605
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &813876768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -48.876625, y: 4.989796}
+    - {x: -48.876625, y: 43.64738}
+    - {x: 5.2660255, y: 43.64738}
+    - {x: 5.2660255, y: 4.989796}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -44.40597, y: 9.460451}
+  Goal:
+    Position: {x: 0.79537106, y: 39.176727}
+    Radius: 4.4706545
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &817774970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -81.76032, y: -47.261055}
+    - {x: -81.76032, y: 29.447319}
+    - {x: -19.273737, y: 29.447319}
+    - {x: -19.273737, y: -47.261055}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -77.879555, y: -43.380287}
+  Goal:
+    Position: {x: -23.154503, y: 25.566553}
+    Radius: 3.8807666
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &854706447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -49.90844, y: -27.195885}
+    - {x: -49.90844, y: 56.45068}
+    - {x: 23.739094, y: 56.45068}
+    - {x: 23.739094, y: -27.195885}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -47.44926, y: -24.736708}
+  Goal:
+    Position: {x: 21.279917, y: 53.9915}
+    Radius: 2.4591775
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &863052016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -60.1961, y: -39.651505}
+    - {x: -60.1961, y: 13.773468}
+    - {x: 6.612704, y: 13.773468}
+    - {x: 6.612704, y: -39.651505}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -54.982555, y: -34.43796}
+  Goal:
+    Position: {x: 1.3991594, y: 8.559923}
+    Radius: 5.2135444
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &879403781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -52.16099, y: 1.7998402}
+    - {x: -52.16099, y: 53.733772}
+    - {x: 20.449038, y: 53.733772}
+    - {x: 20.449038, y: 1.7998402}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -49.511707, y: 4.4491262}
+  Goal:
+    Position: {x: 17.799751, y: 51.084488}
+    Radius: 2.6492858
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &893577703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -34.090412, y: -38.019653}
+    - {x: -34.090412, y: 56.147575}
+    - {x: 62.802986, y: 56.147575}
+    - {x: 62.802986, y: -38.019653}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -32.16885, y: -36.09809}
+  Goal:
+    Position: {x: 60.881424, y: 54.226013}
+    Radius: 1.9215605
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &899373731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -77.442245, y: -50.135895}
+    - {x: -77.442245, y: 8.183604}
+    - {x: 7.1724796, y: 8.183604}
+    - {x: 7.1724796, y: -50.135895}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -75.34557, y: -48.039223}
+  Goal:
+    Position: {x: 5.0758057, y: 6.0869303}
+    Radius: 2.0966737
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &907367805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -13.437847, y: -42.56914}
+    - {x: -13.437847, y: 32.54864}
+    - {x: 50.119022, y: 32.54864}
+    - {x: 50.119022, y: -42.56914}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -9.889261, y: -39.020554}
+  Goal:
+    Position: {x: 46.570435, y: 29.000055}
+    Radius: 3.5485861
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &909488731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -57.94557, y: -41.948986}
+    - {x: -57.94557, y: 1.2136359}
+    - {x: 11.864701, y: 1.2136359}
+    - {x: 11.864701, y: -41.948986}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -54.28631, y: -38.289722}
+  Goal:
+    Position: {x: 8.205437, y: -2.4456291}
+    Radius: 3.659265
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &912129181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -32.95055, y: -54.040447}
+    - {x: -32.95055, y: 28.733065}
+    - {x: 69.951164, y: 28.733065}
+    - {x: 69.951164, y: -54.040447}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -27.805454, y: -48.89535}
+  Goal:
+    Position: {x: 64.80607, y: 23.587969}
+    Radius: 5.145096
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &913977635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -3.3170145, y: -34.215996}
+    - {x: -3.3170145, y: 6.415423}
+    - {x: 51.28718, y: 6.415423}
+    - {x: 51.28718, y: -34.215996}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 0.85881925, y: -30.040161}
+  Goal:
+    Position: {x: 47.111347, y: 2.2395892}
+    Radius: 4.1758337
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &920421761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -23.53653, y: -2.4766216}
+    - {x: -23.53653, y: 37.96633}
+    - {x: 59.153244, y: 37.96633}
+    - {x: 59.153244, y: -2.4766216}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -20.930357, y: 0.12955022}
+  Goal:
+    Position: {x: 56.547073, y: 35.36016}
+    Radius: 2.6061718
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &928911262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -61.14067, y: -31.02964}
+    - {x: -61.14067, y: 49.06278}
+    - {x: 20.552828, y: 49.06278}
+    - {x: 20.552828, y: -31.02964}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -58.386684, y: -28.275654}
+  Goal:
+    Position: {x: 17.798843, y: 46.308792}
+    Radius: 2.7539854
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &929844521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -41.178493, y: -45.010082}
+    - {x: -41.178493, y: 16.234808}
+    - {x: 52.783924, y: 16.234808}
+    - {x: 52.783924, y: -45.010082}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -36.918236, y: -40.749825}
+  Goal:
+    Position: {x: 48.523666, y: 11.97455}
+    Radius: 4.2602577
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &961054323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -57.127655, y: -51.634007}
+    - {x: -57.127655, y: 22.71642}
+    - {x: 42.58194, y: 22.71642}
+    - {x: 42.58194, y: -51.634007}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -52.703907, y: -47.21026}
+  Goal:
+    Position: {x: 38.15819, y: 18.292671}
+    Radius: 4.423749
   references:
     version: 2
     RefIds: []
@@ -1308,6 +4157,161 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &978661289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -21.72429, y: -44.989628}
+    - {x: -21.72429, y: 44.557137}
+    - {x: 37.38032, y: 44.557137}
+    - {x: 37.38032, y: -44.989628}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -17.056316, y: -40.32165}
+  Goal:
+    Position: {x: 32.712345, y: 39.88916}
+    Radius: 4.667975
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &982117521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -28.72002, y: -25.054129}
+    - {x: -28.72002, y: 26.584044}
+    - {x: 78.32338, y: 26.584044}
+    - {x: 78.32338, y: -25.054129}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -25.968277, y: -22.302387}
+  Goal:
+    Position: {x: 75.57164, y: 23.832302}
+    Radius: 2.7517424
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &991565400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -84.78783, y: -61.259857}
+    - {x: -84.78783, y: 16.784136}
+    - {x: 42.205383, y: 16.784136}
+    - {x: 42.205383, y: -61.259857}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -82.098755, y: -58.57079}
+  Goal:
+    Position: {x: 39.516315, y: 14.095067}
+    Radius: 2.689069
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1001772078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -82.19486, y: -56.028698}
+    - {x: -82.19486, y: 39.39137}
+    - {x: 9.4200945, y: 39.39137}
+    - {x: 9.4200945, y: -56.028698}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -79.244446, y: -53.07828}
+  Goal:
+    Position: {x: 6.469678, y: 36.440952}
+    Radius: 2.9504163
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1019666069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 18.270853, y: -55.505615}
+    - {x: 18.270853, y: 38.34791}
+    - {x: 69.779755, y: 38.34791}
+    - {x: 69.779755, y: -55.505615}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 22.408295, y: -51.368176}
+  Goal:
+    Position: {x: 65.64231, y: 34.210472}
+    Radius: 4.137441
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1027333249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,11 +4387,11 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.33333334
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &1366039375
+--- !u!114 &1027492121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1402,19 +4406,856 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -45.100525, y: -42.079384}
-    - {x: -45.100525, y: 32.025112}
-    - {x: 7.371255, y: 32.025112}
-    - {x: 7.371255, y: -42.079384}
+    - {x: 25.468204, y: -59.22028}
+    - {x: 25.468204, y: 33.44401}
+    - {x: 78.7558, y: 33.44401}
+    - {x: 78.7558, y: -59.22028}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -43.140404, y: -40.119263}
+  FriendlyStartPos: {x: 27.947746, y: -56.740738}
   Goal:
-    Position: {x: 5.411132, y: 30.06499}
-    Radius: 1.960123
+    Position: {x: 76.27626, y: 30.96447}
+    Radius: 2.479541
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1043001888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -57.81739, y: -51.230324}
+    - {x: -57.81739, y: 4.117753}
+    - {x: 77.95537, y: 4.117753}
+    - {x: 77.95537, y: -51.230324}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -53.692547, y: -47.10548}
+  Goal:
+    Position: {x: 73.83052, y: -0.0070905685}
+    Radius: 4.1248436
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1073359333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -49.532745, y: -32.48521}
+    - {x: -49.532745, y: 19.144527}
+    - {x: 24.032074, y: 19.144527}
+    - {x: 24.032074, y: -32.48521}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -44.832397, y: -27.784864}
+  Goal:
+    Position: {x: 19.331728, y: 14.444181}
+    Radius: 4.7003465
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1077277952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -46.21841, y: -27.832232}
+    - {x: -46.21841, y: 51.879868}
+    - {x: 27.953909, y: 51.879868}
+    - {x: 27.953909, y: -27.832232}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -44.345585, y: -25.959406}
+  Goal:
+    Position: {x: 26.081083, y: 50.007042}
+    Radius: 1.8728259
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1083494384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -60.970707, y: 7.226226}
+    - {x: -60.970707, y: 52.839104}
+    - {x: 42.601383, y: 52.839104}
+    - {x: 42.601383, y: 7.226226}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -58.638515, y: 9.558416}
+  Goal:
+    Position: {x: 40.26919, y: 50.506912}
+    Radius: 2.33219
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1087908109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -34.54667, y: -26.524647}
+    - {x: -34.54667, y: 45.021774}
+    - {x: 71.169075, y: 45.021774}
+    - {x: 71.169075, y: -26.524647}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -30.248423, y: -22.2264}
+  Goal:
+    Position: {x: 66.87083, y: 40.72353}
+    Radius: 4.298246
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1092051786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -4.785899, y: -38.156643}
+    - {x: -4.785899, y: 3.5830653}
+    - {x: 67.301216, y: 3.5830653}
+    - {x: 67.301216, y: -38.156643}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -1.9090779, y: -35.279823}
+  Goal:
+    Position: {x: 64.42439, y: 0.706244}
+    Radius: 2.8768213
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1092889704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -62.207924, y: -12.323889}
+    - {x: -62.207924, y: 40.747734}
+    - {x: 25.327003, y: 40.747734}
+    - {x: 25.327003, y: -12.323889}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -58.018745, y: -8.13471}
+  Goal:
+    Position: {x: 21.137825, y: 36.558556}
+    Radius: 4.189179
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1101593850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -84.58359, y: -8.678895}
+    - {x: -84.58359, y: 49.54098}
+    - {x: -12.788746, y: 49.54098}
+    - {x: -12.788746, y: -8.678895}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -80.13151, y: -4.2268186}
+  Goal:
+    Position: {x: -17.240822, y: 45.088905}
+    Radius: 4.4520764
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1113356352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -5.760116, y: -49.959843}
+    - {x: -5.760116, y: -12.410909}
+    - {x: 51.00387, y: -12.410909}
+    - {x: 51.00387, y: -49.959843}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -3.0937502, y: -47.293476}
+  Goal:
+    Position: {x: 48.3375, y: -15.077274}
+    Radius: 2.6663659
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1117207309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -67.69384, y: -54.99443}
+    - {x: -67.69384, y: 42.030502}
+    - {x: 58.657112, y: 42.030502}
+    - {x: 58.657112, y: -54.99443}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -65.35788, y: -52.658466}
+  Goal:
+    Position: {x: 56.321148, y: 39.69454}
+    Radius: 2.335963
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1126256887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -71.37274, y: -42.21398}
+    - {x: -71.37274, y: 8.862768}
+    - {x: 74.33972, y: 8.862768}
+    - {x: 74.33972, y: -42.21398}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -67.10675, y: -37.94799}
+  Goal:
+    Position: {x: 70.07373, y: 4.5967774}
+    Radius: 4.2659907
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1129182185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -25.71055, y: -44.790794}
+    - {x: -25.71055, y: 35.855156}
+    - {x: 31.934282, y: 35.855156}
+    - {x: 31.934282, y: -44.790794}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -21.355595, y: -40.43584}
+  Goal:
+    Position: {x: 27.579327, y: 31.500202}
+    Radius: 4.3549547
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1134307912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -71.98067, y: -32.694565}
+    - {x: -71.98067, y: 37.24065}
+    - {x: 36.238853, y: 37.24065}
+    - {x: 36.238853, y: -32.694565}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -69.94842, y: -30.662312}
+  Goal:
+    Position: {x: 34.2066, y: 35.208397}
+    Radius: 2.0322523
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1150616541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -67.302, y: -14.943699}
+    - {x: -67.302, y: 26.44034}
+    - {x: 19.6411, y: 26.44034}
+    - {x: 19.6411, y: -14.943699}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -64.830666, y: -12.472362}
+  Goal:
+    Position: {x: 17.169762, y: 23.969002}
+    Radius: 2.4713376
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1153212146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -19.21379, y: -40.213768}
+    - {x: -19.21379, y: 2.4288433}
+    - {x: 42.1817, y: 2.4288433}
+    - {x: 42.1817, y: -40.213768}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -17.018597, y: -38.018574}
+  Goal:
+    Position: {x: 39.986507, y: 0.23364973}
+    Radius: 2.1951935
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1158093114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -26.126776, y: -10.542302}
+    - {x: -26.126776, y: 27.186178}
+    - {x: 27.040773, y: 27.186178}
+    - {x: 27.040773, y: -10.542302}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -23.060364, y: -7.4758906}
+  Goal:
+    Position: {x: 23.974361, y: 24.119766}
+    Radius: 3.0664115
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1177802484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -26.933998, y: -57.667774}
+    - {x: -26.933998, y: 25.242212}
+    - {x: 35.299484, y: 25.242212}
+    - {x: 35.299484, y: -57.667774}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -24.822788, y: -55.556564}
+  Goal:
+    Position: {x: 33.188274, y: 23.131002}
+    Radius: 2.1112092
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1185096335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -34.558502, y: -50.515022}
+    - {x: -34.558502, y: 8.547572}
+    - {x: 70.48158, y: 8.547572}
+    - {x: 70.48158, y: -50.515022}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -29.571396, y: -45.527916}
+  Goal:
+    Position: {x: 65.49448, y: 3.5604663}
+    Radius: 4.987106
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1194305417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -55.625813, y: -27.635626}
+    - {x: -55.625813, y: 50.1757}
+    - {x: 7.5863233, y: 50.1757}
+    - {x: 7.5863233, y: -27.635626}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -53.15292, y: -25.162733}
+  Goal:
+    Position: {x: 5.1134305, y: 47.70281}
+    Radius: 2.4728928
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1199055541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -1.4691787, y: -1.9592333}
+    - {x: -1.4691787, y: 53.546875}
+    - {x: 79.05664, y: 53.546875}
+    - {x: 79.05664, y: -1.9592333}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 0.7784207, y: 0.28836608}
+  Goal:
+    Position: {x: 76.809044, y: 51.299274}
+    Radius: 2.2475994
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1199568418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -42.108425, y: -21.467045}
+    - {x: -42.108425, y: 46.556423}
+    - {x: 60.30814, y: 46.556423}
+    - {x: 60.30814, y: -21.467045}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -37.2504, y: -16.60902}
+  Goal:
+    Position: {x: 55.450115, y: 41.6984}
+    Radius: 4.8580246
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1205173083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -47.18353, y: -54.840336}
+    - {x: -47.18353, y: 1.3483596}
+    - {x: 55.959206, y: 1.3483596}
+    - {x: 55.959206, y: -54.840336}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -43.161964, y: -50.81877}
+  Goal:
+    Position: {x: 51.93764, y: -2.673205}
+    Radius: 4.0215645
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1227019220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -86.228516, y: -60.876987}
+    - {x: -86.228516, y: 25.160707}
+    - {x: 49.414753, y: 25.160707}
+    - {x: 49.414753, y: -60.876987}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -82.55131, y: -57.199783}
+  Goal:
+    Position: {x: 45.73755, y: 21.483503}
+    Radius: 3.6772048
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1254362246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -73.63915, y: -31.184153}
+    - {x: -73.63915, y: 15.757984}
+    - {x: 56.70888, y: 15.757984}
+    - {x: 56.70888, y: -31.184153}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -70.65769, y: -28.202694}
+  Goal:
+    Position: {x: 53.727425, y: 12.7765255}
+    Radius: 2.9814584
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1272861162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -14.810633, y: -53.938072}
+    - {x: -14.810633, y: 19.524527}
+    - {x: 59.38181, y: 19.524527}
+    - {x: 59.38181, y: -53.938072}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -9.995332, y: -49.122772}
+  Goal:
+    Position: {x: 54.56651, y: 14.709226}
+    Radius: 4.815301
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1339049852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -77.63075, y: -20.777294}
+    - {x: -77.63075, y: 36.525208}
+    - {x: -5.0608573, y: 36.525208}
+    - {x: -5.0608573, y: -20.777294}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -75.31933, y: -18.46587}
+  Goal:
+    Position: {x: -7.3722806, y: 34.213783}
+    Radius: 2.3114233
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1392933465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -34.110744, y: -35.773716}
+    - {x: -34.110744, y: 41.754826}
+    - {x: 55.63883, y: 41.754826}
+    - {x: 55.63883, y: -35.773716}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -29.934254, y: -31.597225}
+  Goal:
+    Position: {x: 51.462337, y: 37.578335}
+    Radius: 4.176491
   references:
     version: 2
     RefIds: []
@@ -1463,85 +5304,905 @@ Transform:
   m_Children: []
   m_Father: {fileID: 227880780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1588501103
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1588501104}
-  - component: {fileID: 1588501106}
-  - component: {fileID: 1588501105}
-  m_Layer: 0
-  m_Name: FriendlyFlyMesh
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1588501104
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588501103}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 171865604}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1588501105
+--- !u!114 &1428591176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588501103}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bd44a44cd62c64fbfc1eea95b24880, type: 3}
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideByGrid: 0
-  m_UseMeshPrefab: {fileID: 0}
-  m_CompressBounds: 0
-  m_OverrideVector: {x: 1, y: 1, z: 1}
---- !u!114 &1588501106
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -45.477222, y: -10.456609}
+    - {x: -45.477222, y: 43.381573}
+    - {x: 14.431813, y: 43.381573}
+    - {x: 14.431813, y: -10.456609}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -42.32759, y: -7.3069763}
+  Goal:
+    Position: {x: 11.282181, y: 40.23194}
+    Radius: 3.1496327
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1447652550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588501103}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e04976799df50f54ba128eff723155a7, type: 3}
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AgentTypeID: -334000983
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4151
-  m_UseGeometry: 1
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_BuildHeightMesh: 0
-  m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: 9e72b506f7433384eb6725c24947717b, type: 2}
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -41.22338, y: -56.029533}
+    - {x: -41.22338, y: 22.94128}
+    - {x: 51.892887, y: 22.94128}
+    - {x: 51.892887, y: -56.029533}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -37.017807, y: -51.82396}
+  Goal:
+    Position: {x: 47.687313, y: 18.735706}
+    Radius: 4.205573
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1460529690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -47.500057, y: -38.362736}
+    - {x: -47.500057, y: 41.8006}
+    - {x: 37.553936, y: 41.8006}
+    - {x: 37.553936, y: -38.362736}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -43.64567, y: -34.50835}
+  Goal:
+    Position: {x: 33.69955, y: 37.946213}
+    Radius: 3.854386
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1469287706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -33.864666, y: -38.76967}
+    - {x: -33.864666, y: 34.79663}
+    - {x: 66.431305, y: 34.79663}
+    - {x: 66.431305, y: -38.76967}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -30.572145, y: -35.477146}
+  Goal:
+    Position: {x: 63.138783, y: 31.50411}
+    Radius: 3.2925212
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1484895427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -87.70965, y: -52.200718}
+    - {x: -87.70965, y: 38.925533}
+    - {x: 33.42744, y: 38.925533}
+    - {x: 33.42744, y: -52.200718}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -82.54198, y: -47.03305}
+  Goal:
+    Position: {x: 28.259773, y: 33.757866}
+    Radius: 5.1676674
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1499592333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -20.302711, y: -27.524614}
+    - {x: -20.302711, y: 41.401024}
+    - {x: 79.85884, y: 41.401024}
+    - {x: 79.85884, y: -27.524614}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -18.096447, y: -25.31835}
+  Goal:
+    Position: {x: 77.65257, y: 39.19476}
+    Radius: 2.2062652
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1500610435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -85.386795, y: -47.504864}
+    - {x: -85.386795, y: 0.098701835}
+    - {x: 53.381283, y: 0.098701835}
+    - {x: 53.381283, y: -47.504864}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -83.22707, y: -45.345142}
+  Goal:
+    Position: {x: 51.22156, y: -2.061019}
+    Radius: 2.1597207
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1501276259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -35.285034, y: -54.01677}
+    - {x: -35.285034, y: -11.382465}
+    - {x: 51.195488, y: -11.382465}
+    - {x: 51.195488, y: -54.01677}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -29.940321, y: -48.67206}
+  Goal:
+    Position: {x: 45.850777, y: -16.727179}
+    Radius: 5.3447127
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1520011081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 19.875896, y: -10.994489}
+    - {x: 19.875896, y: 36.601753}
+    - {x: 81.045616, y: 36.601753}
+    - {x: 81.045616, y: -10.994489}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 23.663479, y: -7.2069054}
+  Goal:
+    Position: {x: 77.25803, y: 32.81417}
+    Radius: 3.787583
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1544268547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 8.427953, y: -60.746334}
+    - {x: 8.427953, y: -22.201794}
+    - {x: 73.63363, y: -22.201794}
+    - {x: 73.63363, y: -60.746334}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 11.40794, y: -57.766346}
+  Goal:
+    Position: {x: 70.65364, y: -25.18178}
+    Radius: 2.9799867
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1567764506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -31.183842, y: -14.88265}
+    - {x: -31.183842, y: 39.579998}
+    - {x: 65.465965, y: 39.579998}
+    - {x: 65.465965, y: -14.88265}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -27.061924, y: -10.760733}
+  Goal:
+    Position: {x: 61.344048, y: 35.45808}
+    Radius: 4.121918
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1576021365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -33.815742, y: -54.5559}
+    - {x: -33.815742, y: 43.368053}
+    - {x: 49.611774, y: 43.368053}
+    - {x: 49.611774, y: -54.5559}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -31.430935, y: -52.171093}
+  Goal:
+    Position: {x: 47.226967, y: 40.983246}
+    Radius: 2.3848085
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1578008747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -81.49928, y: -20.864374}
+    - {x: -81.49928, y: 32.79356}
+    - {x: -0.78041244, y: 32.79356}
+    - {x: -0.78041244, y: -20.864374}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -78.69242, y: -18.057514}
+  Goal:
+    Position: {x: -3.5872724, y: 29.9867}
+    Radius: 2.80686
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1579383758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -74.9642, y: -50.789726}
+    - {x: -74.9642, y: 54.552597}
+    - {x: -6.300584, y: 54.552597}
+    - {x: -6.300584, y: -50.789726}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -72.85607, y: -48.681595}
+  Goal:
+    Position: {x: -8.408714, y: 52.444466}
+    Radius: 2.1081302
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1585614283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -48.389606, y: -18.1546}
+    - {x: -48.389606, y: 27.472485}
+    - {x: 34.968983, y: 27.472485}
+    - {x: 34.968983, y: -18.1546}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -44.317776, y: -14.082769}
+  Goal:
+    Position: {x: 30.897152, y: 23.400654}
+    Radius: 4.0718307
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1590123058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -20.9638, y: -58.689278}
+    - {x: -20.9638, y: -3.4940064}
+    - {x: 39.7779, y: -3.4940064}
+    - {x: 39.7779, y: -58.689278}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -16.063612, y: -53.78909}
+  Goal:
+    Position: {x: 34.877712, y: -8.394195}
+    Radius: 4.9001884
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1602444115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -81.75795, y: -28.707874}
+    - {x: -81.75795, y: 18.567978}
+    - {x: 26.204422, y: 18.567978}
+    - {x: 26.204422, y: -28.707874}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -77.10994, y: -24.059864}
+  Goal:
+    Position: {x: 21.556412, y: 13.919967}
+    Radius: 4.648011
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1604961918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -16.039268, y: -46.045082}
+    - {x: -16.039268, y: 14.882053}
+    - {x: 50.75096, y: 14.882053}
+    - {x: 50.75096, y: -46.045082}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -10.92673, y: -40.932545}
+  Goal:
+    Position: {x: 45.638424, y: 9.769515}
+    Radius: 5.1125383
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1611117233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -42.48877, y: -55.960255}
+    - {x: -42.48877, y: 30.368332}
+    - {x: 15.0851345, y: 30.368332}
+    - {x: 15.0851345, y: -55.960255}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -39.139248, y: -52.610733}
+  Goal:
+    Position: {x: 11.735613, y: 27.01881}
+    Radius: 3.3495219
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1614589135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 9.439236, y: -49.28721}
+    - {x: 9.439236, y: 24.985666}
+    - {x: 81.779884, y: 24.985666}
+    - {x: 81.779884, y: -49.28721}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 13.770813, y: -44.95563}
+  Goal:
+    Position: {x: 77.4483, y: 20.654089}
+    Radius: 4.3315773
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1636698297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -84.75675, y: -37.655468}
+    - {x: -84.75675, y: 26.540932}
+    - {x: -5.735985, y: 26.540932}
+    - {x: -5.735985, y: -37.655468}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -80.601616, y: -33.50033}
+  Goal:
+    Position: {x: -9.891121, y: 22.385796}
+    Radius: 4.1551356
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1642300997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -25.201384, y: -44.06125}
+    - {x: -25.201384, y: 23.218521}
+    - {x: 75.31126, y: 23.218521}
+    - {x: 75.31126, y: -44.06125}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -21.354855, y: -40.21472}
+  Goal:
+    Position: {x: 71.46473, y: 19.371992}
+    Radius: 3.846529
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1661091205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -51.823456, y: -53.824635}
+    - {x: -51.823456, y: 7.235503}
+    - {x: 73.46355, y: 7.235503}
+    - {x: 73.46355, y: -53.824635}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -49.54298, y: -51.54416}
+  Goal:
+    Position: {x: 71.183075, y: 4.9550276}
+    Radius: 2.2804756
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1666181522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -86.89036, y: -22.926828}
+    - {x: -86.89036, y: 15.930378}
+    - {x: 58.14184, y: 15.930378}
+    - {x: 58.14184, y: -22.926828}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -82.807655, y: -18.844124}
+  Goal:
+    Position: {x: 54.059135, y: 11.847673}
+    Radius: 4.0827045
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1670626904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -28.55331, y: -41.0339}
+    - {x: -28.55331, y: 46.627605}
+    - {x: 70.83777, y: 46.627605}
+    - {x: 70.83777, y: -41.0339}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -23.697195, y: -36.177788}
+  Goal:
+    Position: {x: 65.98165, y: 41.771492}
+    Radius: 4.856115
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1683361023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -47.209824, y: -7.3968716}
+    - {x: -47.209824, y: 42.83817}
+    - {x: 18.315174, y: 42.83817}
+    - {x: 18.315174, y: -7.3968716}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -42.278923, y: -2.4659715}
+  Goal:
+    Position: {x: 13.384274, y: 37.90727}
+    Radius: 4.9309
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1696777455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -77.51966, y: -41.229496}
+    - {x: -77.51966, y: 26.359955}
+    - {x: 61.821278, y: 26.359955}
+    - {x: 61.821278, y: -41.229496}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -73.81896, y: -37.528797}
+  Goal:
+    Position: {x: 58.12058, y: 22.659256}
+    Radius: 3.700699
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1705770676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -79.07246, y: -21.590036}
+    - {x: -79.07246, y: 30.063612}
+    - {x: 80.56746, y: 30.063612}
+    - {x: 80.56746, y: -21.590036}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -75.24281, y: -17.760393}
+  Goal:
+    Position: {x: 76.737816, y: 26.233969}
+    Radius: 3.8296428
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1707370212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -84.06086, y: -41.565334}
+    - {x: -84.06086, y: 21.183191}
+    - {x: 74.38196, y: 21.183191}
+    - {x: 74.38196, y: -41.565334}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -80.49206, y: -37.996536}
+  Goal:
+    Position: {x: 70.813156, y: 17.614391}
+    Radius: 3.5688
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1707807593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,6 +6234,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 13163187}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1710743779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -7.451223, y: -51.150787}
+    - {x: -7.451223, y: -12.466652}
+    - {x: 73.71584, y: -12.466652}
+    - {x: 73.71584, y: -51.150787}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -3.3592825, y: -47.058846}
+  Goal:
+    Position: {x: 69.6239, y: -16.558592}
+    Radius: 4.0919404
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1710826501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -10.297727, y: -60.5252}
+    - {x: -10.297727, y: -12.668514}
+    - {x: 57.45058, y: -12.668514}
+    - {x: 57.45058, y: -60.5252}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -5.6547155, y: -55.882187}
+  Goal:
+    Position: {x: 52.80757, y: -17.311525}
+    Radius: 4.643011
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1753306316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,7 +6443,7 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &1754769389
+--- !u!114 &1754302377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1735,23 +6458,23 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -74.9642, y: -50.789726}
-    - {x: -74.9642, y: 54.552597}
-    - {x: -6.300584, y: 54.552597}
-    - {x: -6.300584, y: -50.789726}
+    - {x: -37.63009, y: -45.078224}
+    - {x: -37.63009, y: 49.410553}
+    - {x: 50.826008, y: 49.410553}
+    - {x: 50.826008, y: -45.078224}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -72.85607, y: -48.681595}
+  FriendlyStartPos: {x: -33.104164, y: -40.5523}
   Goal:
-    Position: {x: -8.408714, y: 52.444466}
-    Radius: 2.1081302
+    Position: {x: 46.300083, y: 44.88463}
+    Radius: 4.525924
   references:
     version: 2
     RefIds: []
---- !u!114 &1868889200
+--- !u!114 &1756976017
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1766,23 +6489,23 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -63.119137, y: -38.69828}
-    - {x: -63.119137, y: 10.195257}
-    - {x: 76.01375, y: 10.195257}
-    - {x: 76.01375, y: -38.69828}
+    - {x: -72.69662, y: -58.093044}
+    - {x: -72.69662, y: 27.969162}
+    - {x: 51.28689, y: 27.969162}
+    - {x: 51.28689, y: -58.093044}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -59.813343, y: -35.392487}
+  FriendlyStartPos: {x: -67.53756, y: -52.933987}
   Goal:
-    Position: {x: 72.707954, y: 6.8894644}
-    Radius: 3.3057926
+    Position: {x: 46.12783, y: 22.810106}
+    Radius: 5.159056
   references:
     version: 2
     RefIds: []
---- !u!114 &1916161190
+--- !u!114 &1756987970
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1797,19 +6520,1042 @@ MonoBehaviour:
   Obstacles: []
   OuterObstacle:
     Shape:
-    - {x: -76.83572, y: -3.2752457}
-    - {x: -76.83572, y: 47.535595}
-    - {x: 63.39705, y: 47.535595}
-    - {x: 63.39705, y: -3.2752457}
+    - {x: -43.34839, y: -55.320984}
+    - {x: -43.34839, y: 25.365694}
+    - {x: 69.248116, y: 25.365694}
+    - {x: 69.248116, y: -55.320984}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies: []
-  FriendlyStartPos: {x: -71.880165, y: 1.6803074}
+  FriendlyStartPos: {x: -38.69884, y: -50.671436}
   Goal:
-    Position: {x: 58.441498, y: 42.58004}
-    Radius: 4.955553
+    Position: {x: 64.59857, y: 20.716146}
+    Radius: 4.649547
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1769724890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -43.703938, y: -55.34801}
+    - {x: -43.703938, y: 56.753227}
+    - {x: 12.947015, y: 56.753227}
+    - {x: 12.947015, y: -55.34801}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -39.455765, y: -51.09984}
+  Goal:
+    Position: {x: 8.69884, y: 52.50505}
+    Radius: 4.2481747
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1782196111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -36.8998, y: -49.417667}
+    - {x: -36.8998, y: 17.06828}
+    - {x: 32.45676, y: 17.06828}
+    - {x: 32.45676, y: -49.417667}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -34.401146, y: -46.919014}
+  Goal:
+    Position: {x: 29.958107, y: 14.569627}
+    Radius: 2.4986525
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1797419726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -32.731377, y: -50.40164}
+    - {x: -32.731377, y: -7.60488}
+    - {x: 65.56189, y: -7.60488}
+    - {x: 65.56189, y: -50.40164}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -27.937195, y: -45.60746}
+  Goal:
+    Position: {x: 60.767708, y: -12.399061}
+    Radius: 4.794182
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1817585972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -11.354363, y: 5.2386456}
+    - {x: -11.354363, y: 53.823406}
+    - {x: 57.507317, y: 53.823406}
+    - {x: 57.507317, y: 5.2386456}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -7.251773, y: 9.341236}
+  Goal:
+    Position: {x: 53.404724, y: 49.720818}
+    Radius: 4.1025906
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1824670882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -39.66534, y: -31.253742}
+    - {x: -39.66534, y: 18.715263}
+    - {x: 63.122047, y: 18.715263}
+    - {x: 63.122047, y: -31.253742}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -34.485416, y: -26.073816}
+  Goal:
+    Position: {x: 57.942123, y: 13.535337}
+    Radius: 5.1799254
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1826063881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -8.241956, y: -43.581448}
+    - {x: -8.241956, y: 5.493772}
+    - {x: 69.61398, y: 5.493772}
+    - {x: 69.61398, y: -43.581448}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -4.8497524, y: -40.189243}
+  Goal:
+    Position: {x: 66.22178, y: 2.1015685}
+    Radius: 3.3922036
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1826579878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -23.03658, y: -17.365177}
+    - {x: -23.03658, y: 33.8704}
+    - {x: 67.65104, y: 33.8704}
+    - {x: 67.65104, y: -17.365177}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -20.59203, y: -14.920628}
+  Goal:
+    Position: {x: 65.20649, y: 31.42585}
+    Radius: 2.4445496
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1831452329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -76.088905, y: -60.81381}
+    - {x: -76.088905, y: -8.565521}
+    - {x: 3.6163874, y: -8.565521}
+    - {x: 3.6163874, y: -60.81381}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -72.98051, y: -57.705414}
+  Goal:
+    Position: {x: 0.50799155, y: -11.673917}
+    Radius: 3.1083958
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1836321323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -87.18245, y: -21.409067}
+    - {x: -87.18245, y: 49.14406}
+    - {x: -10.456638, y: 49.14406}
+    - {x: -10.456638, y: -21.409067}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -83.95165, y: -18.17827}
+  Goal:
+    Position: {x: -13.687435, y: 45.91326}
+    Radius: 3.2307973
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1845242405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -56.11654, y: -52.501637}
+    - {x: -56.11654, y: 27.841764}
+    - {x: 26.630384, y: 27.841764}
+    - {x: 26.630384, y: -52.501637}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -52.206303, y: -48.5914}
+  Goal:
+    Position: {x: 22.720146, y: 23.931526}
+    Radius: 3.9102376
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1849084336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 0.18540454, y: -57.93887}
+    - {x: 0.18540454, y: 50.455482}
+    - {x: 58.261692, y: 50.455482}
+    - {x: 58.261692, y: -57.93887}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 4.908286, y: -53.21599}
+  Goal:
+    Position: {x: 53.53881, y: 45.7326}
+    Radius: 4.7228813
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1853053740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -40.25454, y: -25.895985}
+    - {x: -40.25454, y: 10.513405}
+    - {x: 66.20203, y: 10.513405}
+    - {x: 66.20203, y: -25.895985}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -36.229485, y: -21.87093}
+  Goal:
+    Position: {x: 62.17697, y: 6.488349}
+    Radius: 4.025056
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1856464136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -53.89359, y: -51.693623}
+    - {x: -53.89359, y: 14.1710205}
+    - {x: 16.501364, y: 14.1710205}
+    - {x: 16.501364, y: -51.693623}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -48.61077, y: -46.410805}
+  Goal:
+    Position: {x: 11.218546, y: 8.888203}
+    Radius: 5.282818
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1879907561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -57.47492, y: -32.861797}
+    - {x: -57.47492, y: 20.352558}
+    - {x: 16.555017, y: 20.352558}
+    - {x: 16.555017, y: -32.861797}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -55.48216, y: -30.869036}
+  Goal:
+    Position: {x: 14.562257, y: 18.359797}
+    Radius: 1.9927609
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1893567303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -33.90449, y: -61.382088}
+    - {x: -33.90449, y: 51.640663}
+    - {x: 68.26779, y: 51.640663}
+    - {x: 68.26779, y: -61.382088}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -31.582119, y: -59.059715}
+  Goal:
+    Position: {x: 65.94542, y: 49.31829}
+    Radius: 2.3223732
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1900527056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -44.242496, y: -48.039673}
+    - {x: -44.242496, y: 40.412678}
+    - {x: 48.944805, y: 40.412678}
+    - {x: 48.944805, y: -48.039673}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -41.729965, y: -45.52714}
+  Goal:
+    Position: {x: 46.432274, y: 37.900146}
+    Radius: 2.5125296
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1902396546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -33.471172, y: -34.684635}
+    - {x: -33.471172, y: 50.200108}
+    - {x: 53.794296, y: 50.200108}
+    - {x: 53.794296, y: -34.684635}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -29.638596, y: -30.852058}
+  Goal:
+    Position: {x: 49.96172, y: 46.36753}
+    Radius: 3.832577
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1902554033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 17.81271, y: -29.305372}
+    - {x: 17.81271, y: 25.965736}
+    - {x: 69.127556, y: 25.965736}
+    - {x: 69.127556, y: -29.305372}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 20.414658, y: -26.703423}
+  Goal:
+    Position: {x: 66.525604, y: 23.363789}
+    Radius: 2.6019487
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1906402833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -41.56703, y: -20.790455}
+    - {x: -41.56703, y: 42.092976}
+    - {x: 36.19277, y: 42.092976}
+    - {x: 36.19277, y: -20.790455}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -39.30856, y: -18.531982}
+  Goal:
+    Position: {x: 33.934296, y: 39.834503}
+    Radius: 2.2584727
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1906718522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -14.984172, y: -58.043114}
+    - {x: -14.984172, y: 23.187838}
+    - {x: 39.101833, y: 23.187838}
+    - {x: 39.101833, y: -58.043114}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -12.569849, y: -55.62879}
+  Goal:
+    Position: {x: 36.68751, y: 20.773514}
+    Radius: 2.4143229
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1936106975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -85.75829, y: -58.712734}
+    - {x: -85.75829, y: 29.868385}
+    - {x: 49.5487, y: 29.868385}
+    - {x: 49.5487, y: -58.712734}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -80.60575, y: -53.56019}
+  Goal:
+    Position: {x: 44.396152, y: 24.71584}
+    Radius: 5.152545
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1943903670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -77.27053, y: -45.479267}
+    - {x: -77.27053, y: -7.7762346}
+    - {x: -2.6136975, y: -7.7762346}
+    - {x: -2.6136975, y: -45.479267}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -72.70204, y: -40.91078}
+  Goal:
+    Position: {x: -7.182184, y: -12.344721}
+    Radius: 4.5684867
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1958050649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -65.43851, y: -29.072018}
+    - {x: -65.43851, y: 14.237283}
+    - {x: -7.5422306, y: 14.237283}
+    - {x: -7.5422306, y: -29.072018}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -62.438442, y: -26.071953}
+  Goal:
+    Position: {x: -10.542295, y: 11.237218}
+    Radius: 3.0000646
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1972827394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -49.00302, y: 9.698106}
+    - {x: -49.00302, y: 47.356125}
+    - {x: 71.83149, y: 47.356125}
+    - {x: 71.83149, y: 9.698106}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -47.063065, y: 11.638062}
+  Goal:
+    Position: {x: 69.89153, y: 45.41617}
+    Radius: 1.9399555
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1974778036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: 8.854867, y: -50.49838}
+    - {x: 8.854867, y: 36.784645}
+    - {x: 62.18629, y: 36.784645}
+    - {x: 62.18629, y: -50.49838}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: 12.667756, y: -46.68549}
+  Goal:
+    Position: {x: 58.3734, y: 32.971756}
+    Radius: 3.8128893
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2006724611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -56.635757, y: -40.98238}
+    - {x: -56.635757, y: 37.467953}
+    - {x: 32.8597, y: 37.467953}
+    - {x: 32.8597, y: -40.98238}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -51.826122, y: -36.172745}
+  Goal:
+    Position: {x: 28.050066, y: 32.658318}
+    Radius: 4.8096337
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2010876428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -37.198868, y: -53.49882}
+    - {x: -37.198868, y: 42.76311}
+    - {x: 46.475624, y: 42.76311}
+    - {x: 46.475624, y: -53.49882}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -32.7761, y: -49.076054}
+  Goal:
+    Position: {x: 42.052856, y: 38.340343}
+    Radius: 4.4227667
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2014644293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -69.31884, y: -33.967896}
+    - {x: -69.31884, y: 24.517694}
+    - {x: 31.852205, y: 24.517694}
+    - {x: 31.852205, y: -33.967896}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -64.31805, y: -28.967102}
+  Goal:
+    Position: {x: 26.85141, y: 19.5169}
+    Radius: 5.0007944
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2023220221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -7.9674735, y: -58.59365}
+    - {x: -7.9674735, y: 7.43961}
+    - {x: 48.333168, y: 7.43961}
+    - {x: 48.333168, y: -58.59365}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -4.5453997, y: -55.171577}
+  Goal:
+    Position: {x: 44.911095, y: 4.017536}
+    Radius: 3.422074
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2025635304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -72.99204, y: 8.47838}
+    - {x: -72.99204, y: 48.143124}
+    - {x: -21.657389, y: 48.143124}
+    - {x: -21.657389, y: 8.47838}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -67.64344, y: 13.826985}
+  Goal:
+    Position: {x: -27.005993, y: 42.794518}
+    Radius: 5.348605
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2029040208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -40.512047, y: -19.071775}
+    - {x: -40.512047, y: 52.476078}
+    - {x: 44.625824, y: 52.476078}
+    - {x: 44.625824, y: -19.071775}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -38.684303, y: -17.244032}
+  Goal:
+    Position: {x: 42.79808, y: 50.648335}
+    Radius: 1.8277439
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2041030174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -29.484818, y: 5.629666}
+    - {x: -29.484818, y: 47.46798}
+    - {x: 30.892672, y: 47.46798}
+    - {x: 30.892672, y: 5.629666}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -24.378246, y: 10.736237}
+  Goal:
+    Position: {x: 25.7861, y: 42.36141}
+    Radius: 5.1065707
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2041717052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -86.58106, y: -27.985188}
+    - {x: -86.58106, y: 22.983482}
+    - {x: 50.30272, y: 22.983482}
+    - {x: 50.30272, y: -27.985188}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -84.70817, y: -26.11229}
+  Goal:
+    Position: {x: 48.42982, y: 21.110584}
+    Radius: 1.8728979
   references:
     version: 2
     RefIds: []
@@ -1857,6 +7603,302 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4def155abed8a84ebbfe421739d9614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2055316154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -59.646397, y: -12.435755}
+    - {x: -59.646397, y: 43.53277}
+    - {x: 7.7408686, y: 43.53277}
+    - {x: 7.7408686, y: -12.435755}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -56.698723, y: -9.488083}
+  Goal:
+    Position: {x: 4.7931967, y: 40.5851}
+    Radius: 2.947672
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2056333132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -58.97943, y: -32.47735}
+    - {x: -58.97943, y: 41.285072}
+    - {x: 1.2283422, y: 41.285072}
+    - {x: 1.2283422, y: -32.47735}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -54.89593, y: -28.393848}
+  Goal:
+    Position: {x: -2.8551574, y: 37.201572}
+    Radius: 4.0834994
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2059985571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -49.392403, y: -15.376291}
+    - {x: -49.392403, y: 32.008526}
+    - {x: 46.512985, y: 32.008526}
+    - {x: 46.512985, y: -15.376291}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -44.88228, y: -10.866168}
+  Goal:
+    Position: {x: 42.00286, y: 27.498402}
+    Radius: 4.5101233
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2078693231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -69.97895, y: 3.6190548}
+    - {x: -69.97895, y: 51.929638}
+    - {x: 8.615956, y: 51.929638}
+    - {x: 8.615956, y: 3.6190548}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -65.182335, y: 8.415673}
+  Goal:
+    Position: {x: 3.8193378, y: 47.13302}
+    Radius: 4.7966185
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2079757852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -4.4959593, y: -49.318775}
+    - {x: -4.4959593, y: 44.12981}
+    - {x: 58.133205, y: 44.12981}
+    - {x: 58.133205, y: -49.318775}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -1.1835599, y: -46.006374}
+  Goal:
+    Position: {x: 54.820805, y: 40.81741}
+    Radius: 3.3123994
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2090964566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -79.02117, y: -55.376476}
+    - {x: -79.02117, y: 6.230517}
+    - {x: 63.885094, y: 6.230517}
+    - {x: 63.885094, y: -55.376476}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -75.33602, y: -51.69133}
+  Goal:
+    Position: {x: 60.199944, y: 2.5453687}
+    Radius: 3.6851482
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2092598693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -61.89597, y: -52.947052}
+    - {x: -61.89597, y: 44.37278}
+    - {x: 12.729099, y: 44.37278}
+    - {x: 12.729099, y: -52.947052}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -58.3765, y: -49.42758}
+  Goal:
+    Position: {x: 9.20963, y: 40.85331}
+    Radius: 3.519469
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &2102802857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -71.22516, y: 12.908277}
+    - {x: -71.22516, y: 56.426083}
+    - {x: -18.022564, y: 56.426083}
+    - {x: -18.022564, y: 12.908277}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -68.92659, y: 15.206844}
+  Goal:
+    Position: {x: -20.321133, y: 54.127514}
+    Radius: 2.2985678
+  references:
+    version: 2
+    RefIds: []
+--- !u!1 &2119498443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119498445}
+  - component: {fileID: 2119498444}
+  m_Layer: 0
+  m_Name: LevelTester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2119498444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119498443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e70b900751b32c4a9f9ca9112b92203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 975943773}
+  testLevel: {fileID: 11400000, guid: 928d4b45ad216af46801af51f0c0b4ed, type: 2}
+  initializor: {fileID: 227880779}
+  inflateObstacles: 1
+--- !u!4 &2119498445
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119498443}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 531884384}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2142186316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,6 +7945,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 975943773}
   enemyPrefab: {fileID: 5115669557035703279, guid: 3e3cce36efe301d49a7310cb9a501f60, type: 3}
+--- !u!114 &2143949233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -22.551334, y: -51.00978}
+    - {x: -22.551334, y: 32.577816}
+    - {x: 52.618973, y: 32.577816}
+    - {x: 52.618973, y: -51.00978}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies: []
+  FriendlyStartPos: {x: -18.133556, y: -46.592003}
+  Goal:
+    Position: {x: 48.201195, y: 28.160038}
+    Radius: 4.4177785
+  references:
+    version: 2
+    RefIds: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

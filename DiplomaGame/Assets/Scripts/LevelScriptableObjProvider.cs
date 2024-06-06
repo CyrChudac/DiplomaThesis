@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameCreatingCore;
 using UnityEditor;
+using System.Linq;
 
 public class LevelScriptableObjProvider : LevelCreatorProvider, ILevelCreator
 {
 	[SerializeField]
 	private string FolderOrFilePath;
+	[Tooltip("If a given specific level is the one to create, writes the filename here. Leave it empty otherwise.")]
+	[SerializeField]
+	private string specificFile = "";
 	private readonly string outerDirectory = "Assets/Resources/";
 	public override ILevelCreator GetLevelCreator() {
 		return this;
@@ -22,7 +26,11 @@ public class LevelScriptableObjProvider : LevelCreatorProvider, ILevelCreator
 				throw new System.ArgumentException(
 					$"Directory \"{outerDirectory}{FolderOrFilePath}\" has no assets in it.");
 			}
-			res = all[r.Next(all.Length)];
+			if(specificFile.Length == 0) {
+				res = all[r.Next(all.Length)];
+				Debug.Log($"Initializing random level: '{res.name}'");
+			} else
+				res = all.First(a => a.name == specificFile);
 		}else {
 			var asset = Resources.Load<UnityLevelRepresentation>(FolderOrFilePath);
 			if(asset != null) {

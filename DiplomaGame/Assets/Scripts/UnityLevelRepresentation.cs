@@ -19,14 +19,6 @@ public class UnityLevelRepresentation : ScriptableObject
 	[SerializeField]
 	public LevelGoal Goal;
 
-	public UnityLevelRepresentation(List<UnityObstacle> obstacles, UnityObstacle outerObstacle, List<Enemy> enemies, Vector2 friendlyStartPos, LevelGoal goal) {
-		Obstacles = obstacles;
-		OuterObstacle = outerObstacle;
-		Enemies = enemies;
-		FriendlyStartPos = friendlyStartPos;
-		Goal = goal;
-	}
-
 	public LevelRepresentation GetLevelRepresentation() {
 		return new LevelRepresentation(
 			Obstacles.Select(o => o.ToObstacle()).ToList(),

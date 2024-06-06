@@ -4,13 +4,18 @@ using System.Linq;
 
 namespace EvolAlgoBase {
 	public class RuletWheelSelection : ISelectionMechanism{
+		private readonly float scoreAdd;
+
+		public RuletWheelSelection(float scoreAdd = 0f) {
+			this.scoreAdd = scoreAdd;
+		}
 
 		/// <summary>
 		/// Converts float scores to integers to avoid float precision errors.
 		/// </summary>
 		public IList<Scored<T>> Select<T>(IEnumerable<Scored<T>> from, int count, IRandomGen random) {
 
-			var max = from.Max(f => f.Score);
+			var max = from.Max(f => f.Score) + scoreAdd;
 			var elemCount = from.Count();
 			int i = 1;
 			int mult;
@@ -50,6 +55,6 @@ namespace EvolAlgoBase {
 		}
 
 		private int Scorify(float f, int mult, bool isLessThenIntMax)
-			=> isLessThenIntMax ? (int)f * mult : (int)(f / mult);
+			=> isLessThenIntMax ? (int)((f+scoreAdd) * mult) : (int)((f + scoreAdd) / mult);
 	}
 }

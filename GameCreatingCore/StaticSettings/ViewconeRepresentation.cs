@@ -27,12 +27,18 @@ namespace GameCreatingCore.StaticSettings {
         /// </summary>
         [SerializeField]
         public float WiggleTime;
-
+        
         /// <summary>
         /// How many seconds does it take to spot the whole viewcone given the the game difficulity.
         /// </summary>
         [SerializeField]
-        public float AlertingSpeedModifier;
+        public float AlertingTimeModifier;
+
+        /// <summary>
+        /// How many seconds would it take to decrease the alert level through the whole viewcone given the the game difficulity.
+        /// </summary>
+        [SerializeField]
+        public float DisalertingTimeModifier;
 
         [SerializeField]
         public float AlertedLengthModifier;

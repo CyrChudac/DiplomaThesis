@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\EvolutionaryAlgo\LevelTester.cs" />
     <Compile Include="Assets\Scripts\PlayerProvider.cs" />
     <Compile Include="Assets\Scripts\ObstacleMaterial.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Assets\Scripts\EnemyWithPropsProvider.cs" />
     <Compile Include="Assets\Scripts\UnityStaticGameRepresentation.cs" />
     <Compile Include="Assets\Scripts\LevelScriptableObjProvider.cs" />
+    <Compile Include="Assets\Scripts\NavMeshSettings.cs" />
     <Compile Include="Assets\Scripts\EnemyPathController.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyAlarmController.cs" />
@@ -92,6 +94,7 @@
   <ItemGroup>
     <None Include="Assets\EvolutionaryAlgo\Base\EvolAlgoBase.dll" />
     <None Include="Assets\GameCreationCore\GameCreatingCore.dll" />
+    <None Include="Assets\Resources\ObstacleMaterials\Custom-lit-shader.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

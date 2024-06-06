@@ -13,5 +13,9 @@ namespace GameCreatingCore {
 			Position = position;
 			Radius = radius;
 		}
+
+		public override string ToString() {
+			return $"Goal: {Position}; {Radius}";
+		}
 	}
 }

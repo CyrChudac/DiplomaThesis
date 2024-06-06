@@ -17,6 +17,13 @@ public class PlayGroundBounds : MonoBehaviour
 
 	public Rect Rect => new Rect(LeftBot, RightTop - LeftBot);
 
+	public IEnumerable<Vector2> Shape => new List<Vector2>() {
+		LeftTop,
+		RightTop,
+		RightBot,
+		LeftBot
+	};
+
 #if UNITY_EDITOR
 	public Color GizmoColor = Color.blue;
 	private void OnDrawGizmos() {

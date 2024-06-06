@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 using System;
 using Unity.Mathematics;
 using Unity.Collections.LowLevel.Unsafe;
+using GameCreatingCore.GamePathing;
+using Unity.VisualScripting;
 
 public class EvolAlgoLevelGenerator : MonoBehaviour {
     [SerializeField] private int popSize = 100;
@@ -16,24 +18,26 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
     [SerializeField] private int generations = 100;
     [SerializeField] private float crossProb = 0.5f;
     [SerializeField] private float previousPopulationBias = 0.99f;
+    [Range(0,1)]
     [SerializeField] private float elitism = 0.1f;
     [SerializeField] private EnemyMutator enemyEval;
-    [SerializeField] private ObstaclesEval obstaclesEval;
+    [SerializeField] private ObstaclesMutator obstaclesEval;
+    [SerializeField] private LevelTester levelTester;
     [SerializeField] private PlayGroundBounds bounds;
+    [SerializeField] private GameController gameController;
     [SerializeField] private string saveDirectory = "Levels/";
-    private string outerSaveDir = "Assets/Resources/";
     [Header("mutation probabilities")]
-    [Tooltip("The probablity of mutation occures.")]
+    [Tooltip("The probablity of mutation occuring.")]
     [SerializeField] private float mutateProb = 0.05f;
-    [Tooltip("Given the mutation occures, how much probable it is that it will be this type of mutation relative to the other ones.")]
+    [Tooltip("Given the mutation occures, how probable it is that it will be this type of mutation relative to the other ones.")]
     [SerializeField] private int mutateObstsProb = 10;
-    [Tooltip("Given the mutation occures, how much probable it is that it will be this type of mutation relative to the other ones.")]
+    [Tooltip("Given the mutation occures, how probable it is that it will be this type of mutation relative to the other ones.")]
     [SerializeField] private int mutateEnemiesProb = 10;
-    [Tooltip("Given the mutation occures, how much probable it is that it will be this type of mutation relative to the other ones.")]
+    [Tooltip("Given the mutation occures, how probable it is that it will be this type of mutation relative to the other ones.")]
     [SerializeField] private int mutateOuterObstProb = 1;
     [Tooltip("Since the final playground is random, this specifies what how narrow it could be considering the bounds.")]
     [Range(0,1)]
-    [SerializeField] private float boundsMinamalModifier = 0.3f;
+    [SerializeField] private float boundsMinimalModifier = 0.3f;
 
     const int randomSeed = -1;
     [Tooltip("-1 for a random seed.")]
@@ -45,8 +49,22 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
         EnsureDirectoryExists(dir, '\\', '/');
 
         var utils = GetRandom();
+        
+    
+        GenerationPercentsPlotter ploter = new GenerationPercentsPlotter(generations, generations, new DebugLogWriter(), false);
+        int genPassed = 0;
+        void Plot(IEnumerable<Scored<LevelRepresentation>> generation) {
+            ploter.Plot(generation);
+            genPassed++;
+            if(genPassed == generations) {
+                var s = string.Join("; ", generation
+                    .Select(lr => lr.Score)
+                    .OrderByDescending(lr => lr)
+                    .Select(lr => lr.ToString()));
+                Debug.Log(s);
+            }
+        }
 
-        var plot = new GenerationPercentsPlotter(generations, generations, new DebugLogWriter(), false);
         EvolAlgoParameters<LevelRepresentation> pars =
         new EvolAlgoParameters<LevelRepresentation>(
             popSize,
@@ -70,13 +88,12 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 previousPopulationBias,
                 (int)(elitism * popSize),
                 utils,
-                //new RuletWheelSelection()
-                new IterativeSelector<LevelRepresentation>()
+                new RuletWheelSelection(0.001f)
             ),
             GenerationsEndingPredicate.Get(generations),
             InitiatePop(utils),
-            Score,
-            plot.Plot
+            levelTester.Score,
+            Plot
             );
         EvolutionaryAlgo<LevelRepresentation> evolAlgo =
             new EvolutionaryAlgo<LevelRepresentation>(pars);
@@ -96,6 +113,7 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
         string lastDir = $"{time.Year % 1000}.{time.Month}.{time.Day}.{time.Hour}.{time.Minute}";
         return $"{saveDirectory}{lastDir}/";
     }
+
 
     private void EnsureDirectoryExists(string dir, params char[] separators) {
         string[] dirs = new string[1];
@@ -148,14 +166,14 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 var minY = MathF.Min(end.y, start.y);
                 var maxX = MathF.Max(end.x, start.x);
                 var maxY = MathF.Max(end.y, start.y);
-                if(maxX - minX > bounds.Rect.width * boundsMinamalModifier
-                    && maxY - minY > bounds.Rect.height * boundsMinamalModifier) {
+                if(maxX - minX > bounds.Rect.width * boundsMinimalModifier
+                    && maxY - minY > bounds.Rect.height * boundsMinimalModifier) {
                     start = new Vector3(minX, minY);
                     end = new Vector3(maxX, maxY);
                     break;
                 }
             }
-            float radius = Mathf.Min(bounds.Rect.width * boundsMinamalModifier, bounds.Rect.height * boundsMinamalModifier);
+            float radius = Mathf.Min(bounds.Rect.width * boundsMinimalModifier, bounds.Rect.height * boundsMinimalModifier);
             radius = (0.05f + 0.1f * utils.RandomFloat()) * radius;
 
             var goalChangeOffset =
@@ -182,22 +200,21 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 )
             );
 #if UNITY_EDITOR
-            created.Add(new UnityLevelRepresentation(
-                lr.Obstacles
+            var cre = ScriptableObject.CreateInstance<UnityLevelRepresentation>();
+            cre.Obstacles = lr.Obstacles
                 .Select(o => UnityObstacle.FromObstacle(o))
-                .ToList(),
-                UnityObstacle.FromObstacle(lr.OuterObstacle),
-                lr.Enemies,
-                lr.FriendlyStartPos,
-                lr.Goal));
+                .ToList();
+            cre.OuterObstacle = UnityObstacle.FromObstacle(lr.OuterObstacle);
+            cre.Enemies = lr.Enemies;
+            cre.FriendlyStartPos = lr.FriendlyStartPos;
+            cre.Goal = lr.Goal;
+            created.Add(cre);
 #endif
             yield return lr;
         }
     }
+    
 
-    private float Score(LevelRepresentation ind) {
-        return 10.0f;
-    }
 
     private IList<LevelRepresentation> Cross(IList<LevelRepresentation> parents) {
         return parents;
@@ -216,12 +233,39 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 input = mutateFunc(input);
                 curr += sum;
             }
-            curr -= mutateObstsProb;
+            curr -= prob;
             return input;
         }
-        var outerObst = DetermineMutation(ind.OuterObstacle, mutateOuterObstProb, obstaclesEval.MutateOuterObstacle);
-        var obsts = DetermineMutation(ind.Obstacles, mutateObstsProb, obstaclesEval.MutateObsts);
-        var enemies = DetermineMutation(ind.Enemies, mutateEnemiesProb, t => enemyEval.MutateEnems(t, utils, outerObst));
+
+        List<Vector2> enemyPoints = ind.Enemies
+            .Select(e => e.Position)
+            .Concat(ind.Enemies
+                .Select(e => e.Path)
+                .NotNull()
+                .Select(p => p.Commands)
+                .SelectMany(x => x)
+                .Select(c => c.Position))
+                .ToList();
+
+        List<Vector2> playerPositions = Enumerable.Empty<Vector2>()
+            .Append(ind.FriendlyStartPos)
+            .Append(ind.Goal.Position)
+            .ToList();
+
+        var outerObst = DetermineMutation(ind.OuterObstacle, 
+            mutateOuterObstProb, 
+            oo => obstaclesEval.MutateOuterObstacle(oo, utils, enemyPoints, playerPositions));
+        var obsts = DetermineMutation(ind.Obstacles,
+            mutateObstsProb, 
+            t => obstaclesEval.MutateObsts(t, utils, outerObst, enemyPoints, playerPositions));
+
+        var enemyObsts = obsts
+            .Where(o => o.EnemyWalkEffect == WalkObstacleEffect.Unwalkable)
+            .ToList();
+
+        var enemies = DetermineMutation(ind.Enemies, 
+            mutateEnemiesProb,
+            t => enemyEval.MutateEnems(t, utils, outerObst, enemyObsts));
         
         return new LevelRepresentation(
             obsts,
@@ -230,7 +274,6 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
             ind.FriendlyStartPos,
             ind.Goal);
     }
-
 
     class IterativeSelector<T> : IParentSelector<T>, ISelectionMechanism  {
         private int index = 0;

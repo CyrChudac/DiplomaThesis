@@ -25,6 +25,7 @@ public class UnityStaticGameRepresentation : ScriptableObject
             movementSettings,
             playerSettings);
 
+#if UNITY_EDITOR
     [MenuItem("Assets/Create/Static Game Repr")]
     public static void CreateScriptableObject()
     {
@@ -37,6 +38,7 @@ public class UnityStaticGameRepresentation : ScriptableObject
 
         Selection.activeObject = asset;
     }
+#endif
 }
 
 [Serializable]

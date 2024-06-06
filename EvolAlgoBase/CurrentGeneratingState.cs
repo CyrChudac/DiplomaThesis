@@ -10,5 +10,8 @@ namespace EvolAlgoBase {
 			this.TimeSpent = TimeSpent;
 			this.BestScoring = BestScoring;
 		}
+		public override string ToString() {
+			return $"{nameof(CurrentGeneratingState)}: G-{Generations}; T-{TimeSpent}; S-{BestScoring}";
+		}
 	}
 }

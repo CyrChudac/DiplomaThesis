@@ -24,6 +24,7 @@ public class LevelTester : MonoBehaviour
     public bool showPathToGoal = false;
     public bool showNavGraph = false;
     public bool showViewcones = false;
+    public bool noEnemyPather = false;
     [Min(0)]
     public float navGraphTiming = 0f;
     [Range(0.05f, 1)]
@@ -53,14 +54,20 @@ public class LevelTester : MonoBehaviour
 	}
 
 	private void ResetPather() {
-        pather = new GameCreatingCore.GamePathing.FullGamePather(
-            viewconeLengthModifier: 0.5f,
-            innerViewconeRayCount: innerViewconeRayCount, 
-            viewconesGraphDistances: viewconesGraphDistances, 
-            timestepSize: pathTimeStep, 
-            maximumLevelTime: 60, 
-            skillUsePointsCount: skillUsePointsCount);
-        //pather = new GameCreatingCore.GamePathing.NoEnemyGamePather(inflateObstacles);
+        if (noEnemyPather)
+        {
+            pather = new GameCreatingCore.GamePathing.NoEnemyGamePather(inflateObstacles);
+        }
+        else
+        {
+            pather = new GameCreatingCore.GamePathing.FullGamePather(
+                viewconeLengthModifier: 0.5f,
+                innerViewconeRayCount: innerViewconeRayCount,
+                viewconesGraphDistances: viewconesGraphDistances,
+                timestepSize: pathTimeStep,
+                maximumLevelTime: 60,
+                skillUsePointsCount: skillUsePointsCount);
+        }
     }
 
 	private void OnValidate() {
@@ -171,56 +178,70 @@ public class LevelTester : MonoBehaviour
     private void DrawNavGraph(LevelRepresentation level) {
         if(!showNavGraph)
             return;
-        
-        //var staticNavGraph = new StaticNavGraph(level, true)
-        //    .Initialized();
 
-        //var targetGraph = new ViewconeNavGraph(level, staticNavGraph, controller.GetStaticGameRepr(),
-        //    innerViewconeRayCount,
-        //    viewconesGraphDistances,
-        //    1);
+        var staticNavGraph = new StaticNavGraph(level, true)
+            .Initialized();
 
-        //var state = LevelState.GetInitialLevelState(level, 0.5f);
-        //if(navGraphTiming > 0) {
-        //    var simu = new GameSimulator(controller.GetStaticGameRepr(), level)
-        //        .Initialized(state, staticNavGraph);
-        //    state = simu.Simulate(new LevelStateTimed(state, navGraphTiming), targetGraph, new List<IGameAction>());
-        //}
+        var targetGraph = new ViewconeNavGraph(level, staticNavGraph, controller.GetStaticGameRepr(),
+            innerViewconeRayCount,
+            viewconesGraphDistances,
+            1);
 
-        //var graph = targetGraph.GetScoredNavGraph(state);
-        
-        //var edgesDict = new Dictionary<Vector2, List<Vector2>>();
-        //var doubleEdges = new List<(Vector2, Vector2, bool)>();
-        //foreach(var e in graph.edges) {
-        //    if(edgesDict.TryGetValue(e.Second.Position, out var val) && val.Contains(e.First.Position)) {
-        //        doubleEdges.Add((e.First.Position, e.Second.Position, e.EdgeInfo.ViewconeIndex.HasValue));
-        //    } else {
-        //        if(e.EdgeInfo.ViewconeIndex.HasValue) {
-        //            Gizmos.color = Color.cyan;
-        //        } else {
-        //            Gizmos.color = Color.white;
-        //        }
-        //        Gizmos.DrawLine(e.First.Position, e.Second.Position);
-        //        List<Vector2> into;
-        //        if(!edgesDict.TryGetValue(e.First.Position, out into)) {
-        //            into = new List<Vector2>();
-        //            edgesDict.Add(e.First.Position, into);
-        //        }
-        //        into.Add(e.Second.Position);
-        //    }
-        //}
-        //foreach(var e in doubleEdges) {
-        //    if(e.Item3) {
-        //        Gizmos.color = Color.Lerp(Color.blue, Color.red, 0.35f);
-        //    } else {
-        //        Gizmos.color = Color.blue;
-        //    }
-        //    Gizmos.DrawLine(e.Item1, e.Item2);
-        //}
-        //Gizmos.color = Color.grey;
-        //foreach(var v in graph.vertices) {
-        //    Gizmos.DrawSphere(v.Position, 0.2f);
-        //}
+        var state = LevelState.GetInitialLevelState(level, 0.5f);
+        if (navGraphTiming > 0)
+        {
+            var simu = new GameSimulator(controller.GetStaticGameRepr(), level)
+                .Initialized(state, staticNavGraph);
+            state = simu.Simulate(new LevelStateTimed(state, navGraphTiming), targetGraph, new List<IGameAction>());
+        }
+
+        var graph = targetGraph.GetScoredNavGraph(state);
+
+        var edgesDict = new Dictionary<Vector2, List<Vector2>>();
+        var doubleEdges = new List<(Vector2, Vector2, bool)>();
+        foreach (var e in graph.edges)
+        {
+            if (edgesDict.TryGetValue(e.Second.Position, out var val) && val.Contains(e.First.Position))
+            {
+                doubleEdges.Add((e.First.Position, e.Second.Position, e.EdgeInfo.ViewconeIndex.HasValue));
+            }
+            else
+            {
+                if (e.EdgeInfo.ViewconeIndex.HasValue)
+                {
+                    Gizmos.color = Color.cyan;
+                }
+                else
+                {
+                    Gizmos.color = Color.white;
+                }
+                Gizmos.DrawLine(e.First.Position, e.Second.Position);
+                List<Vector2> into;
+                if (!edgesDict.TryGetValue(e.First.Position, out into))
+                {
+                    into = new List<Vector2>();
+                    edgesDict.Add(e.First.Position, into);
+                }
+                into.Add(e.Second.Position);
+            }
+        }
+        foreach (var e in doubleEdges)
+        {
+            if (e.Item3)
+            {
+                Gizmos.color = Color.Lerp(Color.blue, Color.red, 0.35f);
+            }
+            else
+            {
+                Gizmos.color = Color.blue;
+            }
+            Gizmos.DrawLine(e.Item1, e.Item2);
+        }
+        Gizmos.color = Color.grey;
+        foreach (var v in graph.vertices)
+        {
+            Gizmos.DrawSphere(v.Position, 0.2f);
+        }
     }
 
     void DrawViewcones(LevelRepresentation level) {
@@ -238,7 +259,8 @@ public class LevelTester : MonoBehaviour
         if(navGraphTiming > 0) {
             var simu = new GameSimulator(controller.GetStaticGameRepr(), level)
                 .Initialized(state, staticNavGraph);
-            state = simu.Simulate(new LevelStateTimed(state, navGraphTiming), targetGraph, new List<IGameAction>());
+            var st = new LevelStateTimed(state, navGraphTiming);
+            state = simu.Simulate(st, targetGraph, new List<IGameAction>());
         }
 
         var views = targetGraph.GetRawViewcones(state);
@@ -263,14 +285,23 @@ public class LevelTester : MonoBehaviour
         var level = testLevel.GetLevelRepresentation();
         var enemies = level.Enemies.ToList();
         for(int i = 0; i < enemies.Count; i++) {
-            if(enemies[i].Path != null 
-                && enemies[i].Path.Commands.Count == 1 
-                && enemies[i].Path.Commands[0] is OnlyWalkCommand) {
-                var c = enemies[i].Path.Commands[0];
-                enemies[i] = new Enemy(enemies[i].Position, enemies[i].Rotation, enemies[i].Type,
-                    new Path(true, new List<PatrolCommand>()
-                    {new OnlyWaitCommand(c.Position, c.Running, c.TurnWhileMoving, c.TurningSide, 1)}
-                    ));
+            if(enemies[i].Path != null) {
+                Path? path;
+                if(enemies[i].Path.Commands == null)
+                {
+                    path = null;
+                }else if(enemies[i].Path.Commands.Count == 1 
+                    && enemies[i].Path.Commands[0] is OnlyWalkCommand) {
+                    var c = enemies[i].Path.Commands[0];
+                    path = new Path(true, new List<PatrolCommand>()
+                        {new OnlyWaitCommand(c.Position, c.Running, c.TurnWhileMoving, c.TurningSide, 1)}
+                        );
+                }
+                else
+                {
+                    path = enemies[i].Path;
+                }
+                enemies[i] = new Enemy(enemies[i].Position, enemies[i].Rotation, enemies[i].Type, path);
             }
         }
         return new LevelRepresentation(

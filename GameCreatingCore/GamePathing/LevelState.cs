@@ -52,6 +52,30 @@ namespace GameCreatingCore.GamePathing
 				alerted, timeOfPlayerInView, viewconeAlertLengthModifier, pathIndex, isReturning);
 			return Change(enemyStates: enems);
 		}
+
+		
+		public static LevelState GetInitialLevelState(LevelRepresentation levelRepresentation, float viewconeLengthModifier) {
+
+			List<EnemyState> enemies = levelRepresentation.Enemies
+				.Select(e => new EnemyState(
+					position: e.Position, 
+					rotation: e.Rotation,
+					performingAction: null,
+					alive: true,
+					alerted: false,
+					viewconeAlertLengthModifier: viewconeLengthModifier, 
+					timeOfPlayerInView: 0, 
+					pathIndex: (e.Path != null && e.Path.Commands.Count > 0) ? (int?)0 : null))
+				.ToList();
+
+			return new LevelState(
+				enemyStates: enemies,
+				playerState: new PlayerState(levelRepresentation.FriendlyStartPos, 0, 
+					levelRepresentation.SkillsStartingWith, null),
+				skillsInAction: new List<IGameAction>(),
+				Enumerable.Repeat<bool>(false, levelRepresentation.SkillsToPickup.Count).ToList()
+				);
+		}
 	}
 
 	public abstract class CharacterState {

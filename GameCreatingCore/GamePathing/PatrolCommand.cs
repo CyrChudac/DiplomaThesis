@@ -27,17 +27,17 @@ namespace GameCreatingCore.GamePathing
         /// </summary>
         [SerializeField]
         public bool ExecuteDuringMoving;
-        
-        [SerializeField]
-        protected StaticGameRepresentation StaticGameRepresentation;
 
-        public PatrolCommand(Vector2 position, StaticGameRepresentation staticGameRepresentation,
-            bool executeDuringMoving, bool running, bool turnWhileMoving, TurnSideEnum turningSide)
+        private StaticGameRepresentation? _staticGameRepresentation;
+        protected StaticGameRepresentation StaticGameRepresentation
+            => _staticGameRepresentation ?? throw new NotSupportedException();
+
+        public PatrolCommand(Vector2 position, bool executeDuringMoving, 
+            bool running, bool turnWhileMoving, TurnSideEnum turningSide)
         {
             this.Position = position;
             this.ExecuteDuringMoving = executeDuringMoving;
             this.Running = running;
-            this.StaticGameRepresentation = staticGameRepresentation;
             this.TurnWhileMoving = turnWhileMoving;
             this.TurningSide = turningSide;
         }
@@ -47,9 +47,10 @@ namespace GameCreatingCore.GamePathing
         public IGameAction Action => _action
             ?? throw new NotSupportedException("Accessing enemy action without setting its value.");
 
-        public void SetAction(int enemyIndex, Vector2 currentPos,
+        public void SetAction(int enemyIndex, Vector2 currentPos, StaticGameRepresentation staticGameRepresentation,
             StaticNavGraph navGraph, LevelRepresentation level, bool backwards) {
-
+            
+            this._staticGameRepresentation = staticGameRepresentation;
             var mr = StaticGameRepresentation.GetEnemySettings(level.Enemies[enemyIndex].Type).movementRepresentation;
             var path = navGraph.GetEnemyPath(currentPos, Position);
             TurnSideEnum turnStyle = backwards ? TurningSide.Opposite() : TurningSide;

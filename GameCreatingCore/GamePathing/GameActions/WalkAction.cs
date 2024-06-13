@@ -42,18 +42,25 @@ namespace GameCreatingCore.GamePathing.GameActions
 
         public LevelStateTimed CharacterActionPhase(LevelStateTimed input)
         {
-            var res = Walk(input.playerState.Position, Position, input.Time, MovementSettings, Running);
+            LevelStateTimed result;
+            (Vector2 Pos, float LeftoverTime, float LeftoverWalkTime) res;
+            if(!EnemyIndex.HasValue) {
+                res = Walk(input.playerState.Position, Position, input.Time, MovementSettings, Running);
+                result = InnerWalkingProceed(input,
+                    new LevelStateTimed(input.ChangePlayer(position: res.Pos), res.LeftoverTime));
+            } else {
+                res = Walk(input.enemyStates[EnemyIndex!.Value].Position, 
+                    Position, input.Time, MovementSettings, Running);
+                var enems = new List<EnemyState>(input.enemyStates);
+                enems[EnemyIndex.Value] = enems[EnemyIndex.Value].Change(position: res.Pos);
+                result = InnerWalkingProceed(input,
+                    new LevelStateTimed(input.Change(enemyStates: enems), res.LeftoverTime));
+            }
+            
             _done = res.LeftoverWalkTime == 0;
             _leftoverTime = res.LeftoverWalkTime;
-            if (!EnemyIndex.HasValue)
-                return InnerWalkingProceed(input,
-                    new LevelStateTimed(input.ChangePlayer(position: res.Pos), res.LeftoverTime));
 
-            var enems = new List<EnemyState>(input.enemyStates);
-            enems[EnemyIndex.Value] = enems[EnemyIndex.Value].Change(position: res.Pos);
-
-            return InnerWalkingProceed(input,
-                new LevelStateTimed(input.Change(enemyStates: enems), res.LeftoverTime));
+            return result;
         }
 
         public static (Vector2 Pos, float LeftoverTime, float LeftoverWalkTime) Walk(Vector2 from, Vector2 to, float time,
@@ -75,7 +82,7 @@ namespace GameCreatingCore.GamePathing.GameActions
                 leftoverTime = 0;
                 leftoverWalkTime = dist / speed - time;
                 var direction = (to - from).normalized;
-                pos = direction * speed * time;
+                pos = from + direction * speed * time;
             }
             return (pos, leftoverTime, leftoverWalkTime);
         }

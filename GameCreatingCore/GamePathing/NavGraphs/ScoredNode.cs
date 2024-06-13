@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GameCreatingCore.GamePathing.NavGraphs
 {
 
-    internal class ScoredNode : Node
+    public class ScoredNode : Node
     {
         public ScoredNode? Previous { get; }
         public float PreviousScore { get; }

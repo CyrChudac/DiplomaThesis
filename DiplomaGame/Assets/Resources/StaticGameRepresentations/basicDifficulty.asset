@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5edaf926fc626c94ca6f198bf57c3f07, type: 3}
   m_Name: basicDifficulty
   m_EditorClassIdentifier: 
-  gameDifficulty: 3
+  gameDifficulty: 1
   movementSettings:
     Speed: 10
     CharacterMaxRadius: 4
@@ -20,11 +20,12 @@ MonoBehaviour:
   - enemyType: 0
     enemySettings:
       viewconeRepresentation:
-        Length: 60
+        Length: 40
         Angle: 60
         WiggleAngle: 0
         WiggleTime: 1
-        AlertingSpeedModifier: 1
+        AlertingTimeModifier: 2
+        DisalertingTimeModifier: 0
         AlertedLengthModifier: 1
         AlertLengthChangeSpeedIn: 1
         AlertLengthChangeSpeedOut: 1

@@ -17,6 +17,9 @@ namespace GameCreatingCore.GamePathing.GameActions {
 			_waitTime = waitTime;
 		}
 
+		public StartAfterAction(int? enemyIndex, float waitTime)
+			:this(new EmptyAction(enemyIndex), waitTime) { }
+
 		public bool IsIndependentOfCharacter => _action.IsIndependentOfCharacter;
 
 		public bool Done => _waitingDone && _action.Done;

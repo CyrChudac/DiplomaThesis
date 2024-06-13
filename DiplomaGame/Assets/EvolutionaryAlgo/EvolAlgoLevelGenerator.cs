@@ -24,7 +24,6 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
     [SerializeField] private ObstaclesMutator obstaclesEval;
     [SerializeField] private LevelTester levelTester;
     [SerializeField] private PlayGroundBounds bounds;
-    [SerializeField] private GameController gameController;
     [SerializeField] private string saveDirectory = "Levels/";
     [Header("mutation probabilities")]
     [Tooltip("The probablity of mutation occuring.")]
@@ -188,11 +187,14 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                         end,
                         new Vector2(end.x, start.y)
                     },
+                    new ObstacleEffect(
                     WalkObstacleEffect.Unwalkable,
                     WalkObstacleEffect.Unwalkable,
                     VisionObstacleEffect.NonSeeThrough,
-                    VisionObstacleEffect.NonSeeThrough),
+                    VisionObstacleEffect.NonSeeThrough)),
                 new List<Enemy>(),
+                new List<(IActiveGameActionProvider, Vector2)>(),
+                new List<IActiveGameActionProvider>(),
                 start + goalChangeOffset,
                 new LevelGoal(
                     end - goalChangeOffset,
@@ -260,7 +262,7 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
             t => obstaclesEval.MutateObsts(t, utils, outerObst, enemyPoints, playerPositions));
 
         var enemyObsts = obsts
-            .Where(o => o.EnemyWalkEffect == WalkObstacleEffect.Unwalkable)
+            .Where(o => o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable)
             .ToList();
 
         var enemies = DetermineMutation(ind.Enemies, 
@@ -271,6 +273,8 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
             obsts,
             outerObst,
             enemies,
+            new List<(IActiveGameActionProvider, Vector2)>(),
+            new List<IActiveGameActionProvider>(),
             ind.FriendlyStartPos,
             ind.Goal);
     }

@@ -1,4 +1,5 @@
 using GameCreatingCore;
+using GameCreatingCore.GamePathing;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,6 +16,10 @@ public class UnityLevelRepresentation : ScriptableObject
 	[SerializeField]
 	public List<Enemy> Enemies;
 	[SerializeField]
+	public List<IActiveGameActionProvider> AvailableSkills;
+	[SerializeField]
+	public List<(IActiveGameActionProvider, Vector2)> SkillsToPickup;
+	[SerializeField]
 	public Vector2 FriendlyStartPos;
 	[SerializeField]
 	public LevelGoal Goal;
@@ -24,6 +29,8 @@ public class UnityLevelRepresentation : ScriptableObject
 			Obstacles.Select(o => o.ToObstacle()).ToList(),
 			OuterObstacle.ToObstacle(),
 			Enemies,
+			SkillsToPickup,
+			AvailableSkills,
 			FriendlyStartPos,
 			Goal);
 	}

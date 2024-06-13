@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameCreatingCore;
+using GameCreatingCore.GamePathing;
 using System;
 using static UnityEditor.PlayerSettings;
 using System.Linq;
@@ -60,6 +61,8 @@ public class EnemyMutator : MonoBehaviour
     [Min(0f)]
     [SerializeField] private float _pathCommandPosChangeMax = 10f;
 
+    [SerializeField] private GameController gameController;
+
     public List<Enemy> MutateEnems(List<Enemy> prev, EvolAlgoUtils utils, 
         Obstacle outerObstacle, ICollection<Obstacle> enemyWalkObstacles) {
         var result = new List<Enemy>(prev);
@@ -89,7 +92,7 @@ public class EnemyMutator : MonoBehaviour
     private Vector2 RandomPosInside(Obstacle outerObstacle, IEnumerable<Obstacle> obsts, Func<Vector2> vecFunc) {
         
         var pos = vecFunc();
-        while((outerObstacle.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && !outerObstacle.ContainsPoint(pos))
+        while((outerObstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && !outerObstacle.ContainsPoint(pos))
             || obsts.Any(o => o.ContainsPoint(pos))) {
             pos = vecFunc();
         }
@@ -155,7 +158,7 @@ public class EnemyMutator : MonoBehaviour
 
                 return EnemyPathMutation(
                     new Path(utils.RandomFloat() < _pathCyclicStartProb, new List<PatrolCommand>() {
-                        new OnlyWalkCommand(pos)
+                        GetOnlyWalkCommand(pos)
                     }), position, utils, outerObstacle, obsts);
             }
         } else {
@@ -180,6 +183,10 @@ public class EnemyMutator : MonoBehaviour
         return pos;
     }
 
+    private OnlyWalkCommand GetOnlyWalkCommand(Vector2 pos)
+        => new OnlyWalkCommand(pos, 
+            false, GameCreatingCore.GamePathing.GameActions.TurnSideEnum.ShortestPrefereClockwise);
+
     private Path? EnemyPathMutation(Path pre, Vector2 position, EvolAlgoUtils utils, 
         Obstacle outerObstacle, IEnumerable<Obstacle> obsts) {
 
@@ -198,7 +205,7 @@ public class EnemyMutator : MonoBehaviour
                     () => cmds[cmds.Count - 1].Position + utils.RandomNormVec(15, 15));
             }
             cmds.Add(
-                new OnlyWalkCommand(pos));
+                GetOnlyWalkCommand(pos));
         }
         for(int i = 0; i < cmds.Count; i++) {
             if(utils.RandomFloat() < _pathChangeCommandPosProb) {

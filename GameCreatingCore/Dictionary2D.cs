@@ -47,7 +47,7 @@ namespace GameCreatingCore {
 				if(d.TryGetValue(key2, out value)) {
 					return true;
 				}
-			value = default;
+			value = default!;
 			return false;
 		}
 	}

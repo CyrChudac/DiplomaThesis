@@ -29,13 +29,14 @@ public class UnityObstacle
 	}
 
 	public Obstacle ToObstacle()
-		=> new Obstacle(Shape.AsReadOnly(), FriendlyWalkEffect, EnemyWalkEffect, FriendlyVisionEffect, EnemyVisionEffect);
+		=> new Obstacle(Shape.AsReadOnly(), 
+			new ObstacleEffect(FriendlyWalkEffect, EnemyWalkEffect, FriendlyVisionEffect, EnemyVisionEffect));
 
 	public static UnityObstacle FromObstacle(Obstacle obstacle)
 		=> new UnityObstacle(
 			obstacle.Shape.ToList(), 
-			obstacle.FriendlyWalkEffect, 
-			obstacle.EnemyWalkEffect, 
-			obstacle.FriendlyVisionEffect, 
-			obstacle.EnemyVisionEffect);
+			obstacle.Effects.FriendlyWalkEffect, 
+			obstacle.Effects.EnemyWalkEffect, 
+			obstacle.Effects.FriendlyVisionEffect, 
+			obstacle.Effects.EnemyVisionEffect);
 }

@@ -32,7 +32,6 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
         /// how far are the respective points from one another.</param>
         /// <param name="viewconeLengthMod">The  viewcone is actually not a cone, it is section of triangles. 
         /// What is their length? 0 = viewcone length; 1 = maximal length within the triangle.</param>
-        /// <returns>List of viewcone bounderies of all given enemies.</returns>
         public ViewconeNavGraph(LevelRepresentation level, StaticNavGraph staticNavGraph,
             StaticGameRepresentation staticGameRepr, int innerRays, float viewconeTravelConsideredStep,
             //ViewconePruningStyle viewconePruning,
@@ -71,7 +70,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
 
         float AngleIncr(float angle) => angle / (innerRays + 1);
 
-        internal GraphWithViewcones GetScoredNavGraph(LevelState state)
+        public GraphWithViewcones GetScoredNavGraph(LevelState state)
         {
             var viewcones = GetTraversableViewcones(state);
             viewcones = CutOffCommonParts(viewcones);
@@ -165,11 +164,13 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 }
             }
             List<ViewconeGraph> result = new List<ViewconeGraph>(viewcones);
+            var rem = new ViewconeCommonPartsRemover();
             foreach (var (i, j) in toConsider)
             {
-
+                result[i] = rem.CutOffCommonParts(result[i], result[j], out var tmp);
+                result[j] = tmp;
             }
-            throw new NotImplementedException();
+            return result;
         }
 
         private GraphWithViewcones AddPickupables(GraphWithViewcones input, LevelState state) {
@@ -204,11 +205,13 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                     points.Add((s.Get(null, new GameActionTarget(null, null, true)), state.playerState.Position));
                 }
                 if(s.CanTargetGround) {
-                    var pts = PointsAround(state.playerState.Position, s.MaxUseDistance, skillUsePointsAround);
+                    var pts = PointsAround(state.playerState.Position, 1 + s.MaxUseDistance, skillUsePointsAround);
                     foreach(var p in pts) {
                         if(s.CanTargetGroundObstacle || !staticNavGraph.IsInPlayerObstacle(p)) {
                             if(CanDoActionReach(s.ReachType, state.playerState.Position, p)) {
-                                points.Add((s.Get(null, new GameActionTarget(p, null, false)), state.playerState.Position));
+                                var pos = state.playerState.Position
+                                    + (p - state.playerState.Position)/s.MaxUseDistance;
+                                points.Add((s.Get(null, new GameActionTarget(p, null, false)), pos));
                             }
                         }
                     }
@@ -216,7 +219,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 if(s.CanTargetEnemy) {
                     for(int i = 0; i < state.enemyStates.Count; i++) {
                         var e = state.enemyStates[i];
-                        var pts = PointsAround(e.Position, s.MaxUseDistance, skillUsePointsAround);
+                        var pts = PointsAround(e.Position, 0.05f + s.MaxUseDistance, skillUsePointsAround);
                         foreach(var p in pts) {
                             if(staticNavGraph.CanPlayerGetToStraight(e.Position, p)){
                                 points.Add((s.Get(null, new GameActionTarget(null, i, false)), p));
@@ -350,6 +353,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
         {
 
             var enemVisionObsts = level.Obstacles
+                .Append(level.OuterObstacle)
                 .Where(o => o.Effects.EnemyVisionEffect == VisionObstacleEffect.NonSeeThrough)
                 .ToList();
 
@@ -357,14 +361,14 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
             var angleIncrease = AngleIncr(angle);
             var startAngle = state.Rotation - angle / 2;
 
-            List<Vector2> points = new List<Vector2>() { state.Position };
+            List<Vector2> points = new List<Vector2>();
             for (int i = 0; i < innerRays + 2; i++)
             {
                 var vec = Vector2Utils.VectorFromAngle(startAngle + angleIncrease * i);
                 var p = GetIntersectionWithObstacles(state.Position, vec, length, enemVisionObsts);
                 points.Add(p);
             }
-            return new Viewcone(state.Position, points, index, lengthsDict[type]);
+            return new Viewcone(state.Position, points, index, lengthsDict[type], length);
         }
 
         /// <summary>
@@ -438,8 +442,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 }
             }
 
-            var compareProvider = new ReachableVector2ComparerProvider(this,
-                v => alertingDistance * Vector2.Distance(view.StartPos, v) / viewConeMaxLength);
+            var compareProvider = new ReachableVector2ComparerProvider(this, view);
 
             List<ViewNode> vertices = new List<ViewNode>(sliceArray
                 .Select((p, i) => new ViewNode(p.Vector,
@@ -447,40 +450,31 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 //then it is a middle node
                 (i > maxFirst && i < maxLast && (p.Vector - view.StartPos).sqrMagnitude < viewConeMaxLength * viewConeMaxLength))));
             List<Edge<ViewNode, ViewMidEdgeInfo>> edges = new List<Edge<ViewNode, ViewMidEdgeInfo>>();
-            vertices.Add(new ViewNode(view.StartPos));
 
             for (int i = 0; i < sliceArray.Length; i++)
             {
                 int minIndex = 0;
+                //binary search should not find the exact occurance,
+                //so it returns the negative index of the next element
                 if (i != 0)
-                    minIndex = new Span<(Vector2, int)>(sliceArray, 0, i - 1)
+                    minIndex = - new Span<(Vector2, int)>(sliceArray, 0, i - 1)
                         .BinarySearch(compareProvider.GetComparer(sliceArray[i]));
                 int maxIndex = sliceArray.Length - 1;
                 if (i != sliceArray.Length - 1)
-                    maxIndex = new Span<(Vector2, int)>(sliceArray, i + 1, sliceArray.Length - i - 1)
+                    maxIndex = i - new Span<(Vector2, int)>(sliceArray, i + 1, sliceArray.Length - i - 1)
                         .BinarySearch(compareProvider.GetComparer(sliceArray[i]));
                 for (int j = minIndex; j < maxIndex; j++)
                 {
                     if (j == i)
                         continue;
-                    var len = compareProvider.TryGetLength(i, j);
-                    if (!len.HasValue)
-                    {
-                        //TODO: CHANGE THIS! if there is an edge between 2 points, we can move straight,
-                        //it doesn't matter if there is a path between them
-                        var path = staticNavGraph.GetEnemylessPlayerPath(sliceArray[i].Vector, sliceArray[j].Vector);
-                        if(path == null) //it is not possible for the player to get from A to B, so skip the edge
-                            continue;
-                        len = GetPathLength(sliceArray[i].Vector, path);
-                    }
+                    var len = compareProvider.GetLength(i, j, sliceArray[i].Vector, sliceArray[j].Vector);
                     //if they are not adjacent, their common edge goes inside the viewcone
                     var isMidView = Math.Abs(i - j) > 1;
                     //if the edge goes towards the enemy and is not on the view side, then it is an edge of removed
                     var isEdgeOfRemoved = i < maxLast && i > maxFirst && j < maxLast && j > maxFirst
                         && ((vertices[i].Position - view.StartPos).sqrMagnitude < viewConeMaxLength * viewConeMaxLength
                         || (vertices[j].Position - view.StartPos).sqrMagnitude < viewConeMaxLength * viewConeMaxLength);
-                    //TODO: CHANGE THIS! 0.99f is just a placeholder, need to compute the real value.
-                    var info = new ViewMidEdgeInfo(len.Value, isEdgeOfRemoved, true, isMidView, 0.99f);
+                    var info = new ViewMidEdgeInfo(len, isEdgeOfRemoved, true, isMidView, view.AlertingRatioIncrease(len));
                     edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(vertices[i], vertices[j], info));
                 }
             }
@@ -488,12 +482,12 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
             var start = new ViewNode(view.StartPos);
             var nonTraverseInfo = new ViewMidEdgeInfo(
                 Vector2.Distance(view.StartPos, sliceArray[0].Vector)
-                , false, false, false, 1);
+                , false, true, false, 1);
             edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(start, vertices[0], nonTraverseInfo));
 
             nonTraverseInfo = new ViewMidEdgeInfo(
                 Vector2.Distance(view.StartPos, vertices[vertices.Count - 1].Position)
-                , false, false, false, 1);
+                , false, true, false, 1);
             edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(
                 start, vertices[vertices.Count - 1], nonTraverseInfo));
 
@@ -502,31 +496,17 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
             return new ViewconeGraph(vertices, edges, view);
         }
 
-        float GetPathLength(Vector2 from, IEnumerable<Vector2> path)
-        {
-            float length = 0;
-            var pre = from;
-            foreach (var vec in path)
-            {
-                length += Vector2.Distance(pre, vec);
-                pre = vec;
-            }
-            return length;
-        }
-
         class ReachableVector2ComparerProvider
         {
             private ViewconeNavGraph navGraph;
+            private Viewcone viewcone;
             private Dictionary2D<int, float> lengthsDict = new Dictionary2D<int, float>();
-            private Func<Vector2, float> maxLengthFunc;
-            private int maxIndex = -1;
 
-            public ReachableVector2ComparerProvider(ViewconeNavGraph navGraph,
-                Func<Vector2, float> maxLengthFunc)
+            public ReachableVector2ComparerProvider(ViewconeNavGraph navGraph, Viewcone viewcone)
             {
 
                 this.navGraph = navGraph;
-                this.maxLengthFunc = maxLengthFunc;
+                this.viewcone = viewcone;
             }
 
             public IComparable<(Vector2 Vector, int Index)> GetComparer((Vector2 Vector, int Index) from)
@@ -536,14 +516,21 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
 
             /// <summary>
             /// Gets the already computed length [<paramref name="fromIndex"/>] -> [<paramref name="toIndex"/>]. 
-            /// If it was no computed yet, it gets the first computed distance in the given direction.
+            /// If it was no computed yet, it computes and saves it.
             /// </summary>
-            /// <returns>The legth between the two vectors if it was already computed, otherwise <c>null</c>.</returns>
-            public float? TryGetLength(int fromIndex, int toIndex)
+            /// <returns>The legth between the two vectors.</returns>
+
+            public float GetLength(int fromIndex, int toIndex, Vector2 from, Vector2 to)
             {
                 if (lengthsDict.TryGetValue(fromIndex, toIndex, out var res))
                     return res;
-                return null;
+                if(navGraph.staticNavGraph.CanPlayerGetToStraight(from, to)) {
+                    res = Vector2.Distance(from, to);
+                } else {
+                    res = float.MaxValue;
+                }
+                lengthsDict.Add(fromIndex, toIndex, res);
+                return res;
             }
 
             class ReachableVector2Comparer : IComparable<(Vector2 Vector, int Index)>
@@ -561,32 +548,13 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 }
                 public int CompareTo((Vector2 Vector, int Index) other)
                 {
-                    float length;
-                    if (!provider.lengthsDict.TryGetValue(fromIndex, other.Index, out length))
-                    {
+                    float length = provider.GetLength(fromIndex, other.Index, from, other.Vector);
 
-                        var psnm = provider.navGraph.staticNavGraph;
-                        var path = psnm.GetEnemylessPlayerPath(from, other.Vector);
-                        if (path == null)
-                            length = float.MaxValue;
-                        else
-                        {
-                            length = provider.navGraph.GetPathLength(from, path);
-                        }
-                        if (fromIndex > provider.maxIndex)
-                            provider.maxIndex = fromIndex;
-                        if (other.Index > provider.maxIndex)
-                            provider.maxIndex = other.Index;
-                        provider.lengthsDict.Add(fromIndex, other.Index, length);
-                    }
-
-                    var maxLength = provider.maxLengthFunc(other.Vector);
-                    if (length > maxLength)
-                        return other.Index < fromIndex ? -1 : 1;
-                    else if (length < maxLength)
+                    var isPossible = provider.viewcone.CanGoFromTo(from, other.Vector, length, out var _);
+                    if (!isPossible)
                         return other.Index < fromIndex ? 1 : -1;
                     else
-                        return 0;
+                        return other.Index < fromIndex ? -1 : 1;
                 }
             }
         }
@@ -602,38 +570,26 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
             var pre = path.First();
             SimpleEnumerator<int?> e = new SimpleEnumerator<int?>(includeIndices.Cast<int?>(), null);
             var nextFixed = e.Get();
-            yield return pre;
             if (nextFixed == 0)
                 nextFixed = e.Get();
-            float overflowDist = sliceSize;
+            float overflowDist = 0;
             int index = 1;
             foreach (var point in path.Skip(1))
             {
                 var offset = point - pre;
                 var magn = offset.magnitude;
-                int count = (int)((magn - overflowDist) / sliceSize);
-                if (count < 0)
-                {
-                    overflowDist -= magn;
-                    continue;
-                }
                 offset = offset.normalized;
-                var last = pre + offset * overflowDist;
-                yield return last;
-                for (int i = 0; i < count - 1; i++)
-                {
-                    last = last + offset * sliceSize;
-                    yield return last;
+                var curr = overflowDist;
+                while(curr <= magn) {
+                    yield return pre + offset * curr;
+                    curr += sliceSize;
                 }
+                overflowDist = curr - magn;
                 if (index == nextFixed && overflowDist != sliceSize)
                 {
                     yield return point;
                     nextFixed = e.Get();
                     overflowDist = sliceSize;
-                }
-                else
-                {
-                    overflowDist = sliceSize - (magn - overflowDist - count * sliceSize);
                 }
                 index++;
                 pre = point;

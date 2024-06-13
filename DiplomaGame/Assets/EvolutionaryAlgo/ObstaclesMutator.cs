@@ -95,14 +95,14 @@ public class ObstaclesMutator : MonoBehaviour
 
     private bool ContainsWhatItShouldnt(Obstacle o, ICollection<Vector2> enemyPositions,
         ICollection<Vector2> playerPositions) {
-        return (o.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.Any(ep => o.ContainsPoint(ep)))
-            || (o.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.Any(ep => o.ContainsPoint(ep)));
+        return (o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.Any(ep => o.ContainsPoint(ep)))
+            || (o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.Any(ep => o.ContainsPoint(ep)));
     }
     
     private bool ContainsAllItShould(Obstacle o, ICollection<Vector2> enemyPositions,
         ICollection<Vector2> playerPositions) {
-        return (o.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.All(ep => o.ContainsPoint(ep)))
-            || (o.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.All(ep => o.ContainsPoint(ep)));
+        return (o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.All(ep => o.ContainsPoint(ep)))
+            || (o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.All(ep => o.ContainsPoint(ep)));
     }
 
     private Obstacle RandomObstacle(EvolAlgoUtils utils, Rect inArea, float minSize, float maxSize, float minAxisSize) {
@@ -123,10 +123,11 @@ public class ObstaclesMutator : MonoBehaviour
                 second,
                 new Vector2(first.x, second.y)
             },
-            utils.RandomFloat() < initFriendlyWalkable ? WalkObstacleEffect.Walkable : WalkObstacleEffect.Unwalkable,
-            utils.RandomFloat() < initEnemyWalkable ? WalkObstacleEffect.Walkable : WalkObstacleEffect.Unwalkable,
-            utils.RandomFloat() < initFriendlySeeThrough ? VisionObstacleEffect.SeeThrough : VisionObstacleEffect.NonSeeThrough,
-            utils.RandomFloat() < initEnemySeeThrough ? VisionObstacleEffect.SeeThrough : VisionObstacleEffect.NonSeeThrough
+            new ObstacleEffect(
+                utils.RandomFloat() < initFriendlyWalkable ? WalkObstacleEffect.Walkable : WalkObstacleEffect.Unwalkable,
+                utils.RandomFloat() < initEnemyWalkable ? WalkObstacleEffect.Walkable : WalkObstacleEffect.Unwalkable,
+                utils.RandomFloat() < initFriendlySeeThrough ? VisionObstacleEffect.SeeThrough : VisionObstacleEffect.NonSeeThrough,
+                utils.RandomFloat() < initEnemySeeThrough ? VisionObstacleEffect.SeeThrough : VisionObstacleEffect.NonSeeThrough)
         );
 
     }
@@ -163,10 +164,11 @@ public class ObstaclesMutator : MonoBehaviour
                 new Vector2(x + width, y + height),
                 new Vector2(x, y + height),
             },
-            prev.FriendlyWalkEffect,
-            prev.EnemyWalkEffect,
-            prev.FriendlyVisionEffect,
-            prev.EnemyVisionEffect
+            new ObstacleEffect(
+                prev.Effects.FriendlyWalkEffect,
+                prev.Effects.EnemyWalkEffect,
+                prev.Effects.FriendlyVisionEffect,
+                prev.Effects.EnemyVisionEffect)
         );
     }
 
@@ -207,18 +209,19 @@ public class ObstaclesMutator : MonoBehaviour
                 new Vector2(x + width, y + height),
                 new Vector2(x, y + height),
             },
-            prev.FriendlyWalkEffect,
-            prev.EnemyWalkEffect,
-            prev.FriendlyVisionEffect,
-            prev.EnemyVisionEffect
+            new ObstacleEffect(
+                prev.Effects.FriendlyWalkEffect,
+                prev.Effects.EnemyWalkEffect,
+                prev.Effects.FriendlyVisionEffect,
+                prev.Effects.EnemyVisionEffect)
         );
     }
 
     private Obstacle ChangeObstacleEffect(Obstacle prev, EvolAlgoUtils utils) {
-        var fWalkE = prev.FriendlyWalkEffect;
-        var eWalkE = prev.EnemyWalkEffect;
-        var fVisionE = prev.FriendlyVisionEffect;
-        var eVisionE = prev.EnemyVisionEffect;
+        var fWalkE = prev.Effects.FriendlyWalkEffect;
+        var eWalkE = prev.Effects.EnemyWalkEffect;
+        var fVisionE = prev.Effects.FriendlyVisionEffect;
+        var eVisionE = prev.Effects.EnemyVisionEffect;
         if(utils.RandomFloat() < changeFriendlyWalkProb) {
             fWalkE = GetRandomEnumValue<WalkObstacleEffect>(utils);
         }
@@ -231,7 +234,7 @@ public class ObstaclesMutator : MonoBehaviour
         if(utils.RandomFloat() < changeEnemyVisionProb) {
             eVisionE = GetRandomEnumValue<VisionObstacleEffect>(utils);
         }
-        return new Obstacle(prev.Shape, fWalkE, eWalkE, fVisionE, eVisionE);
+        return new Obstacle(prev.Shape, new ObstacleEffect(fWalkE, eWalkE, fVisionE, eVisionE));
     }
 
     private TEnum GetRandomEnumValue<TEnum>(EvolAlgoUtils utils) {

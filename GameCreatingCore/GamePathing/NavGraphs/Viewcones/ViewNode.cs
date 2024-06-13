@@ -11,5 +11,13 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
         {
             IsMiddleNode = isMiddleNode;
         }
-    }
+
+		public override int GetHashCode() {
+			return base.GetHashCode() * 2 + (IsMiddleNode ? 1 : 0);
+		}
+
+        public override bool Equals(object obj) {
+            return base.Equals(obj) && (obj is ViewNode) && (((ViewNode)obj).IsMiddleNode == IsMiddleNode);
+        }
+	}
 }

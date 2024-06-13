@@ -13,10 +13,6 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
 		public static GraphWithViewcones AddViewconesToGraph(List<ViewconeGraph> viewcones, StaticNavGraph staticNavGraph)
         {
             var pregraph = staticNavGraph.PlayerStaticNavGraph;
-            viewcones.Select(v => v.edges.Where(e => !e.EdgeInfo.IsInMidViewcone));
-            //procházím body grafu od nejnižšího skóre a ruším edges, který nejde projít
-            //přidat tam viewcones předem? nebo až potom?
-
             var rootIndex = pregraph.vertices.IndexOfMin(v => v.Score);
             var maxScore = pregraph.vertices.Max(v => v.Score);
             var vertices = pregraph.vertices
@@ -82,12 +78,16 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
             List<int> seen = new List<int>();
             var que = new PriorityQueue<float, (ScoredActionedNode? Previous, int Index)>();
             que.Enqueue(0, (null, rootIndex));
+            int iterations = 0;
             while(que.Any()) {
                 var curr = que.DequeueMinWithKey();
                 var score = curr.Key;
                 var currIndex = curr.Value.Index;
                 if(seen.Contains(currIndex))
                     continue;
+                iterations++;
+                if(iterations > prenodes.Count + 5)
+                    throw new Exception("Possible infinite loop, investigate.");
                 seen.Add(currIndex);
                 var node = new ScoredActionedNode(score,
                     curr.Value.Previous != null ? curr.Value.Previous.Score : 0,

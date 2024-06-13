@@ -56,7 +56,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
 		}
 
 		public override string ToString() {
-			return $"Goal<{nameof(N)}>: V-{vertices.Count}; E-{edges.Count}";
+			return $"Graph<{typeof(N).Name}>: V-{vertices.Count}; E-{edges.Count}";
 		}
 	}
 

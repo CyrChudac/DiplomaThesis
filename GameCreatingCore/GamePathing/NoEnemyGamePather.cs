@@ -29,21 +29,12 @@ namespace GameCreatingCore.GamePathing
 					levelRepresentation, staticGameRepresentation.StaticMovementSettings);
 			}
 
-			var graph = new StaticNavGraph(levelRepresentation.Obstacles,
-				levelRepresentation.OuterObstacle,
-				levelRepresentation.Goal,
-				false);
-			graph.Initialize();
-
-			var obsts = levelRepresentation.Obstacles
-				.Append(levelRepresentation.OuterObstacle)
-				.Where(o => o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable)
-				.ToList();
+			var graph = new StaticNavGraph(levelRepresentation, false).Initialized();
 
 			var points = graph.GetEnemylessPlayerPath(levelRepresentation.FriendlyStartPos);
 
 			var movS = staticGameRepresentation.PlayerSettings.movementRepresentation;
-			return points
+			return points?
 				.Select(p => new OnlyWalkAction(movS, p, null))
 				.Cast<IGameAction>()
 				.ToList();

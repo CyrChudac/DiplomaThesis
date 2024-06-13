@@ -9,14 +9,14 @@ using System.Text;
 using UnityEngine;
 
 namespace GameCreatingCore.GamePathing {
-	internal class FullGamePather : IGamePathSolver{
+	public class FullGamePather : IGamePathSolver {
 		readonly float viewconeLengthModifier;
 		readonly int innerViewconeRayCount;
 		readonly float viewconesGraphDistances;
 		readonly float timestepSize;
 		readonly float maximumLevelTime;
 		readonly int skillUsePointsCount;
-		public FullGamePather(float viewconeLengthModifier, int innerViewconeRayCount, 
+		public FullGamePather(float viewconeLengthModifier, int innerViewconeRayCount,
 			float viewconesGraphDistances, float timestepSize, float maximumLevelTime, int skillUsePointsCount) {
 
 			this.viewconeLengthModifier = viewconeLengthModifier;
@@ -28,46 +28,53 @@ namespace GameCreatingCore.GamePathing {
 		}
 
 		public List<IGameAction>? GetPath(
-			StaticGameRepresentation staticGameRepresentation, 
+			StaticGameRepresentation staticGameRepresentation,
 			LevelRepresentation levelRepresentation) {
 
-			
+			var pathCheck = new NoEnemyGamePather(true).GetPath(staticGameRepresentation, levelRepresentation);
+			//if there is no path, return null
+			if(pathCheck == null 
+				//if there are no enemies, we can just return the path
+				|| levelRepresentation.Enemies.Count == 0) {
+				return pathCheck;
+			}
+
 			var staticGraph = new StaticNavGraph(levelRepresentation.Obstacles,
 				levelRepresentation.OuterObstacle,
 				levelRepresentation.Goal,
-				false);
+				false)
+				.Initialized();
 			var viewGraph = new ViewconeNavGraph(levelRepresentation, staticGraph, staticGameRepresentation,
 				innerViewconeRayCount, viewconesGraphDistances, skillUsePointsCount);
-			var initLevel = GetInitialLevelState(levelRepresentation);
+			var initLevel = LevelState.GetInitialLevelState(levelRepresentation, viewconeLengthModifier);
 
 			var playerMovementSettings = staticGameRepresentation.PlayerSettings.movementRepresentation;
 
-			var simulator = new GameSimulator(staticGameRepresentation)
-				.Initialized(initLevel, staticGraph, levelRepresentation);
-			PriorityQueue<float, (float Time, LevelState state)> que 
-				= new PriorityQueue<float, (float Time, LevelState state)>();
-			que.Enqueue(0, (0, initLevel));
+			var simulator = new GameSimulator(staticGameRepresentation, levelRepresentation)
+				.Initialized(initLevel, staticGraph);
+			PriorityQueue<float, StateNode> que = new PriorityQueue<float, StateNode>();
+			que.Enqueue(0, new StateNode(initLevel, null, 0, new List<IGameAction>()));
 			while(que.Any()) {
-				var currPair = que.DequeueMin();
-				if(Vector2.SqrMagnitude(currPair.state.playerState.Position - levelRepresentation.Goal.Position) 
+				var currNode = que.DequeueMin();
+				if(Vector2.SqrMagnitude(currNode.State.playerState.Position - levelRepresentation.Goal.Position)
 					< levelRepresentation.Goal.Radius * levelRepresentation.Goal.Radius) {
-					//TODO: we found out the winnning actions, how to trace them back though?
+					return GetActionsPath(currNode);
 				}
-				var newTime = currPair.Time + timestepSize;
+				var newTime = currNode.Time + timestepSize;
 				if(newTime > maximumLevelTime)
-					continue;
-				var currGraph = viewGraph.GetScoredNavGraph(currPair.state);
-				var actions = GetActionPaths(currGraph, staticGraph, 
-					playerMovementSettings, currPair.state.playerState.Position);
+					break;
+				var currGraph = viewGraph.GetScoredNavGraph(currNode.State);
+				var actions = GetPossibleActions(currGraph, staticGraph,
+					playerMovementSettings, currNode.State.playerState.Position);
 				foreach(var a in actions) {
 					var newState = simulator.Simulate(
-						new LevelStateTimed(currPair.state, timestepSize), 
-						levelRepresentation, 
-						viewGraph, 
+						new LevelStateTimed(currNode.State, timestepSize),
+						viewGraph,
 						a);
 					//TODO: is this the way to calculate score? not sure
-					var score = newTime + Vector2.Distance(newState.playerState.Position, levelRepresentation.Goal.Position);
-					que.Enqueue(score, (newTime, newState));
+					var score = newTime * playerMovementSettings.WalkSpeed + 
+						Vector2.Distance(newState.playerState.Position, levelRepresentation.Goal.Position);
+					que.Enqueue(score, new StateNode(newState, currNode, newTime, a));
 				}
 			}
 			//there is always an action (unless the player cannot move at all)...
@@ -76,12 +83,53 @@ namespace GameCreatingCore.GamePathing {
 			return null;
 		}
 
-		List<List<IGameAction>> GetActionPaths(GraphWithViewcones graph, StaticNavGraph navGraph, 
+		class StateNode {
+			public LevelState State { get; }
+			public StateNode? Previous { get; }
+			public float Time { get; }
+			public List<IGameAction> Actions { get; }
+
+			public StateNode(LevelState state, StateNode? previous, float time, List<IGameAction> actions) {
+				State = state;
+				Previous = previous;
+				Time = time;
+				Actions = actions;
+			}
+		}
+
+		List<IGameAction> GetActionsPath(StateNode? finalNode){
+			List<StateNode> nodes = new List<StateNode>();
+			int iterations = 0;
+			while(finalNode != null) {
+				nodes.Add(finalNode);
+				finalNode = finalNode.Previous;
+                if(iterations++ > 1000)
+                    throw new Exception("Possible infinite loop, investigate.");
+			}
+			nodes.Reverse();
+			List<IGameAction> result = new List<IGameAction>();
+			for(int i = 1; i < nodes.Count; i++) {
+				var timeStep = nodes[i].Time - nodes[i - 1].Time;
+				//those are all player actions, so we can chain them.
+				var chainedAction = new ChainedAction(nodes[i].Actions);
+				result.Add(new TimeRestrictedAction(chainedAction, timeStep));
+			}
+			return result;
+		}
+
+
+		List<List<IGameAction>> GetPossibleActions(GraphWithViewcones graph, StaticNavGraph navGraph, 
 			MovementSettingsProcessed playerMovement, Vector2 from) {
+
+			var viewconesAsObsts = graph.Viewcones
+				.Select(v => v.Nodes.Select(n => n.Position).ToList())
+				.ToList();
+
 			var straight = new List<(float, ScoredActionedNode)>();
 
 			foreach(var v in graph.vertices) {
-				if(navGraph.CanPlayerGetToStraight(from, v.Position)){
+				if(navGraph.CanPlayerGetToStraight(from, v.Position)
+					&& navGraph.CanGetToStraight(from, v.Position, viewconesAsObsts)){
 					var dist = Vector2.Distance(from, v.Position);
 					straight.Add((dist, v));
 				}
@@ -90,32 +138,22 @@ namespace GameCreatingCore.GamePathing {
 			foreach(var node in straight.OrderBy(p => p.Item1 + p.Item2.Score).Select(p => p.Item2)) {
 				var list = new List<IGameAction>();
 				ScoredActionedNode? n = node;
+				int counter = 0;
 				while(n != null) {
 					list.Add(new OnlyWalkAction(playerMovement, n.Position, null, false));
 					if(n.NodeAction != null) {
 						list.Add(n.NodeAction);
 					}
 					n = (ScoredActionedNode?)node.Previous;
+					counter++;
+					if(counter > graph.vertices.Count) {
+						Console.WriteLine($"Nonfunctional path finding with {nameof(FullGamePather)}.");
+						break;
+					}
 				}
 				result.Add(list);
 			}
 			return result;
-		}
-
-
-		LevelState GetInitialLevelState(LevelRepresentation levelRepresentation) {
-
-			List<EnemyState> enemies = levelRepresentation.Enemies
-				.Select(e => new EnemyState(e.Position, e.Rotation, null, true, false, viewconeLengthModifier, 0))
-				.ToList();
-
-			return new LevelState(
-				enemyStates: enemies,
-				playerState: new PlayerState(levelRepresentation.FriendlyStartPos, 0, 
-					levelRepresentation.SkillsStartingWith, null),
-				skillsInAction: new List<IGameAction>(),
-				Enumerable.Repeat<bool>(false, levelRepresentation.SkillsToPickup.Count).ToList()
-				);
 		}
 	}
 }

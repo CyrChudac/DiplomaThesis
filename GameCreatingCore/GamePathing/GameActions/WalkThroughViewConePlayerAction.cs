@@ -22,7 +22,7 @@ namespace GameCreatingCore.GamePathing.GameActions
             LevelStateTimed input, LevelStateTimed walkResult)
         {
 
-            throw new NotImplementedException();
+            return walkResult;
         }
     }
 }

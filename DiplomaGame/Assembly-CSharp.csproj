@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\EvolutionaryAlgo\LevelTester.cs" />
+    <Compile Include="Assets\Scripts\LevelStateDealer\GameRunner.cs" />
     <Compile Include="Assets\Scripts\PlayerProvider.cs" />
     <Compile Include="Assets\Scripts\ObstacleMaterial.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />

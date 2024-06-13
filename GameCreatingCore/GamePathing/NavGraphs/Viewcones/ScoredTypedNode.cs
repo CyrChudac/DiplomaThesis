@@ -7,7 +7,7 @@ using UnityEngine;
 namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
 {
 
-    internal class ScoredActionedNode : ScoredNode
+    public class ScoredActionedNode : ScoredNode
     {
         public IGameAction? NodeAction { get; }
         public ScoredActionedNode(float score, float previousScore, ScoredNode? previous, Vector2 value,

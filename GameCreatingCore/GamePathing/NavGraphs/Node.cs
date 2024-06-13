@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Unity.Collections;
 using UnityEngine;
 
 namespace GameCreatingCore.GamePathing.NavGraphs {
@@ -17,5 +18,13 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
             res = $"<{res[1..(res.Length-1)]}>";
             return res ;
         }
-    }
+
+		public override int GetHashCode() {
+			return Position.GetHashCode();
+		}
+
+        public override bool Equals(object obj) { 
+            return obj != null && obj is Node && ((Node)obj).Position.Equals(Position);
+        }
+	}
 }

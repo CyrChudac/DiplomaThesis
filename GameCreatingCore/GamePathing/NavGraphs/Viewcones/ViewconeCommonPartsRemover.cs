@@ -21,7 +21,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
         /// </summary>
         /// <param name="secondOut">The function can also change the shape of the 
         /// <paramref name="secondIn"/> paramter. This change will be outputed here.</param>
-        private ViewconeGraph CutOffCommonParts(ViewconeGraph firstIn, ViewconeGraph secondIn,
+        public ViewconeGraph CutOffCommonParts(ViewconeGraph firstIn, ViewconeGraph secondIn,
             out ViewconeGraph secondOut)
         {
 
@@ -46,7 +46,6 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                             preFirst--;
                             if (preFirst < 0)
                             { //only happens if the whole first viewcone is within the other one
-                                secondOut = null;
                                 return new ViewconeGraph(new List<ViewNode>(),
                                     new List<Edge<ViewNode, ViewMidEdgeInfo>>(), result.Viewcone);
                             }
@@ -57,7 +56,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                     do
                     {
                         i++;
-                        if (i == vertices.Count)
+                        if (i >= vertices.Count)
                         {
                             break;
                         }

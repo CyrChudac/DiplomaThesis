@@ -26,6 +26,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs
 
             ScoredNode? final = null;
             List<Vector2> seen = new List<Vector2>();
+            int iterations = 0;
             while(que.Any()) { //similar to the algo in ComputeScoredNavGraph function, also same notes
                 (var curr, var currPre) = que.DequeueMin();
                 var score = curr.Score;
@@ -35,6 +36,8 @@ namespace GameCreatingCore.GamePathing.NavGraphs
                 }
                 if(seen.Contains(curr.Position))
                     continue;
+                if(iterations++ > g.vertices.Count + 5)
+                    throw new Exception("Possible infinite loop, investigate.");
                 var outEdges = g.GetOutEdges(currPre);
                 foreach(var (second, edgeInfo) in outEdges) {
                     var next = new ScoredNode(score + edgeInfo.Score, score, curr, second.Position);
@@ -92,9 +95,12 @@ namespace GameCreatingCore.GamePathing.NavGraphs
                 throw new InvalidConstraintException("Path reconstruction not possible");
             }
             List<Vector2> result = new List<Vector2>();
+            int iterations = 0;
             while(node != null) {
                 result.Add(node.Position);
                 node = node.Previous;
+                if(iterations++ > 1000)
+                    throw new Exception("Possible infinite loop, investigate.");
             }
             return result;
         }

@@ -75,7 +75,7 @@ namespace GameCreatingCore.GamePathing.GameActions
                 pos = input.playerState.Position;
                 currRotation = input.playerState.Rotation;
             }
-            var angle = AngleTowards(pos, position);
+            var angle = Vector2Utils.AngleTowards(pos, position);
 
             var side = ComputeTurnDirection(turnSide, currRotation, angle);
 
@@ -125,8 +125,13 @@ namespace GameCreatingCore.GamePathing.GameActions
         private static TurnSideEnum ComputeTurnDirection(TurnSideEnum input, float currAngle, float desiredAngle) {
             if(input == TurnSideEnum.Clockwise || input == TurnSideEnum.Anticlockwise)
                 return input;
-            if(input == TurnSideEnum.ShortestPrefereClockwise || input != TurnSideEnum.ShortestPrefereAntiClockwise) {
-                var c = Math.Max(currAngle - desiredAngle, 360 - (desiredAngle - currAngle));
+            if(input == TurnSideEnum.ShortestPrefereClockwise || input == TurnSideEnum.ShortestPrefereAntiClockwise) {
+                float c;
+                if(currAngle > desiredAngle) {
+                    c = currAngle - desiredAngle;
+                } else {
+                    c = currAngle + 360 - desiredAngle;
+                }
                 var a = 360 - c;
                 if(a > c)
                     return TurnSideEnum.Clockwise;
@@ -140,11 +145,6 @@ namespace GameCreatingCore.GamePathing.GameActions
         }
 
         //should be computed always, the character could be moving during turning which can change the desired angle
-        /// <returns>Angle in degrees <paramref name="from"/> -> <paramref name="towards"/> 
-        /// compared to base rotation 0.</returns>
-        private static float AngleTowards(Vector2 from, Vector2 towards) {
-            return 0; //TODO: compute angle
-        }
 
         /// <summary>
         /// Looks into the <paramref name="input"/> in the skillsInAction on the unit this should turn and removes all 

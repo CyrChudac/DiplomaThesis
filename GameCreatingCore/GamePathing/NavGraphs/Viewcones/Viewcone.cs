@@ -10,14 +10,17 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
         public Vector2 StartPos { get; }
         public IReadOnlyList<Vector2> EndingPoints { get; }
         public int EnemyIndex { get; }
+        public float FullLength { get; }
         public EnemyTypeInfo EnemyTypeInfo { get; }
 
-        public Viewcone(Vector2 startPos, IReadOnlyList<Vector2> endingPoints, int enemyindex, EnemyTypeInfo enemyTypeInfo)
+        public Viewcone(Vector2 startPos, IReadOnlyList<Vector2> endingPoints, int enemyindex, 
+            EnemyTypeInfo enemyTypeInfo, float fullLength)
         {
             StartPos = startPos;
             EndingPoints = endingPoints;
             EnemyIndex = enemyindex;
             EnemyTypeInfo = enemyTypeInfo;
+            FullLength = fullLength;
         }
 
         /// <summary>
@@ -41,15 +44,17 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
         public bool CanGoFromTo(Vector2 from, Vector2 to, float theirDistance, 
             out float resultingRatio, float initialRatio = 0) {
 
-            resultingRatio = initialRatio + theirDistance/EnemyTypeInfo.AlertingDistance;
-            var length = (StartPos - EndingPoints[0]).magnitude;
-
+            resultingRatio = initialRatio + AlertingRatioIncrease(theirDistance);
+            
             var startingLen = (StartPos - from).magnitude;
             var endingLen = (StartPos - to).magnitude;
 
-            bool s = startingLen / length > initialRatio;
-            bool e = endingLen / length > resultingRatio;
+            bool s = startingLen / FullLength > initialRatio;
+            bool e = endingLen / FullLength > resultingRatio;
             return s && e;
         }
+
+        public float AlertingRatioIncrease(float walkedDistance)
+            => walkedDistance / EnemyTypeInfo.AlertingDistance;
     }
 }

@@ -8,9 +8,9 @@ namespace GameCreatingCore
 
     [System.Serializable]
 	public sealed class OnlyWalkCommand : PatrolCommand {
-		public OnlyWalkCommand(Vector2 Position, StaticGameRepresentation staticGameRepresentation, 
+		public OnlyWalkCommand(Vector2 Position, 
 			bool turnWhileMoving, TurnSideEnum turnSide) 
-			: base(Position, staticGameRepresentation, false, false, turnWhileMoving, turnSide){ }
+			: base(Position, false, false, turnWhileMoving, turnSide){ }
 
 		public override string ToString() {
 			return $"Walk: {Position}";

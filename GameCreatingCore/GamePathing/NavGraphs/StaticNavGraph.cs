@@ -44,7 +44,10 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         internal Graph<ScoredNode> PlayerStaticNavGraph
             => _playerStaticNavGraph ?? throw new InvalidOperationException();
 
-        protected bool Initialized => initialized && innerInitialized;
+        protected bool IsInitialized => initialized && innerInitialized;
+
+        public StaticNavGraph(LevelRepresentation level, bool computeEnemyNavGraph)
+            :this(level.Obstacles, level.OuterObstacle, level.Goal, computeEnemyNavGraph) { }
 
         public StaticNavGraph(List<Obstacle> obstacles, Obstacle outerObstacle, LevelGoal goal, bool computeEnemyMesh)
         {
@@ -54,11 +57,12 @@ namespace GameCreatingCore.GamePathing.NavGraphs
             computeEnemyNavMesh = computeEnemyMesh;
         }
 
-        public void Initialize()
+        public StaticNavGraph Initialized()
         {
             //this way doesn't become initialized if exception is thrown and catched
             InnerInitialize();
             initialized = true;
+            return this;
         }
 
         protected virtual void InnerInitialize()
@@ -130,11 +134,15 @@ namespace GameCreatingCore.GamePathing.NavGraphs
                     edges.Add(new Edge<ScoredNode>(n, g, dist));
                 }
             }
-            
+
+            int iterations = 0;
+
             while(que.Any()) {
                 var curr = que.DequeueMin();
                 if(seen.Contains(curr.Position))
                     continue;
+                if(iterations++ > graph.vertices.Count + 5)
+                    throw new Exception("Possible infinite loop, investigate.");
                 var score = curr.Score;
                 var outEdges = graph.GetOutEdges(curr);
                 foreach(var (second, edgeInfo) in outEdges) {
@@ -218,7 +226,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs
                     Node f = new Node(outerObstacle.Shape[i]);
                     nodes.Add(f);
                     for(int j = i+1; j < outerObstacle.Shape.Count; j++) {
-                        //different if - we want the IsInsideObstacle to be true
+                        //different if than above - we want the IsInsideObstacle to be true
                         if(CanGetToStraight(outerObstacle.Shape[i], outerObstacle.Shape[j], consideredObsts) 
                             && IsInsideObstacle(outerObstacle.Shape[i], outerObstacle.Shape[j], outerObstacle)) {
                             Node s = new Node(outerObstacle.Shape[j]);

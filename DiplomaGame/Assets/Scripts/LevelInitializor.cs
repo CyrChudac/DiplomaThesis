@@ -92,10 +92,10 @@ public class LevelInitializor : MonoBehaviour
         var mr = go.AddComponent<MeshRenderer>();
 
         var mater = materials
-            ?.Where(m => m.FriendlyWalkEffect == obstacle.FriendlyWalkEffect &&
-                 m.EnemyWalkEffect == obstacle.EnemyWalkEffect &&
-                 m.FriendlyVision == obstacle.FriendlyVisionEffect &&
-                 m.EnemyVision == obstacle.EnemyVisionEffect)
+            ?.Where(m => m.FriendlyWalkEffect == obstacle.Effects.FriendlyWalkEffect &&
+                 m.EnemyWalkEffect == obstacle.Effects.EnemyWalkEffect &&
+                 m.FriendlyVision == obstacle.Effects.FriendlyVisionEffect &&
+                 m.EnemyVision == obstacle.Effects.EnemyVisionEffect)
             .FirstOrDefault();
         mr.material = mater?.Material ?? defaultMaterial;
         for(int i = 0; i < obstacle.Shape.Count; i++) {
@@ -112,17 +112,17 @@ public class LevelInitializor : MonoBehaviour
     void AddObstacleEffects(Obstacle obstacle, GameObject go, 
         System.Func<GameObject, PolygonCollider2D> pcFun) {
 
-        if(obstacle.FriendlyVisionEffect == VisionObstacleEffect.NonSeeThrough) {
+        if(obstacle.Effects.FriendlyVisionEffect == VisionObstacleEffect.NonSeeThrough) {
             GetCollidingGameObject(pcFun, go.transform, "FriendlySee");
         }
-        if(obstacle.EnemyVisionEffect == VisionObstacleEffect.NonSeeThrough) {
+        if(obstacle.Effects.EnemyVisionEffect == VisionObstacleEffect.NonSeeThrough) {
             GetCollidingGameObject(pcFun, go.transform, "EnemySee");
         }
-        if(obstacle.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable) {
+        if(obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable) {
             var ch = GetCollidingGameObject(pcFun, go.transform, "FriendlyWalk");
             AddToNavmesh(ch);
         }
-        if(obstacle.EnemyWalkEffect == WalkObstacleEffect.Unwalkable) {
+        if(obstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable) {
             var ch = GetCollidingGameObject(pcFun, go.transform, "EnemyWalk");
             AddToNavmesh(ch);
         }

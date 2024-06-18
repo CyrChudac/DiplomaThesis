@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 
 namespace GameCreatingCore.GamePathing.NavGraphs {
-	internal static class ObstaclesInflator {
+	public static class ObstaclesInflator {
 
 		public static LevelRepresentation InflateAllInLevel(LevelRepresentation levelRepresentation, 
 			StaticMovementSettingsProcessed movSet) {

@@ -65,20 +65,19 @@
     <Compile Include="Assets\Scripts\PlayerProvider.cs" />
     <Compile Include="Assets\Scripts\ObstacleMaterial.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\EvolutionaryAlgo\DebugLogWriter.cs" />
     <Compile Include="Assets\Scripts\UnityObstacle.cs" />
     <Compile Include="Assets\Scripts\UnityLevelRepresentation.cs" />
+    <Compile Include="Assets\Scripts\AngleDirectionTester.cs" />
     <Compile Include="Assets\Scripts\EnemyWithPropsProvider.cs" />
     <Compile Include="Assets\Scripts\UnityStaticGameRepresentation.cs" />
     <Compile Include="Assets\Scripts\LevelScriptableObjProvider.cs" />
     <Compile Include="Assets\Scripts\NavMeshSettings.cs" />
-    <Compile Include="Assets\Scripts\EnemyPathController.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyAlarmController.cs" />
     <Compile Include="Assets\Scripts\LevelProviderDummy.cs" />
-    <Compile Include="Assets\Scripts\LevelCreatorProvider.cs" />
     <Compile Include="Assets\EvolutionaryAlgo\PlayGroundBounds.cs" />
     <Compile Include="Assets\Scripts\HumanPlayerController.cs" />
-    <Compile Include="Assets\Scripts\PathedGameObject.cs" />
     <Compile Include="Assets\Scripts\EnemyDummyProvider.cs" />
     <Compile Include="Assets\EvolutionaryAlgo\EnemyMutator.cs" />
     <Compile Include="Assets\Scripts\RotationManager.cs" />
@@ -89,12 +88,12 @@
     <Compile Include="Assets\EvolutionaryAlgo\EvolAlgoUtils.cs" />
     <Compile Include="Assets\Scripts\EnemyProvider.cs" />
     <Compile Include="Assets\Scripts\LevelInitializor.cs" />
-    <Compile Include="Assets\Scripts\DebugLogWriter.cs" />
     <Compile Include="Assets\Scripts\ViewconeCreator.cs" />
+    <Compile Include="Assets\Scripts\LevelProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\EvolutionaryAlgo\Base\EvolAlgoBase.dll" />
     <None Include="Assets\GameCreationCore\GameCreatingCore.dll" />
+    <None Include="Assets\EvolutionaryAlgo\Base\EvolAlgoBase.dll" />
     <None Include="Assets\Resources\ObstacleMaterials\Custom-lit-shader.shader" />
   </ItemGroup>
   <ItemGroup>

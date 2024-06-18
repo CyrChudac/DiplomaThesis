@@ -10,11 +10,9 @@ using UnityEngine.AI;
 public class LevelInitializor : MonoBehaviour
 {
     [SerializeField]
-    private LevelCreatorProvider levelProvider;
+    private GameRunner gameRunner;
     [SerializeField]
     private EnemyProvider enemyProvider;
-    [SerializeField]
-    private bool vocal = true;
     [SerializeField]
     private List<ObstacleMaterial> materials;
     [SerializeField]
@@ -35,10 +33,7 @@ public class LevelInitializor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int seed = Random.Range(0, int.MaxValue);
-        if(vocal)
-            Debug.Log($"Initializing level using seed " + seed);
-        var lr = levelProvider.GetLevelCreator().CreateLevel(seed);
+        var lr = gameRunner.levelProvider.GetLevel();
         foreach(var o in lr.Obstacles) {
             CreateObstacle(o, false);
         }
@@ -68,7 +63,7 @@ public class LevelInitializor : MonoBehaviour
 
     void CreateEnemies(IEnumerable<Enemy> enemies) {
         foreach(var e in enemies) {
-            var go = enemyProvider.GetEnemy(e.Type, e.Path);
+            var go = enemyProvider.GetEnemy(e.Type);
             go.transform.position = e.Position;
             go.transform.rotation = Quaternion.Euler(0, 0, e.Rotation);
         }

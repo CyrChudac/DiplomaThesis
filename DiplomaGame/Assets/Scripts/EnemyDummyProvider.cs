@@ -6,10 +6,9 @@ using UnityEngine;
 public class EnemyDummyProvider : EnemyProvider
 {
 	[SerializeField]
-	private PathedGameObject enemy;
-	public override PathedGameObject GetEnemy(EnemyType type, Path path) {
+	private EnemyController enemy;
+	public override EnemyController GetEnemy(EnemyType type) {
 		var result = Instantiate(enemy);
-		result.SetPath(path);
 		return result;
 	}
 }

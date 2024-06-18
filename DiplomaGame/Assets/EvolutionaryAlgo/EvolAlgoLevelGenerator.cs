@@ -247,7 +247,7 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 .Select(p => p.Commands)
                 .SelectMany(x => x)
                 .Select(c => c.Position))
-                .ToList();
+            .ToList();
 
         List<Vector2> playerPositions = Enumerable.Empty<Vector2>()
             .Append(ind.FriendlyStartPos)

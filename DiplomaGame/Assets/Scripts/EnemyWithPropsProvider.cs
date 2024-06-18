@@ -11,28 +11,22 @@ public class EnemyWithPropsProvider : EnemyProvider
     private GameController gameController;
 	[SerializeField]
 	private EnemyController enemyPrefab;
+	[SerializeField]
+	private GameRunner gameRunner;
 
 	//TODO: add alert behaviour settings
-	public override PathedGameObject GetEnemy(EnemyType type, Path path) {
+	public override EnemyController GetEnemy(EnemyType type) {
 		var settings = gameController.GetStaticGameRepr().GetEnemySettings(type);
 		var e = Instantiate(enemyPrefab);
-		e.SetPath(path);
-		SetMovementSettings(e, settings.movementRepresentation);
 		SetViewconeSettings(e, settings.viewconeRepresentation);
+		gameRunner.enemies.Add(e);
 		return e;
 	}
 
-	private void SetMovementSettings(EnemyController e, MovementSettingsProcessed movementRepr) {
-		var na = e.GetComponentInChildren<NavMeshAgent>();
-		na.speed = movementRepr.WalkSpeed;
-	}
-
 	private void SetViewconeSettings(EnemyController e, ViewconeRepresentation viewRepr) {
-		var vc = e.GetComponentInChildren<ViewconeCreator>();
+		var vc = e.viewcone;
 		vc.SetViewAngle(viewRepr.Angle);
 		vc.viewLength = viewRepr.Length;
-		var rm = e.GetComponentInChildren<RotationManager>();
-		rm.angleDeviation = viewRepr.WiggleAngle;
-		rm.deviationTime = viewRepr.WiggleTime;
+		vc.timeUntilFullView = viewRepr.AlertingTimeModifier * gameController.GameDifficulty;
 	}
 }

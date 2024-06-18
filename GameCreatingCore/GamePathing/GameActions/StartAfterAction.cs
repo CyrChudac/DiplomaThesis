@@ -11,16 +11,19 @@ namespace GameCreatingCore.GamePathing.GameActions {
 		private readonly float _waitTime;
 		private float _usedTime = 0;
 		private bool _waitingDone = false;
+		private bool _waitMakesCharacterBusy;
 
-		public StartAfterAction(IGameAction action, float waitTime) {
+		public StartAfterAction(IGameAction action, float waitTime, bool waitMakesCharacterBusy) {
 			_action = action;
 			_waitTime = waitTime;
+			_waitMakesCharacterBusy = waitMakesCharacterBusy;
 		}
 
 		public StartAfterAction(int? enemyIndex, float waitTime)
-			:this(new EmptyAction(enemyIndex), waitTime) { }
+			:this(new EmptyAction(enemyIndex), waitTime, true) { }
 
-		public bool IsIndependentOfCharacter => _action.IsIndependentOfCharacter;
+		public bool IsIndependentOfCharacter 
+			=> (!_waitMakesCharacterBusy) || (_waitingDone && _action.IsIndependentOfCharacter);
 
 		public bool Done => _waitingDone && _action.Done;
 

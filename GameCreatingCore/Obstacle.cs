@@ -119,7 +119,7 @@ namespace GameCreatingCore {
 						isInPolygon = !isInPolygon;
 					if( testPoint.y == vertex.y && testPoint.x < vertex.x && lastVertex.y > testPoint.y ) 
 						isInPolygon = !isInPolygon;
-					if(testPoint.y == lastVertex.y && testPoint.y == vertex.y && IsBetween(testPoint.x, vertex.x, lastVertex.y))
+					if(testPoint.y == lastVertex.y && testPoint.y == vertex.y && IsBetween(testPoint.x, vertex.x, lastVertex.x))
 						return true;
 				}
 

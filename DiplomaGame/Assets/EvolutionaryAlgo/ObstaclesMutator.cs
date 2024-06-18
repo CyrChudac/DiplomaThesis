@@ -95,6 +95,7 @@ public class ObstaclesMutator : MonoBehaviour
 
     private bool ContainsWhatItShouldnt(Obstacle o, ICollection<Vector2> enemyPositions,
         ICollection<Vector2> playerPositions) {
+        //TODO: o = Inflate(o);
         return (o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.Any(ep => o.ContainsPoint(ep)))
             || (o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.Any(ep => o.ContainsPoint(ep)));
     }

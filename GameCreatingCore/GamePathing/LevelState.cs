@@ -54,7 +54,7 @@ namespace GameCreatingCore.GamePathing
 		}
 
 		
-		public static LevelState GetInitialLevelState(LevelRepresentation levelRepresentation, float viewconeLengthModifier) {
+		public static LevelState GetInitialLevelState(LevelRepresentation levelRepresentation) {
 
 			List<EnemyState> enemies = levelRepresentation.Enemies
 				.Select(e => new EnemyState(
@@ -63,7 +63,7 @@ namespace GameCreatingCore.GamePathing
 					performingAction: null,
 					alive: true,
 					alerted: false,
-					viewconeAlertLengthModifier: viewconeLengthModifier, 
+					viewconeAlertLengthModifier: 0, 
 					timeOfPlayerInView: 0, 
 					pathIndex: (e.Path != null && e.Path.Commands.Count > 0) ? (int?)0 : null))
 				.ToList();

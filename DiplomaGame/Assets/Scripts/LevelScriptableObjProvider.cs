@@ -4,8 +4,9 @@ using UnityEngine;
 using GameCreatingCore;
 using UnityEditor;
 using System.Linq;
+using UnityEngine.SocialPlatforms;
 
-public class LevelScriptableObjProvider : LevelCreatorProvider, ILevelCreator
+public class LevelScriptableObjProvider : LevelProvider
 {
 	[SerializeField]
 	private string FolderOrFilePath;
@@ -13,11 +14,14 @@ public class LevelScriptableObjProvider : LevelCreatorProvider, ILevelCreator
 	[SerializeField]
 	private string specificFile = "";
 	private readonly string outerDirectory = "Assets/Resources/";
-	public override ILevelCreator GetLevelCreator() {
-		return this;
-	}
-
-	public LevelRepresentation CreateLevel(int seed) {
+	[SerializeField]
+	private int seed = 42;
+    [SerializeField]
+    private bool vocal = true;
+	protected override LevelRepresentation GetLevelInner() { 
+        int seed = Random.Range(0, int.MaxValue);
+        if(vocal)
+            Debug.Log($"Initializing level using seed " + seed);
 		var r = new System.Random(seed);
 		UnityLevelRepresentation res;
 		if(AssetDatabase.IsValidFolder($"{outerDirectory}{FolderOrFilePath}")) {

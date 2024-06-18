@@ -10,16 +10,14 @@ using UnityEngine;
 
 namespace GameCreatingCore.GamePathing {
 	public class FullGamePather : IGamePathSolver {
-		readonly float viewconeLengthModifier;
 		readonly int innerViewconeRayCount;
 		readonly float viewconesGraphDistances;
 		readonly float timestepSize;
 		readonly float maximumLevelTime;
 		readonly int skillUsePointsCount;
-		public FullGamePather(float viewconeLengthModifier, int innerViewconeRayCount,
+		public FullGamePather(int innerViewconeRayCount,
 			float viewconesGraphDistances, float timestepSize, float maximumLevelTime, int skillUsePointsCount) {
 
-			this.viewconeLengthModifier = viewconeLengthModifier;
 			this.innerViewconeRayCount = innerViewconeRayCount;
 			this.viewconesGraphDistances = viewconesGraphDistances;
 			this.timestepSize = timestepSize;
@@ -42,11 +40,11 @@ namespace GameCreatingCore.GamePathing {
 			var staticGraph = new StaticNavGraph(levelRepresentation.Obstacles,
 				levelRepresentation.OuterObstacle,
 				levelRepresentation.Goal,
-				false)
+				true)
 				.Initialized();
 			var viewGraph = new ViewconeNavGraph(levelRepresentation, staticGraph, staticGameRepresentation,
 				innerViewconeRayCount, viewconesGraphDistances, skillUsePointsCount);
-			var initLevel = LevelState.GetInitialLevelState(levelRepresentation, viewconeLengthModifier);
+			var initLevel = LevelState.GetInitialLevelState(levelRepresentation);
 
 			var playerMovementSettings = staticGameRepresentation.PlayerSettings.movementRepresentation;
 
@@ -54,28 +52,34 @@ namespace GameCreatingCore.GamePathing {
 				.Initialized(initLevel, staticGraph);
 			PriorityQueue<float, StateNode> que = new PriorityQueue<float, StateNode>();
 			que.Enqueue(0, new StateNode(initLevel, null, 0, new List<IGameAction>()));
+			int iterations = 0;
 			while(que.Any()) {
 				var currNode = que.DequeueMin();
-				if(Vector2.SqrMagnitude(currNode.State.playerState.Position - levelRepresentation.Goal.Position)
-					< levelRepresentation.Goal.Radius * levelRepresentation.Goal.Radius) {
-					return GetActionsPath(currNode);
+				try {
+					if(Vector2.SqrMagnitude(currNode.State.playerState.Position - levelRepresentation.Goal.Position)
+						< levelRepresentation.Goal.Radius * levelRepresentation.Goal.Radius) {
+						return GetActionsPath(currNode);
+					}
+					var newTime = currNode.Time + timestepSize;
+					if(newTime > maximumLevelTime)
+						break;
+					var currGraph = viewGraph.GetScoredNavGraph(currNode.State);
+					var actions = GetPossibleActions(currGraph, staticGraph,
+						playerMovementSettings, currNode.State.playerState.Position);
+					foreach(var a in actions) {
+						var newState = simulator.Simulate(
+							new LevelStateTimed(currNode.State, timestepSize),
+							viewGraph,
+							a);
+						//TODO: is this the way to calculate score? not sure
+						var score = newTime * playerMovementSettings.WalkSpeed +
+							Vector2.Distance(newState.playerState.Position, levelRepresentation.Goal.Position);
+						que.Enqueue(score, new StateNode(newState, currNode, newTime, a));
+					}
+				}catch(Exception e) {
+					throw new Exception($"An exception was thrown during simulation on time {currNode.Time} and iteration {iterations}.", e);
 				}
-				var newTime = currNode.Time + timestepSize;
-				if(newTime > maximumLevelTime)
-					break;
-				var currGraph = viewGraph.GetScoredNavGraph(currNode.State);
-				var actions = GetPossibleActions(currGraph, staticGraph,
-					playerMovementSettings, currNode.State.playerState.Position);
-				foreach(var a in actions) {
-					var newState = simulator.Simulate(
-						new LevelStateTimed(currNode.State, timestepSize),
-						viewGraph,
-						a);
-					//TODO: is this the way to calculate score? not sure
-					var score = newTime * playerMovementSettings.WalkSpeed + 
-						Vector2.Distance(newState.playerState.Position, levelRepresentation.Goal.Position);
-					que.Enqueue(score, new StateNode(newState, currNode, newTime, a));
-				}
+				iterations++;
 			}
 			//there is always an action (unless the player cannot move at all)...
 			//the only way this happens is when maximum level time

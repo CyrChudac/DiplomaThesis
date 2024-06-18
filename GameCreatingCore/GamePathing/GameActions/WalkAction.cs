@@ -10,7 +10,9 @@ using UnityEngine.Windows;
 
 namespace GameCreatingCore.GamePathing.GameActions
 {
-
+    /// <summary>
+    /// Use WalkAlongPath to walk.
+    /// </summary>
     public abstract class WalkAction : IGameAction
     {
         protected Vector2 Position { get; }
@@ -51,10 +53,8 @@ namespace GameCreatingCore.GamePathing.GameActions
             } else {
                 res = Walk(input.enemyStates[EnemyIndex!.Value].Position, 
                     Position, input.Time, MovementSettings, Running);
-                var enems = new List<EnemyState>(input.enemyStates);
-                enems[EnemyIndex.Value] = enems[EnemyIndex.Value].Change(position: res.Pos);
                 result = InnerWalkingProceed(input,
-                    new LevelStateTimed(input.Change(enemyStates: enems), res.LeftoverTime));
+                    new LevelStateTimed(input.ChangeEnemy(EnemyIndex.Value, position: res.Pos), res.LeftoverTime));
             }
             
             _done = res.LeftoverWalkTime == 0;

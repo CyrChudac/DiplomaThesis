@@ -9,10 +9,13 @@ public class PlayerProvider : MonoBehaviour
     private HumanPlayerController playerController;
     [SerializeField]
     private GameController gameController;
+    [SerializeField]
+    private GameRunner gameRunner;
 
     public HumanPlayerController GetPlayer() {
         var p = Instantiate(playerController);
         var ag = p.GetComponentInChildren<NavMeshAgent>();
+        gameRunner.player = p.gameObject;
         ag.speed = gameController.GetStaticGameRepr().PlayerSettings.movementRepresentation.WalkSpeed;
         return p;
     }

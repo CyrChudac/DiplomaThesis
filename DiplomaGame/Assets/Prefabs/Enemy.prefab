@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 858460303528151453}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.438, y: 0, z: 0}
+  m_LocalPosition: {x: -0.121, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42,12 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5987734815230318492}
-  - component: {fileID: 2664595685110336240}
-  - component: {fileID: 1718143125437030800}
-  - component: {fileID: 5115669557035703279}
-  - component: {fileID: 9211056737779484393}
-  - component: {fileID: 9028351246512727171}
-  - component: {fileID: 4510808684876656352}
+  - component: {fileID: 5939875944900721096}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -72,42 +67,7 @@ Transform:
   - {fileID: 9067004154061542089}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2664595685110336240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479259134815098575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 504a1944a02675644a3e071b9024b440, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationManager: {fileID: 4510808684876656352}
---- !u!195 &1718143125437030800
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479259134815098575}
-  m_Enabled: 1
-  m_AgentTypeID: -1372625422
-  m_Radius: 0.5
-  m_Speed: 1
-  m_Acceleration: 100
-  avoidancePriority: 50
-  m_AngularSpeed: 200
-  m_StoppingDistance: 0.06
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
---- !u!114 &5115669557035703279
+--- !u!114 &5939875944900721096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,52 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91222bd41473534684dc2f9baa1f813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathController: {fileID: 9211056737779484393}
-  alarmController: {fileID: 9028351246512727171}
-  agent: {fileID: 2664595685110336240}
---- !u!114 &9211056737779484393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479259134815098575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2198e6aa414f6db4bb4a16c312bb85f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 2664595685110336240}
---- !u!114 &9028351246512727171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479259134815098575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61b37a06f57a79e47bfb9cae70bdc44b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4510808684876656352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479259134815098575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f1e30c600b180b49920defcdfd63d57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 1479259134815098575}
-  angleCorrection: -90
-  angleDeviation: 0
-  deviationTime: 0.05
-  beforeDeviationSleep: 0
-  rotationSpeed: 0.6
+  viewcone: {fileID: 5690233888331392962}
 --- !u!1 &1548905978123516542
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +107,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.32, y: 0, z: 0}
-  m_LocalScale: {x: 0.172, y: 0.172, z: 0}
+  m_LocalScale: {x: -0.172, y: 0.172, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6453472109901826832}
@@ -275,8 +190,8 @@ Transform:
   m_GameObject: {fileID: 3461135495422303613}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.29799998, y: 0, z: 0}
-  m_LocalScale: {x: 0.16, y: 0.16, z: 0}
+  m_LocalPosition: {x: -0.339, y: 0, z: 0}
+  m_LocalScale: {x: -0.16, y: 0.16, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6453472109901826832}
@@ -443,7 +358,7 @@ Transform:
   m_GameObject: {fileID: 7259616278588510301}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalPosition: {x: -0.453, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -486,7 +401,7 @@ MonoBehaviour:
   onSeen:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5115669557035703279}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnemyController, Assembly-CSharp
         m_MethodName: OnSuspicionSeen
         m_Mode: 0
@@ -501,7 +416,7 @@ MonoBehaviour:
   onCaught:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5115669557035703279}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnemyController, Assembly-CSharp
         m_MethodName: OnAlerted
         m_Mode: 0
@@ -516,7 +431,7 @@ MonoBehaviour:
   onNotSeenAnymore:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5115669557035703279}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnemyController, Assembly-CSharp
         m_MethodName: OnSuspicionUnSeen
         m_Mode: 1
@@ -531,7 +446,7 @@ MonoBehaviour:
   onNoLongerCaught:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5115669557035703279}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnemyController, Assembly-CSharp
         m_MethodName: OnAlertTargetOutOfSight
         m_Mode: 1

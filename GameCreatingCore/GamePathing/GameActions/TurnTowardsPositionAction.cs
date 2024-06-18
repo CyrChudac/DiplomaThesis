@@ -38,6 +38,9 @@ namespace GameCreatingCore.GamePathing.GameActions
 
         public bool IsCancelable => true;
 
+        private bool started = false;
+        private bool shouldTurn = true;
+
         public LevelStateTimed CharacterActionPhase(LevelStateTimed input)
         {
             if (IsIndependentOfCharacter)
@@ -46,9 +49,7 @@ namespace GameCreatingCore.GamePathing.GameActions
             }
             else
             {
-                var res = Turn(input);
-                _done = res.Time > 0;
-                return res;
+                return TurnAndManage(input);
             }
         }
 
@@ -56,12 +57,24 @@ namespace GameCreatingCore.GamePathing.GameActions
         {
             if (IsIndependentOfCharacter)
             {
-                var res = Turn(input);
-                _done = res.Time > 0;
-                return res;
+                return TurnAndManage(input);
             }
             else
                 return input;
+        }
+
+        private LevelStateTimed TurnAndManage(LevelStateTimed input) {
+            if(!started) {
+                started = true;
+                shouldTurn = RemoveLowerPriorityTurning(input, out input);
+            }
+            if(!shouldTurn) {
+                _done = true;
+                return input;
+            }
+            var res = Turn(input);
+            _done = res.Time > 0;
+            return res;
         }
 
         private LevelStateTimed Turn(LevelStateTimed input)
@@ -75,35 +88,39 @@ namespace GameCreatingCore.GamePathing.GameActions
                 pos = input.playerState.Position;
                 currRotation = input.playerState.Rotation;
             }
+            if(pos == position)
+                return input;
             var angle = Vector2Utils.AngleTowards(pos, position);
 
             var side = ComputeTurnDirection(turnSide, currRotation, angle);
 
-            var angleChange = movementSettings.TurningSpeed * input.Time;
+            var maxChange = Math.Min(movementSettings.TurningSpeed * input.Time, 360);
 
             float actualChange;
 
             if(side == TurnSideEnum.Anticlockwise) {
-                currRotation = angle;
-                if(currRotation + angleChange - 360 > angle)
+                if(currRotation + maxChange - 360 > angle) {
                     actualChange = (360 - currRotation) + angle;
-                else if(angle > currRotation && angle < currRotation + angleChange) {
+                    currRotation = angle;
+                } else if(angle > currRotation && angle < currRotation + maxChange) {
                     actualChange = angle - currRotation;
+                    currRotation = angle;
                 } else {
-                    actualChange = angleChange;
-                    currRotation += angleChange;
+                    actualChange = maxChange;
+                    currRotation += maxChange;
                     currRotation %= 360;
                 }
             }else if (side == TurnSideEnum.Clockwise) {
-                currRotation = angle;
-                if(currRotation - angleChange + 360 < angle)
+                if(currRotation - maxChange + 360 < angle) {
                     actualChange = currRotation + (360 - angle);
-                else if(angle < currRotation && angle > currRotation - angleChange) {
+                    currRotation = angle;
+                } else if(angle < currRotation && angle > currRotation - maxChange) {
                     actualChange = currRotation - angle;
+                    currRotation = angle;
                 } else {
-                    actualChange = angleChange;
-                    currRotation -= angleChange;
-                    while(currRotation < 0)
+                    actualChange = maxChange;
+                    currRotation -= maxChange;
+                    if(currRotation < 0)
                         currRotation += 360;
                 }
             } else {
@@ -111,11 +128,12 @@ namespace GameCreatingCore.GamePathing.GameActions
             }
 
             float leftoverTime = input.Time - actualChange / movementSettings.TurningSpeed;
+            if(FloatEquality.Equals(leftoverTime, 0)) {
+                leftoverTime = 0;
+            }
             LevelState result;
             if(EnemyIndex.HasValue) {
-                var enems = input.enemyStates.ToList();
-                enems[EnemyIndex.Value] = enems[EnemyIndex.Value].Change(rotation: currRotation);
-                result = input.Change(enemyStates: enems);
+                result = input.ChangeEnemy(EnemyIndex.Value, rotation: currRotation);
             } else {
                 result = input.ChangePlayer(rotation: currRotation);
             }
@@ -127,7 +145,7 @@ namespace GameCreatingCore.GamePathing.GameActions
                 return input;
             if(input == TurnSideEnum.ShortestPrefereClockwise || input == TurnSideEnum.ShortestPrefereAntiClockwise) {
                 float c;
-                if(currAngle > desiredAngle) {
+                if(currAngle >= desiredAngle) {
                     c = currAngle - desiredAngle;
                 } else {
                     c = currAngle + 360 - desiredAngle;
@@ -150,20 +168,22 @@ namespace GameCreatingCore.GamePathing.GameActions
         /// Looks into the <paramref name="input"/> in the skillsInAction on the unit this should turn and removes all 
         /// instances of with lower priority than this. If any has higher, returns <paramref name="input"/> and false.
         /// </summary>
-        private (LevelStateTimed, bool) RemoveLowerPriorityTurning(LevelStateTimed input) {
+        private bool RemoveLowerPriorityTurning(LevelStateTimed input, out LevelStateTimed stateWithRemoved) {
             List<IGameAction> inAction = new List<IGameAction>();
             foreach(var p in input.skillsInAction) {
                 if(p is TurnTowardsPositionAction) {
                     TurnTowardsPositionAction ttpa = (TurnTowardsPositionAction)p;
-                    if(ttpa.Priority <= Priority)
+                    if(ttpa.Priority < Priority)
                         continue;
                     else {
-                        return (input, false);
+                        stateWithRemoved = input;
+                        return false;
                     }
                 }
                 inAction.Add(p);
             }
-            return (new LevelStateTimed(input.Change(skillsInAction: inAction), input.Time), true);
+            stateWithRemoved = new LevelStateTimed(input.Change(skillsInAction: inAction), input.Time);
+            return true;
         }
     }
 

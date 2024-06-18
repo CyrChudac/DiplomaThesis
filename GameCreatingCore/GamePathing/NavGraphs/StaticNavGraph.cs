@@ -37,11 +37,11 @@ namespace GameCreatingCore.GamePathing.NavGraphs
 
         private bool computeEnemyNavMesh;
         private Graph<Node>? _enemyNavGraph;
-        private Graph<Node> EnemyNavGraph
+        public Graph<Node> EnemyNavGraph
             => _enemyNavGraph ?? throw new InvalidOperationException();
 
         private Graph<ScoredNode>? _playerStaticNavGraph;
-        internal Graph<ScoredNode> PlayerStaticNavGraph
+        public Graph<ScoredNode> PlayerStaticNavGraph
             => _playerStaticNavGraph ?? throw new InvalidOperationException();
 
         protected bool IsInitialized => initialized && innerInitialized;
@@ -99,6 +99,8 @@ namespace GameCreatingCore.GamePathing.NavGraphs
             => PlayerObstacles.Any(o => o.ContainsPoint(vec));
         public bool CanPlayerGetToStraight(Vector2 from, Vector2 to)
             => CanGetToStraight(from, to, PlayerObstacles);
+        public bool CanPlayerGetToStraight<T>(T from, T to) where T : Node
+            => CanPlayerGetToStraight(from.Position, to.Position);
         public List<Vector2>? GetEnemylessPlayerPath(Vector2 from)
             => PlayerStaticNavGraph.GetPath(from, CanPlayerGetToStraight);
         public List<Vector2>? GetEnemylessPlayerPath(Vector2 from, Vector2 to)
@@ -244,11 +246,14 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         /// Makes sure that none of the the <paramref name="obstacles"/> block the straight path 
         /// <paramref name="from"/> -> <paramref name="to"/>.
         /// </summary>
-        public bool CanGetToStraight(Vector2 from, Vector2 to, List<Obstacle> obstacles)
+        private bool CanGetToStraight(Vector2 from, Vector2 to, List<Obstacle> obstacles)
             => CanGetToStraight(from, to, obstacles.Select(o => o.Shape));
 
+        public bool CanGetToStraight<T>(T from, T to, IEnumerable<IReadOnlyList<Vector2>> obstacles) where T : Node
+            => CanGetToStraight(from.Position, to.Position, obstacles);
+
         /// <summary>
-        /// Makes sure that none of the the <paramref name="obstacles"/> block the straight path 
+        /// Finds out if none of the the <paramref name="obstacles"/> block the straight path 
         /// <paramref name="from"/> -> <paramref name="to"/>.
         /// </summary>
         public bool CanGetToStraight(Vector2 from, Vector2 to, IEnumerable<IReadOnlyList<Vector2>> obstacles) {
@@ -269,11 +274,38 @@ namespace GameCreatingCore.GamePathing.NavGraphs
                     && shape[next] != from
                     && shape[i] != to
                     && shape[next] != to
-                    && LineIntersectionDecider.HasIntersection(from, to, shape[i], shape[next]))
+                    && LineIntersectionDecider.HasIntersection(from, to, shape[i], shape[next], false, false))
 
                     return false;
             }
             return true;
+        }
+        
+        /// <summary>
+        /// Determines whether line: <paramref name="from"/> -> <paramref name="to"/> is inside
+        /// obstacles unwalkable for player.
+        /// </summary>
+        internal bool IsLineInsidePlayerObstacle(Vector2 from, Vector2 to) {
+            return IsLineInsideAnyObstacle(from, to, PlayerObstacles);
+        }
+        internal bool IsLineInsidePlayerObstacle<T>(T from, T to) where T : Node{
+            return IsLineInsidePlayerObstacle(from.Position, to.Position);
+        }
+
+        /// <summary>
+        /// Determines whether line: <paramref name="from"/> -> <paramref name="to"/> is inside
+        /// obstacles unwalkable for enemy.
+        /// </summary>
+        internal bool IsLineInsideEnemyObstacle(Vector2 from, Vector2 to) {
+            return IsLineInsideAnyObstacle(from, to, EnemyObstacles);
+        }
+
+        private bool IsLineInsideAnyObstacle(Vector2 from, Vector2 to, List<Obstacle> obsts) {
+            foreach(var o in obsts) {
+                if(IsInsideObstacle(from, to, o))
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>

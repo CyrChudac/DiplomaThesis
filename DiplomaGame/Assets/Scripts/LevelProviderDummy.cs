@@ -5,12 +5,11 @@ using UnityEngine;
 using GameCreatingCore;
 using GameCreatingCore.StaticSettings;
 
-public class LevelProviderDummy : LevelCreatorProvider, ILevelCreator
+public class LevelProviderDummy : LevelProvider
 {
-    public override ILevelCreator GetLevelCreator() => this;
 	public UnityStaticGameRepresentation staticGameRepresentation;
 
-	public LevelRepresentation CreateLevel(int seed) {
+	protected override LevelRepresentation GetLevelInner() {
 		return new LevelRepresentation(
 			new List<Obstacle>() {
 				new Obstacle(
@@ -31,7 +30,7 @@ public class LevelProviderDummy : LevelCreatorProvider, ILevelCreator
 			new List<Enemy>() {
 				new Enemy(
 					new Vector2(17, -17),
-					0,
+					90,
 					EnemyType.Basic,
 					null),
 				new Enemy(
@@ -61,7 +60,6 @@ public class LevelProviderDummy : LevelCreatorProvider, ILevelCreator
 			new Vector2(rect.xMax, rect.y),
 			new Vector2(rect.xMax, rect.yMax),
 			new Vector2(rect.x, rect.yMax),
-			new Vector2(rect.x, rect.y),
 		};
 	}
 }

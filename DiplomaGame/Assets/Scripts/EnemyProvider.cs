@@ -5,5 +5,5 @@ using GameCreatingCore;
 
 public abstract class EnemyProvider : MonoBehaviour
 {
-	public abstract PathedGameObject GetEnemy(EnemyType type, Path? path);
+	public abstract EnemyController GetEnemy(EnemyType type);
 }

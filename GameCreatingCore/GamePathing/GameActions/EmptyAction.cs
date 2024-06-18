@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GameCreatingCore.GamePathing.GameActions {
 	public class EmptyAction : IGameAction {
-		public bool IsIndependentOfCharacter => true;
+		public bool IsIndependentOfCharacter => false;
 
 		public bool Done => true;
 

@@ -25,7 +25,7 @@ public class ViewconeCreator : ViewConeMaintainer
     public float viewLength;
     [Tooltip("In seconds")]
     [Min(0.0001f)]
-    [SerializeField] private float timeUntilFullView = 2f;
+    public float timeUntilFullView = 2f;
 
     [SerializeField] private GameObject player;
     [Tooltip("The minimal distance from the player when the viewcone is displayed.")]

@@ -13,6 +13,9 @@ public class LevelTesterEditor : Editor
      
         // Draws gizmos defined in MonoBehaviour's OnDrawGizmos
         Handles.DrawGizmos(SceneView.lastActiveSceneView.camera);
+
+        if(!(target as LevelTester).showObstacleNumbers)
+            return;
         
         GUIStyle obstCounterStyle = new GUIStyle();
         obstCounterStyle.normal.textColor = Color.white;
@@ -24,7 +27,7 @@ public class LevelTesterEditor : Editor
 
         // Handles in front of gizmos
         var t = target as LevelTester;
-        var lvl = t.testLevel.GetLevelRepresentation();
+        var lvl = t.testProvider.GetLevel();
         for(int i = 0; i < lvl.Obstacles.Count; i++) {
             var obst = lvl.Obstacles[i];
             Vector3 obstMid = Vector2.zero;

@@ -12,9 +12,11 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
 
 		private readonly Dictionary<N, Dictionary<N, EDGE_INFO?>>? edgesDict;
 
+		public readonly bool AreEdgesComputed;
+
         public Graph(IReadOnlyList<N> vertices, IReadOnlyList<Edge<N, EDGE_INFO>> edges, bool computeEdgesDict){
-            this.vertices = vertices;
-            this.edges = edges;
+            this.vertices = new List<N>(vertices);
+            this.edges = new List<Edge<N, EDGE_INFO>>(edges);
 
 			if(computeEdgesDict) {
 				edgesDict = new Dictionary<N, Dictionary<N, EDGE_INFO?>>();
@@ -29,6 +31,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
 					edgesDict[e.First][e.Second] = e.EdgeInfo;
 				}
 			}
+			AreEdgesComputed = computeEdgesDict;
         }
 		
 		public EDGE_INFO? this[N node1, N node2]

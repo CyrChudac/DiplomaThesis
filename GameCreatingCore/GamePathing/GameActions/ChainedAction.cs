@@ -51,7 +51,7 @@ namespace GameCreatingCore.GamePathing.GameActions
                 if (_index == _actions.Count)
                     break;
                 if(_actions[_index].IsIndependentOfCharacter) {
-                    skillsToPerform.Add(new StartAfterAction(_actions[_index], input.Time - result.Time));
+                    skillsToPerform.Add(new StartAfterAction(_actions[_index], input.Time - result.Time, false));
                 } else {
                     result = _actions[_index].CharacterActionPhase(result);
                     var lt = result.Time;

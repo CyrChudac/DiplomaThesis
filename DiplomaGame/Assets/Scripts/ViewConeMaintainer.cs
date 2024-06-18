@@ -107,8 +107,7 @@ public class ViewConeMaintainer : MonoBehaviour {
         //create child
         GameObject go = new GameObject("viewcone: " + viewconePart.Name);
         go.transform.SetParent(transform);
-        //go.transform.rotation = Quaternion.Euler(0, 0, 180);
-        go.transform.localRotation = Quaternion.Euler(0, 0, 180);
+        go.transform.localRotation = Quaternion.Euler(0, 0, agent.transform.localRotation.z);
         go.transform.localPosition = Vector3.zero;
         go.transform.localScale = Vector3.one;
         go.SetActive(viewconePart.DisplayThis);
@@ -182,7 +181,7 @@ public class ViewConeMaintainer : MonoBehaviour {
     }
 
     float ChangeAngleAccordingToAgentRotation(float angle) {
-        return angle - agent.transform.rotation.eulerAngles.z + 180;
+        return angle - agent.transform.rotation.eulerAngles.z;
     }
 
     private void UpdateMesh(Mesh mesh, float from, float length, float[] distances)

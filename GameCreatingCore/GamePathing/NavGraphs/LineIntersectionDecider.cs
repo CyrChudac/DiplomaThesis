@@ -9,17 +9,25 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
     internal class LineIntersectionDecider
     {
         /// <param name="tolerance">The maximal slope diffence between 2 lines to consider them paralel.</param>
+        /// <param name="overlapIsIntersection">When true, two overlaping lines will return their intersection; 
+        /// when false, they return null.</param>
+        /// <param name="endsInclusive">When true, lines are considered as open interval,
+        /// so ending points count as interrsections only for line overlaps.</param>
         public static bool HasIntersection(Vector2 L1f, Vector2 L1e, 
-            Vector2 L2f, Vector2 L2e, double tolerance = 0.001)
-            => FindFirstIntersection(L1f, L1e, L2f, L2e, tolerance) != null;
+            Vector2 L2f, Vector2 L2e, bool overlapIsIntersection, bool endsInclusive, double tolerance = 0.001)
+            => FindFirstIntersection(L1f, L1e, L2f, L2e, overlapIsIntersection, endsInclusive, tolerance) != null;
 
         /// <summary>
         /// Finds the first spot where line 1 is intersecting line 2. (the only solution with more intersetions is if the overlap)
         /// </summary>
         /// <param name="tolerance">The maximal slope diffence between 2 lines to consider them paralel.</param>
+        /// <param name="overlapIsIntersection">When true, two overlaping lines will return their intersection; 
+        /// when false, they return null.</param>
+        /// <param name="endsInclusive">When true, lines are considered as open interval,
+        /// so ending points count as interrsections only for line overlaps.</param>
         public static Vector2? FindFirstIntersection(Vector2 L1f, Vector2 L1e, 
-            Vector2 L2f, Vector2 L2e, double tolerance = 0.001)
-        {
+            Vector2 L2f, Vector2 L2e, bool overlapIsIntersection, bool endsInclusive, double tolerance = 0.001) {
+
             float x1 = L1f.x, y1 = L1f.y;
             float x2 = L1e.x, y2 = L1e.y;
 
@@ -29,13 +37,19 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
             // equations of the form x=c (two vertical lines) with overlapping
             if (Math.Abs(x1 - x2) < tolerance && Math.Abs(x3 - x4) < tolerance && Math.Abs(x1 - x3) < tolerance)
             {
-                return GetForOverlaping(y1, y2, y3, y4, (Vector2?)L1f, L2f, L2e, null);
+                if(overlapIsIntersection)
+                    return GetForOverlaping(y1, y2, y3, y4, (Vector2?)L1f, L2f, L2e, null);
+                else
+                    return null;
             }
 
             //equations of the form y=c (two horizontal lines) with overlapping
             if (Math.Abs(y1 - y2) < tolerance && Math.Abs(y3 - y4) < tolerance && Math.Abs(y1 - y3) < tolerance)
             {
-                return GetForOverlaping(x1, x2, x3, x4, (Vector2?)L1f, L2f, L2e, null);
+                if(overlapIsIntersection)
+                    return GetForOverlaping(x1, x2, x3, x4, (Vector2?)L1f, L2f, L2e, null);
+                else
+                    return null;
             }
 
             //equations of the form x=c (two vertical parallel lines)
@@ -108,10 +122,12 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
                 float m2 = (y4 - y3) / (x4 - x3);
                 float c2 = -m2 * x3 + y3;
 
+                //the 2 lines have the same slope
                 if(m1 == m2) {
-                    if(c1 != c2)
+                    //the 2 lines overlap
+                    if(c1 != c2 || !overlapIsIntersection)
                         return null;
-
+                    
                     if(IsInsideLine(L2f, L2e, x1, y1))
                         return L1f;
 
@@ -145,7 +161,16 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
                     return null;
                 }
             }
-
+            if(!endsInclusive) {
+                if(x == x1 && y == y1)
+                    return null;
+                if(x == x2 && y == y2)
+                    return null;
+                if(x == x3 && y == y3)
+                    return null;
+                if(x == x4 && y == y4)
+                    return null;
+            }
             //x,y can intersect outside the line segment since line is infinitely long
             //so finally check if x, y is within both the line segments
             if (IsInsideLine(L1f, L1e, x, y) &&
@@ -158,7 +183,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
             return null;
 
         }
-
+        
         
         //from https://stackoverflow.com/questions/23016676/line-segment-and-circle-intersection
         public static int FindLineCircleIntersections(Vector2 middle, float radius,
@@ -222,21 +247,22 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
         }
 
         /// <summary>
-        /// If the 2 are constant on either axis, what is the first point of overlap.
+        /// If there are 2 lines on the same axis, what is the first point of their overlap.
         /// Returns one of the arguments given the first overlap point.
         /// </summary>
         public static T GetForOverlaping<T>(float n1, float n2, float n3, float n4, 
             T line1StartIsFirst, T line2StartIsFirst, T line2EndIsFirst, T noOverlap) { 
 
-            if(n3 < n1 && n4 > n1) //line 1 start inside line 2
+            if(FloatEquality.LessOrEqual(n3, n1) && FloatEquality.MoreOrEqual(n4, n1)) //line 1 start inside line 2
                 return line1StartIsFirst;
-            if(n3 < n2 && n4 > n2) { //line 1 end inside line 2
+            if(FloatEquality.LessOrEqual(n3, n2) && FloatEquality.MoreOrEqual(n4, n2)) { //line 1 end inside line 2
                 if(Math.Abs(n1 - n3) < Math.Abs(n1 - n4)) 
                     return line2StartIsFirst; //line 1 start behind the line 2 start
                 else 
                     return line2EndIsFirst; //line 1 start behind the line 2 end
             }
-            if((n3 < n1 && n3 > n2) || (n3 > n1 && n3 < n2)) { // line 2 is whole within line 1
+            if((FloatEquality.LessOrEqual(n3, n1) && FloatEquality.MoreOrEqual(n3, n2)) 
+                || (FloatEquality.MoreOrEqual(n3, n1) && FloatEquality.LessOrEqual(n3, n2))) { // line 2 is whole within line 1
                 if(Math.Abs(n1 - n3) < Math.Abs(n1 - n4))
                     return line2StartIsFirst; //line 2 start is more toward line 1 start
                 else
@@ -246,15 +272,14 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
             return noOverlap; //the lines have no intersection
         }
 
-
-        // Returns true if given point(x,y) is inside the given line segment
-        private static bool IsInsideLine(Vector2 Lf, Vector2 Le, double x, double y)
+        
+        // Returns true if given vector2(x,y) is inside the given line segment 
+        private static bool IsInsideLine(Vector2 Lf, Vector2 Le, float x, float y)
         {
-            return (x >= Lf.x && x <= Le.x
-                        || x >= Le.x && x <= Lf.x)
-                   && (y >= Lf.y && y <= Le.y
-                        || y >= Le.y && y <= Lf.y);
+            return      (FloatEquality.MoreOrEqual(x, Lf.x) && FloatEquality.LessOrEqual(x, Le.x)
+                      || FloatEquality.MoreOrEqual(x, Le.x) && FloatEquality.LessOrEqual(x, Lf.x))
+                     && (FloatEquality.MoreOrEqual(y, Lf.y) && FloatEquality.LessOrEqual(y, Le.y)
+                      || FloatEquality.MoreOrEqual(y, Le.y) && FloatEquality.LessOrEqual(y, Lf.y));
         }
-
     }
 }

@@ -7,6 +7,9 @@ namespace GameCreatingCore.StaticSettings {
 
     [Serializable]
     public class ViewconeRepresentation {
+        /// <summary>
+        /// Full length when enemy is not alerted. For basic needs use <b>ComputeLength</b> function instead.
+        /// </summary>
         [SerializeField]
         public float Length;
 
@@ -58,5 +61,8 @@ namespace GameCreatingCore.StaticSettings {
         public float AlertedWiggleAngle;
         [SerializeField]
         public float AlertedWiggleTime;
+
+        public float ComputeLength(float alerting)
+            => Length * (1 + alerting * (AlertedLengthModifier - 1));
     }
 }

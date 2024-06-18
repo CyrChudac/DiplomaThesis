@@ -34,17 +34,36 @@ namespace GameCreatingCore {
 
         public static float AngleOfABC(Vector2 a, Vector2 b, Vector2 c) {
             var p1 = Vector3.Distance(a, b);
-            var p2 = Vector3.Distance(b, c);
-            var p3 = Vector3.Distance(c, a);
-            //by the law of cosine from:
+            var p2 = Vector3.Distance(a, c);
+            var p3 = Vector3.Distance(b, c);
+            //by the law of cosines from:
             //https://stackoverflow.com/questions/1211212/how-to-calculate-an-angle-from-three-points
-            var angle = DegreesToRadians((p1 * p1 + p3 * p3 - p2 * p2) / (2 * p1 * p3));
-            return RadiansToDegrees((float)Math.Acos(angle)); 
+            var angle = (p1 * p1 + p3 * p3 - p2 * p2) / (2 * p1 * p3);
+            angle = RadiansToDegrees((float)Math.Acos(angle));
+            if(!IsLeftOfLine(a, b, c))
+                angle = 360 - angle;
+            return angle;
         }
 
         /// <returns>Angle in degrees <paramref name="from"/> -> <paramref name="towards"/> 
         /// compared to base rotation 0.</returns>
         public static float AngleTowards(Vector2 from, Vector2 towards) 
-            => AngleOfABC(VectorFromAngle(0), from, towards);
+            => AngleOfABC(from + VectorFromAngle(0), from, towards);
+        
+        /// <summary>
+        /// Finds out if the point <paramref name="c"/> is to the left of the line 
+        /// going from <paramref name="lineA"/> to <paramref name="lineB"/>.
+        /// </summary>
+        public static bool IsLeftOfLine(Vector2 lineA, Vector2 lineB, Vector2 c) {
+            return (lineB.x - lineA.x)*(c.y - lineA.y) - (lineB.y - lineA.y)*(c.x - lineA.x) > 0;
+        }
+
+        /// <summary>
+        /// Finds out if the point <paramref name="c"/> is on the line 
+        /// going from <paramref name="lineA"/> to <paramref name="lineB"/>.
+        /// </summary>
+        public static bool IsOnLine(Vector2 lineA, Vector2 lineB, Vector2 c) {
+            return (lineB.x - lineA.x)*(c.y - lineA.y) - (lineB.y - lineA.y)*(c.x - lineA.x) == 0;
+        }
     }
 }

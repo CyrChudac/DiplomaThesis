@@ -2,6 +2,7 @@ using GameCreatingCore.GamePathing.GameActions;
 using GameCreatingCore.StaticSettings;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -31,7 +32,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
         /// <param name="viewconeTravelConsideredStep">When creating the inner graph within the viewcone,
         /// how far are the respective points from one another.</param>
         /// <param name="viewconeLengthMod">The  viewcone is actually not a cone, it is section of triangles. 
-        /// What is their length? 0 = viewcone length; 1 = maximal length within the triangle.</param>
+        /// What is their length? 0 = viewcone length; 1 = minimal length within the triangle.</param>
         public ViewconeNavGraph(LevelRepresentation level, StaticNavGraph staticNavGraph,
             StaticGameRepresentation staticGameRepr, int innerRays, float viewconeTravelConsideredStep,
             //ViewconePruningStyle viewconePruning,
@@ -51,10 +52,10 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 var angleIncrease = AngleIncr(vr.Angle);
                 float GetLength(float alerted)
                 {
-                    var currLen = vr.Length + alerted * (vr.AlertedLengthModifier * vr.Length - vr.Length);
-                    var maxViewLength = currLen / (float)Math.Cos(angleIncrease / 2);
-                    return currLen + (maxViewLength - currLen) * viewconeLengthMod;
-                }
+                    var currLen = vr.ComputeLength(alerted);
+                    var minViewLength = currLen / (float)Math.Cos(Vector2Utils.DegreesToRadians(angleIncrease / 2));
+                    return currLen + (minViewLength - currLen) * viewconeLengthMod;
+                } 
                 lenDic.Add(t, new EnemyTypeInfo(GetLength, vr.Angle, alertDistance));
             }
             lengthsDict = lenDic;
@@ -74,7 +75,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
         {
             var viewcones = GetTraversableViewcones(state);
             viewcones = CutOffCommonParts(viewcones);
-            var views = ViewconeAdder.AddViewconesToGraph(viewcones, staticNavGraph);
+            var views = new ViewconeAdder(staticNavGraph).AddViewconesToGraph(viewcones);
             views = AddPickupables(views, state);
             views = AddAvailableSkills(views, state);
             return views;
@@ -116,6 +117,21 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
             return viewcones;
         }
 
+        public IEnumerable<Graph<Node>> GetViewConeGraphs(LevelState state, bool computeEdges, 
+            bool cutoffCommon, bool removeNoTraversables) 
+        {
+            var res = GetTraversableViewcones(state);
+            if(cutoffCommon) {
+                res = CutOffCommonParts(res);
+            }
+            return res.Select(v => new Graph<Node>(v.vertices.Cast<Node>().ToList(),
+                    v.edges
+                        .Where(e => e.EdgeInfo.Traversable || (!removeNoTraversables))
+                        .Select(e => new Edge<Node>(e.First, e.Second, e.EdgeInfo))
+                        .ToList(),
+                    computeEdges));
+        }
+
         /// <summary>
         /// Gets the list of viewcones in the given <paramref name="state"/>.
         /// </summary>
@@ -152,10 +168,8 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
             List<(int, int)> toConsider = new List<(int, int)>();
             for (int i = 0; i < bbs.Count; i++)
             {
-                for (int j = 0; j < bbs.Count; j++)
+                for (int j = i + 1; j < bbs.Count; j++)
                 {
-                    if (i == j)
-                        continue;
                     if (LineIntersectionDecider.GetForOverlaping(bbs[i].x, bbs[i].xMax, bbs[j].x, bbs[j].xMax,
                         true, true, true, false))
                         if (LineIntersectionDecider.GetForOverlaping(bbs[i].y, bbs[i].yMax, bbs[j].y, bbs[j].yMax,
@@ -167,7 +181,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
             var rem = new ViewconeCommonPartsRemover();
             foreach (var (i, j) in toConsider)
             {
-                result[i] = rem.CutOffCommonParts(result[i], result[j], out var tmp);
+                result[i] = rem.CutOffCommonParts(result[i], result[j], staticNavGraph, out var tmp);
                 result[j] = tmp;
             }
             return result;
@@ -390,7 +404,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 var pre = obst.Shape[obst.Shape.Count - 1];
                 foreach (var p in obst.Shape)
                 {
-                    var i = LineIntersectionDecider.FindFirstIntersection(from, end, pre, p);
+                    var i = LineIntersectionDecider.FindFirstIntersection(from, end, pre, p, true, true);
                     if (i.HasValue)
                     {
                         var currMagn = (i - from).Value.sqrMagnitude;
@@ -430,13 +444,16 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 .Select((Vector, Index) => (Vector, Index))
                 .ToArray();
             int maxFirst = 0;
-            int maxLast = sliceArray.Length - 1;
-            bool firstFound = false;
             foreach(var slice in sliceArray ) {
-                if((!firstFound) && slice.Vector == view.EndingPoints[0]) {
-                    firstFound = true;
+                if(slice.Vector == view.EndingPoints[0]) {
                     maxFirst = slice.Index;
-                }else if(firstFound && slice.Vector == view.EndingPoints[view.EndingPoints.Count - 1]) {
+                    break;
+                }
+            }
+            int maxLast = sliceArray.Length - 1;
+            for(int i = sliceArray.Length - 1; i >= 0; i--) {
+                var slice = sliceArray[i];
+                if(slice.Vector == view.EndingPoints[view.EndingPoints.Count - 1]) {
                     maxLast = slice.Index;
                     break;
                 }
@@ -450,6 +467,19 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 //then it is a middle node
                 (i > maxFirst && i < maxLast && (p.Vector - view.StartPos).sqrMagnitude < viewConeMaxLength * viewConeMaxLength))));
             List<Edge<ViewNode, ViewMidEdgeInfo>> edges = new List<Edge<ViewNode, ViewMidEdgeInfo>>();
+            
+            //it is not traversable, so the score and alerting ratio values ar enot relevant
+            ViewMidEdgeInfo defaultNonTraversableInfo = new ViewMidEdgeInfo(float.MaxValue, false, false, false, 1);
+
+            bool IsEdgeOfRemoved(int i, int j) {
+                return i < maxLast && i > maxFirst && j < maxLast && j > maxFirst
+                    && ((vertices[i].Position - view.StartPos).sqrMagnitude < viewConeMaxLength * viewConeMaxLength
+                    || (vertices[j].Position - view.StartPos).sqrMagnitude < viewConeMaxLength * viewConeMaxLength);
+            }
+
+            bool IsOnSideOfViewcone(int i, int j) {
+                return ((i <= maxFirst && j <= maxFirst) || (i >= maxLast && j >= maxLast));
+            }
 
             for (int i = 0; i < sliceArray.Length; i++)
             {
@@ -471,25 +501,69 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                     //if they are not adjacent, their common edge goes inside the viewcone
                     var isMidView = Math.Abs(i - j) > 1;
                     //if the edge goes towards the enemy and is not on the view side, then it is an edge of removed
-                    var isEdgeOfRemoved = i < maxLast && i > maxFirst && j < maxLast && j > maxFirst
-                        && ((vertices[i].Position - view.StartPos).sqrMagnitude < viewConeMaxLength * viewConeMaxLength
-                        || (vertices[j].Position - view.StartPos).sqrMagnitude < viewConeMaxLength * viewConeMaxLength);
-                    var info = new ViewMidEdgeInfo(len, isEdgeOfRemoved, true, isMidView, view.AlertingRatioIncrease(len));
+                    var isEdgeOfRemoved = IsEdgeOfRemoved(i, j);
+                    ViewMidEdgeInfo info;
+                    if(len.HasValue) {
+                        if(!isMidView && IsOnSideOfViewcone(i, j)) {
+                            //it is an edge before the viewcone hits anything, so it is surely on the
+                            //viewcone perimeter and in the open, hence it is considered outside of viewcone
+                            info = new ViewMidEdgeInfo(len.Value, false, 
+                                true, false, 0);
+                        } else {
+                            info = new ViewMidEdgeInfo(len.Value, isEdgeOfRemoved, 
+                                true, isMidView, view.AlertingRatioIncrease(len.Value));
+                        }
+                    } else if(j == i - 1) { 
+                        //we need to add it so that it forms the perimeter
+                        info = defaultNonTraversableInfo;
+                    } else {
+                        continue;
+                    }
+                    
                     edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(vertices[i], vertices[j], info));
                 }
+                if(i != 0 && minIndex > i - 1) {
+                    var len = compareProvider.GetLength(i, i - 1, sliceArray[i].Vector, sliceArray[i - 1].Vector);
+                    if(len.HasValue && (IsOnSideOfViewcone(i, i - 1) || !IsEdgeOfRemoved(i, i - 1))) {
+                        //it is not possible to go there within the viewcone, but since it's the edge, you actually can walk there
+                        //both ways
+                        var info = new ViewMidEdgeInfo(len.Value, false, true, false, 0);
+                        edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(vertices[i], vertices[i - 1], info));
+                    } else {
+                        //the edge is not at the max length, so it probably pressing against some obstacle
+                        //hence you could only go there if you could go through the viewcone
+                        //which is held in the for cycle above
+                        edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(vertices[i], vertices[i - 1], defaultNonTraversableInfo));
+                    }
+                }
+                if(i != vertices.Count - 1 && maxIndex <= i + 1) {
+                    var len = compareProvider.GetLength(i, i + 1, sliceArray[i].Vector, sliceArray[i + 1].Vector);
+                    if(len.HasValue && (IsOnSideOfViewcone(i, i + 1) || !IsEdgeOfRemoved(i, i + 1))) {
+                        //it is not possible to go there within the viewcone, but since it's the edge, you actually can walk there
+                        //both ways
+                        var info = new ViewMidEdgeInfo(len.Value, false, true, false, 0);
+                        edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(vertices[i], vertices[i + 1], info));
+                    }
+                    //we do not add the non traversable edge - one is sufficient and it will be handled from the next index
+                }
             }
-            //adding non traversable edges from startPos to first and last pos
+            //adding edges from startPos to first and last pos
             var start = new ViewNode(view.StartPos);
-            var nonTraverseInfo = new ViewMidEdgeInfo(
-                Vector2.Distance(view.StartPos, sliceArray[0].Vector)
-                , false, true, false, 1);
-            edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(start, vertices[0], nonTraverseInfo));
 
-            nonTraverseInfo = new ViewMidEdgeInfo(
-                Vector2.Distance(view.StartPos, vertices[vertices.Count - 1].Position)
-                , false, true, false, 1);
-            edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(
-                start, vertices[vertices.Count - 1], nonTraverseInfo));
+            void AddToStartEdge(ViewNode from) {
+                //enemies can see there, but it is very well still possible, that players cannot go there
+                var canGet = staticNavGraph.CanPlayerGetToStraight(start, from);
+                var toStartInfo = new ViewMidEdgeInfo(
+                    Vector2.Distance(start.Position, from.Position)
+                    , false, canGet, false, 0);
+                edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(start, from, toStartInfo));
+                if(canGet)
+                    edges.Add(new Edge<ViewNode, ViewMidEdgeInfo>(from, start, toStartInfo));
+
+            }
+
+            AddToStartEdge(vertices[0]);
+            AddToStartEdge(vertices[^1]);
 
             vertices.Add(start);
 
@@ -500,7 +574,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
         {
             private ViewconeNavGraph navGraph;
             private Viewcone viewcone;
-            private Dictionary2D<int, float> lengthsDict = new Dictionary2D<int, float>();
+            private Dictionary2D<int, float?> lengthsDict = new Dictionary2D<int, float?>();
 
             public ReachableVector2ComparerProvider(ViewconeNavGraph navGraph, Viewcone viewcone)
             {
@@ -520,14 +594,14 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
             /// </summary>
             /// <returns>The legth between the two vectors.</returns>
 
-            public float GetLength(int fromIndex, int toIndex, Vector2 from, Vector2 to)
+            public float? GetLength(int fromIndex, int toIndex, Vector2 from, Vector2 to)
             {
                 if (lengthsDict.TryGetValue(fromIndex, toIndex, out var res))
                     return res;
                 if(navGraph.staticNavGraph.CanPlayerGetToStraight(from, to)) {
                     res = Vector2.Distance(from, to);
                 } else {
-                    res = float.MaxValue;
+                    res = null;
                 }
                 lengthsDict.Add(fromIndex, toIndex, res);
                 return res;
@@ -548,9 +622,10 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones
                 }
                 public int CompareTo((Vector2 Vector, int Index) other)
                 {
-                    float length = provider.GetLength(fromIndex, other.Index, from, other.Vector);
+                    float? length = provider.GetLength(fromIndex, other.Index, from, other.Vector);
 
-                    var isPossible = provider.viewcone.CanGoFromTo(from, other.Vector, length, out var _);
+                    var isPossible = length.HasValue
+                        && provider.viewcone.CanGoFromTo(from, other.Vector, length.Value, out var _);
                     if (!isPossible)
                         return other.Index < fromIndex ? 1 : -1;
                     else

@@ -215,7 +215,7 @@ public class EnemyMutator : MonoBehaviour
                     () => cmds[i].Position + utils.RandomNormVec(_pathCommandPosChangeMax, _pathCommandPosChangeMax));
             }
         }
-        if(utils.RandomFloat() < _pathSwapCommandsProb) {
+        if(cmds.Count > 1 && utils.RandomFloat() < _pathSwapCommandsProb) {
             var f = utils.RandomInt(cmds.Count);
             int s;
             while(true) {

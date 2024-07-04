@@ -15,6 +15,7 @@ namespace GameCreatingCore.GamePathing {
         bool CanTargetGroundObstacle { get; }
         double Uses { get; }
 		IGameAction Get(int? performingCharacterIndex, GameActionTarget target);
+		IActiveGameActionProvider DecreaseUses(int byCount = 1);
 	}
 
     public class GameActionTarget {

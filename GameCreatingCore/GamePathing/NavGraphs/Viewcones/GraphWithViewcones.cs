@@ -18,9 +18,11 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
 	public class GraphWithViewconeEdgeInfo : EdgeInfo {
 		public int? ViewconeIndex { get; }
 		public float? AlertingIncrease { get; }
-		internal GraphWithViewconeEdgeInfo(float score, int? viewconeIndex, float? alertingIncrease) : base(score) {
+		public bool IsPerimeter { get; }
+		internal GraphWithViewconeEdgeInfo(float score, int? viewconeIndex, float? alertingIncrease, bool isPerimeter) : base(score) {
 			this.ViewconeIndex = viewconeIndex;
 			this.AlertingIncrease = alertingIncrease;
+			IsPerimeter = isPerimeter;
 		}
 	}
 }

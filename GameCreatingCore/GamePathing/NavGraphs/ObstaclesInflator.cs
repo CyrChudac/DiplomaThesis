@@ -10,10 +10,14 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
 
 		public static LevelRepresentation InflateAllInLevel(LevelRepresentation levelRepresentation, 
 			StaticMovementSettingsProcessed movSet) {
+			var obsts = levelRepresentation.Obstacles
+					.Select(o => WalkingOnly(InflateNormal(o, movSet.CharacterMaxRadius)))
+					.Concat(levelRepresentation.Obstacles
+						.Select(o => VisionOnly(o)))
+					.ToList();
+
 			return new LevelRepresentation(
-				levelRepresentation.Obstacles
-					.Select(o => InflateNormal(o, movSet.CharacterMaxRadius))
-					.ToList(),
+				obsts,
 				InflateOuterObst(levelRepresentation.OuterObstacle, movSet.CharacterMaxRadius),
 				levelRepresentation.Enemies,
 				levelRepresentation.SkillsToPickup,
@@ -70,6 +74,18 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
 
 		private static int Mod(int x, int m) {
 			return (x%m + m)%m;
+		}
+
+		private static Obstacle VisionOnly(Obstacle obs) {
+			return new Obstacle(obs.Shape,
+				new ObstacleEffect(WalkObstacleEffect.Walkable, WalkObstacleEffect.Walkable,
+				obs.Effects.FriendlyVisionEffect, obs.Effects.EnemyVisionEffect));
+		}
+
+		private static Obstacle WalkingOnly(Obstacle obs) {
+			return new Obstacle(obs.Shape,
+				new ObstacleEffect(obs.Effects.FriendlyWalkEffect, obs.Effects.EnemyWalkEffect,
+				VisionObstacleEffect.SeeThrough, VisionObstacleEffect.SeeThrough));
 		}
 	}
 }

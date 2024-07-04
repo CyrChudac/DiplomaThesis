@@ -10,7 +10,6 @@ public class ObstacleMaterial : ScriptableObject
 	public WalkObstacleEffect FriendlyWalkEffect;
 	public WalkObstacleEffect EnemyWalkEffect;
 
-	public VisionObstacleEffect FriendlyVision;
 	public VisionObstacleEffect EnemyVision;
 
 	public Material Material;

@@ -92,8 +92,8 @@ public class EnemyMutator : MonoBehaviour
     private Vector2 RandomPosInside(Obstacle outerObstacle, IEnumerable<Obstacle> obsts, Func<Vector2> vecFunc) {
         
         var pos = vecFunc();
-        while((outerObstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && !outerObstacle.ContainsPoint(pos))
-            || obsts.Any(o => o.ContainsPoint(pos))) {
+        while((outerObstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && !outerObstacle.ContainsPoint(pos, false))
+            || obsts.Any(o => o.ContainsPoint(pos, true))) {
             pos = vecFunc();
         }
         return pos;

@@ -16,33 +16,11 @@ namespace GameCreatingCore.GamePathing
     public class GameSimulator{
 		private readonly StaticGameRepresentation staticGameRepresentation;
 		private readonly LevelRepresentation level;
-		private StaticNavGraph? _staticNavGraph = null;
-		private StaticNavGraph StaticNavGraph => _staticNavGraph
-			?? throw new InvalidOperationException("Object is not initialized.");
-		public GameSimulator(StaticGameRepresentation staticGameRepresentation, LevelRepresentation level) {
+		private StaticNavGraph StaticNavGraph { get; }
+		public GameSimulator(StaticGameRepresentation staticGameRepresentation, LevelRepresentation level, StaticNavGraph staticNavGraph) {
 			this.staticGameRepresentation = staticGameRepresentation;
 			this.level = level;
-		}
-		public GameSimulator Initialized(LevelState? current = null, StaticNavGraph? navGraph = null) {
-			current = current ?? LevelState.GetInitialLevelState(level);
-			navGraph = navGraph ?? new StaticNavGraph(level, true).Initialized();
-			Initialize(current, navGraph);
-			return this;
-		}
-
-		private void Initialize(LevelState current, StaticNavGraph navGraph) {
-			this._staticNavGraph = navGraph;
-			for(int i = 0; i < current.enemyStates.Count; i++) {
-				if(current.enemyStates[i].PathIndex.HasValue && level.Enemies[i].Path != null) {
-					level.Enemies[i].Path!.Commands[current.enemyStates[i].PathIndex!.Value].SetAction(
-						enemyIndex: i, 
-						currentPos: level.Enemies[i].Position, 
-						staticGameRepresentation: staticGameRepresentation,
-						navGraph: navGraph,
-						level: level,
-						backwards: false);
-				}
-			}
+			this.StaticNavGraph = staticNavGraph;
 		}
 
 		private IGameAction voidAction = new StartAfterAction(enemyIndex: null, float.PositiveInfinity);
@@ -50,36 +28,40 @@ namespace GameCreatingCore.GamePathing
 		public LevelState Simulate(LevelStateTimed current, IViewconesBearer navGraph,
 			List<IGameAction> playerActions) {
 
-			var lt = current.Time;
-			var playerStates = new List<LevelStateTimed>() { current };
+			//this way we don't change any actions in the instances of the previous LevelState
+			current = new LevelStateTimed(current.DuplicateActions(), current.Time);  
 
-			IGameAction? beingPerformed = null;
+			var lt = current.Time;
+
 			bool shouldBreak = false;
 			IEnumerable<IGameAction> actions = Enumerable.Empty<IGameAction>();
 			if(current.playerState.PerformingAction != null) {
 				actions = actions.Append(current.playerState.PerformingAction);
+				current = new LevelStateTimed(current.ChangePlayer(performingActionToNull: true), current.Time);
 			}
-			//we need to add a void action in case the player does not do anything
+			var playerStates = new List<LevelStateTimed>() { current };
+			//we need to add a void action in case the player does not do anything (to still activate the loop)
 			actions = actions.Concat(playerActions).Append(voidAction);
 			foreach(IGameAction pa in actions) {
 				var curr = pa!.CharacterActionPhase(playerStates.Last());
+				curr = UpdateAvailableSkills(curr);
 				var usedTime = lt - curr.Time;
 				var enemChanged = EnemiesUpdate(curr, level, StaticNavGraph, usedTime);
 
 				for(int i = 0; i < enemChanged.skillsInAction.Count; i++) {
-					var a = enemChanged.skillsInAction[i];
-					enemChanged = a.AutonomousActionPhase(new LevelStateTimed(enemChanged, usedTime));
+					var state = new LevelStateTimed(enemChanged, usedTime);
+					enemChanged = enemChanged.skillsInAction[i].AutonomousActionPhase(state);
 				}
 				var skillsInAction = enemChanged.skillsInAction.Where(p => !p.Done).ToList();
 				curr = new LevelStateTimed(enemChanged.Change(skillsInAction: skillsInAction), curr.Time);
 				lt = curr.Time;
-				if(lt <= 0) {
+				if(FloatEquality.LessOrEqual(lt, 0)) {
 					if(!pa.IsCancelable)
-						beingPerformed = pa;
+						curr = new LevelStateTimed(curr.ChangePlayer(performingAction: pa), 0);
 					shouldBreak = true;
 				} else {
 					if(pa.IsIndependentOfCharacter) {
-						var skillsToPerform = current.skillsInAction.ToList();
+						var skillsToPerform = curr.skillsInAction.ToList();
 						skillsToPerform.Add(pa);
 						curr = new LevelStateTimed(curr.Change(skillsInAction: skillsToPerform), curr.Time);
 					}
@@ -92,7 +74,7 @@ namespace GameCreatingCore.GamePathing
 		}
 
 		bool IsWin(LevelState state)
-				=> (state.playerState.Position - level.Goal.Position).sqrMagnitude < level.Goal.Radius * level.Goal.Radius;
+				=> level.Goal.IsAchieved(state);
 
 		LevelState ChangeAlertingTimes(LevelStateTimed startingState, 
 			StaticGameRepresentation staticGameRepresentation,
@@ -123,24 +105,26 @@ namespace GameCreatingCore.GamePathing
 					* staticGameRepresentation.GameDifficulty;
 
 				var previous = startingState;
+				var alertLengthMod = enems[i].ViewconeAlertLengthModifier;
 				foreach(var s in viewcones) {
 					var e = s.State.enemyStates[i];
 					if(!e.Alive)
 						break;
-					var isIn = Obstacle.ContainsPoint(s.State.playerState.Position, s.Viewcones[i]);
+					string debugShapeString = string.Join(", ", s.Viewcones[i]);
+					var isIn = Obstacle.ContainsPoint(s.State.playerState.Position, s.Viewcones[i], false);
 					var time = previous.Time - s.State.Time; //this makes it highly dependent on the time step!
 					if(isIn) {
 						val = Math.Min(1, val + time / fullTimeAlerting);
 					} else {
 						val = Math.Max(0, val - time / fullTimeDisAlerting);
 					}
-					var dist = Vector2.Distance(e.Position, s.State.playerState.Position);
-					alerted = alerted || settings.viewconeRepresentation.Length * val > dist;
+					alerted = alerted || val == 1 ||
+						FloatEquality.MoreOrEqual(settings.viewconeRepresentation.ComputeLength(alertLengthMod) * val, 
+							Vector2.Distance(e.Position, s.State.playerState.Position));
 					previous = s.State;
 				}
-				if(FloatEquality.Equals(val, 0))
+				if(FloatEquality.AreEqual(val, 0))
 					val = 0;
-				var alertLengthMod = enems[i].ViewconeAlertLengthModifier;
 				if(alerted) {
 					alertLengthMod += startingState.Time * settings.viewconeRepresentation.AlertLengthChangeSpeedIn;
 				} else {
@@ -148,11 +132,27 @@ namespace GameCreatingCore.GamePathing
 				}
 				alertLengthMod = Math.Clamp(alertLengthMod, 0, 1);
 				enems[i] = enems[i].Change(alerted: alerted, 
-					timeOfPlayerInView: alerted ? 1 : val, 
+					timeOfPlayerInView: val, 
 					viewconeAlertLengthModifier: alertLengthMod);
 			}
 
 			return lastState.Change(enemyStates: enems);
+		}
+
+		LevelStateTimed UpdateAvailableSkills(LevelStateTimed state) {
+			List<IActiveGameActionProvider> skills = new List<IActiveGameActionProvider>();
+			bool changed = true;
+			foreach(var s in state.playerState.AvailableSkills) {
+				if(s.Uses == 0) {
+					changed = true;
+				} else {
+					skills.Add(s);
+				}
+			}
+			if(changed)
+				return new LevelStateTimed(state.ChangePlayer(availableSkills: skills), state.Time);
+			else
+				return state;
 		}
 
 		private LevelState EnemiesUpdate(LevelState current, LevelRepresentation level, 
@@ -171,6 +171,9 @@ namespace GameCreatingCore.GamePathing
 			if((perf = current.enemyStates[enemyIndex].PerformingAction) != null){
 				var res = perf.CharacterActionPhase(new LevelStateTimed(current, time));
 				time = res.Time;
+				if(FloatEquality.AreEqual(time, 0)) {
+					res = new LevelStateTimed(res.ChangeEnemy(enemyIndex, performingActionToNull: true), 0);
+				}
 				current = res;
 				if(perf.IsIndependentOfCharacter) {
 					var sia = current.skillsInAction.ToList();
@@ -178,13 +181,15 @@ namespace GameCreatingCore.GamePathing
 					current = current.Change(skillsInAction: sia);
 				}
 			}
-			if(level.Enemies[enemyIndex].Path == null || !current.enemyStates[enemyIndex].PathIndex.HasValue)
+			if(level.Enemies[enemyIndex].Path == null 
+				|| (!current.enemyStates[enemyIndex].PathIndex.HasValue)
+				|| (current.enemyStates[enemyIndex].CurrentPathAction == null))
 				return current;
 			var index = current.enemyStates[enemyIndex].PathIndex!.Value;
 			var result = new LevelStateTimed(current, time);
 			int iterations = 0;
+			var currAction = current.enemyStates[enemyIndex].CurrentPathAction!;
 			while(true) {
-				var currAction = level.Enemies[enemyIndex].Path!.Commands[index].Action;
 				result = currAction.CharacterActionPhase(result);
 				if(result.Time > 0) {
 					if(currAction.IsIndependentOfCharacter) {
@@ -192,8 +197,12 @@ namespace GameCreatingCore.GamePathing
 						sia.Add(currAction);
 						result = new LevelStateTimed(result.Change(skillsInAction: sia), result.Time);
 					}
+					if(level.Enemies[enemyIndex].Path!.Commands.Count == 1) {
+						currAction = null;
+						break;
+					}
 					result = ChangePathIndex(ref index, result, enemyIndex, level);
-					level.Enemies[enemyIndex].Path!.Commands[index].SetAction(
+					currAction = level.Enemies[enemyIndex].Path!.Commands[index].GetAction(
 						enemyIndex,
 						result.enemyStates[enemyIndex].Position,
 						staticGameRepresentation,
@@ -208,7 +217,8 @@ namespace GameCreatingCore.GamePathing
 					throw new Exception($"Too many iterations for enemy action in a given time window.");
 				}
 			}
-			result = new LevelStateTimed(result.ChangeEnemy(enemyIndex, pathIndex: index), result.Time);
+			result = new LevelStateTimed(result.ChangeEnemy(enemyIndex, pathIndex: index, removePathAction: currAction == null,
+				currentPathAction: currAction), result.Time);
 			return result;
 		}
 

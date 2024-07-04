@@ -5,4 +5,5 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 	public ViewconeCreator viewcone;
+	public EnemyKiller killer;
 }

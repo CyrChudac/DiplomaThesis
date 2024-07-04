@@ -13,8 +13,8 @@ namespace GameCreatingCore.GamePathing.GameActions
 
     public class WalkThroughViewConePlayerAction : WalkAction
     {
-        public WalkThroughViewConePlayerAction(MovementSettingsProcessed movementSettings, Vector2 position, bool running = false)
-            : base(movementSettings, position, null, running)
+        internal WalkThroughViewConePlayerAction(MovementSettingsProcessed movementSettings, Vector2 position, bool running = false)
+            : base(movementSettings, position, null, running, false)
         {
         }
 
@@ -24,5 +24,10 @@ namespace GameCreatingCore.GamePathing.GameActions
 
             return walkResult;
         }
-    }
+
+		public override IGameAction Duplicate() {
+			var result = new WalkThroughViewConePlayerAction(MovementSettings, Position, Running);
+            return SetDuplicateInner(result);
+		}
+	}
 }

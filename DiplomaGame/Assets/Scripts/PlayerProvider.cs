@@ -14,9 +14,7 @@ public class PlayerProvider : MonoBehaviour
 
     public HumanPlayerController GetPlayer() {
         var p = Instantiate(playerController);
-        var ag = p.GetComponentInChildren<NavMeshAgent>();
-        gameRunner.player = p.gameObject;
-        ag.speed = gameController.GetStaticGameRepr().PlayerSettings.movementRepresentation.WalkSpeed;
+        gameRunner.player = p;
         return p;
     }
 }

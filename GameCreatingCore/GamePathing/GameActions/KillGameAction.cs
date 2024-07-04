@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 
 namespace GameCreatingCore.GamePathing.GameActions {
-	internal class KillGameAction : IGameAction {
+	public class KillGameAction : IGameAction {
 
 		public bool IsIndependentOfCharacter => false;
 
 		public bool IsCancelable => false;
+		public float TimeUntilCancelable => KillingTime;
 
 		private int _targetEnemyIndex;
 		public int? EnemyIndex => null;
@@ -16,11 +17,13 @@ namespace GameCreatingCore.GamePathing.GameActions {
 		private bool _done = false;
 		public bool Done => _done;
 
+		private float KillingStartTime { get; set; }
 		private float KillingTime { get; set; }
 
-		public KillGameAction(int targetEnemyIndex, float killingTime) {
+		internal KillGameAction(int targetEnemyIndex, float killingTime) {
 			_targetEnemyIndex = targetEnemyIndex;
 			KillingTime = killingTime;
+			KillingStartTime = killingTime;
 		}
 
 		public LevelStateTimed CharacterActionPhase(LevelStateTimed input) {
@@ -38,6 +41,18 @@ namespace GameCreatingCore.GamePathing.GameActions {
 
 		public LevelStateTimed AutonomousActionPhase(LevelStateTimed input) {
 			return input;
+		}
+
+		public void Reset() {
+			KillingTime = KillingStartTime;
+			_done = false;
+		}
+
+		public IGameAction Duplicate() {
+			var result = new KillGameAction(_targetEnemyIndex, KillingTime);
+			result._done = _done;
+			result.KillingTime = KillingTime;
+			return result;
 		}
 	}
 
@@ -74,6 +89,10 @@ namespace GameCreatingCore.GamePathing.GameActions {
 			} else {
 				throw new NotSupportedException($"{nameof(KillGameAction)} is only designed for the player to be killing.");
 			}
+		}
+
+		public IActiveGameActionProvider DecreaseUses(int byCount = 1) {
+			return this; //since we have infinite uses
 		}
 	}
 }

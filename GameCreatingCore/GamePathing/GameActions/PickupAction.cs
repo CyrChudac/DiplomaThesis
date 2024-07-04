@@ -12,6 +12,7 @@ namespace GameCreatingCore.GamePathing.GameActions {
 		public bool Done { get; private set; } = false;
 
 		public bool IsCancelable => false;
+		public float TimeUntilCancelable => Done ? 0 : _pickUpTime - _usedTime;
 
 		public int? EnemyIndex => null;
 
@@ -40,8 +41,12 @@ namespace GameCreatingCore.GamePathing.GameActions {
 				var act = _level.SkillsToPickup[_pickupableIndex].Item1;
 				var skills = input.playerState.AvailableSkills.ToList();
 				skills.Add(act);
-				result = new LevelStateTimed(input.ChangePlayer(availableSkills: skills), newTime - _pickUpTime);
-				newTime = _usedTime;
+				var picked = new List<bool>(input.pickupableSkillsPicked);
+				picked[_pickupableIndex] = true;
+				result = new LevelStateTimed(input.ChangePlayer(availableSkills: skills).Change(pickupablesPickedUp: picked)
+					, newTime - _pickUpTime);
+				newTime = _pickUpTime;
+				Done = true;
 			} else {
 				result = new LevelStateTimed(input, 0);
 			}
@@ -51,6 +56,18 @@ namespace GameCreatingCore.GamePathing.GameActions {
 
 		public LevelStateTimed AutonomousActionPhase(LevelStateTimed input) {
 			return input;
+		}
+
+		public void Reset() {
+			_usedTime = 0;
+			Done = false;
+		}
+
+		public IGameAction Duplicate() {
+			var result = new PickupAction(_pickupableIndex, _level, _pickupMaxDistance, _pickUpTime);
+			result._usedTime = _usedTime;
+			result.Done = Done;
+			return result;
 		}
 	}
 }

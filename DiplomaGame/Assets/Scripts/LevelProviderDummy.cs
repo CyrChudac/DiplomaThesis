@@ -4,12 +4,19 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using GameCreatingCore;
 using GameCreatingCore.StaticSettings;
+using GameCreatingCore.GamePathing;
+using GameCreatingCore.GamePathing.GameActions;
 
 public class LevelProviderDummy : LevelProvider
 {
-	public UnityStaticGameRepresentation staticGameRepresentation;
+	[SerializeField] private UnityStaticGameRepresentation staticGameRepresentation;
+	[SerializeField] private bool includeEnemyKill;
 
-	protected override LevelRepresentation GetLevelInner() {
+	protected override LevelRepresentation GetLevelInner(bool vocal) {
+		var availables = new List<IActiveGameActionProvider>();
+		if(includeEnemyKill) {
+			availables.Add(new KillActionProvider(0.5f, 3));
+		}
 		return new LevelRepresentation(
 			new List<Obstacle>() {
 				new Obstacle(
@@ -17,7 +24,7 @@ public class LevelProviderDummy : LevelProvider
 					new ObstacleEffect(
 						WalkObstacleEffect.Unwalkable,
 						WalkObstacleEffect.Unwalkable,
-						VisionObstacleEffect.SeeThrough,
+						VisionObstacleEffect.NonSeeThrough,
 						VisionObstacleEffect.NonSeeThrough))
 			},
 			new Obstacle(
@@ -25,7 +32,7 @@ public class LevelProviderDummy : LevelProvider
 				new ObstacleEffect(
 					WalkObstacleEffect.Unwalkable,
 					WalkObstacleEffect.Unwalkable,
-					VisionObstacleEffect.SeeThrough,
+					VisionObstacleEffect.NonSeeThrough,
 					VisionObstacleEffect.NonSeeThrough)),
 			new List<Enemy>() {
 				new Enemy(
@@ -38,7 +45,7 @@ public class LevelProviderDummy : LevelProvider
 					180,
 					EnemyType.Basic,
 					new Path(false, new List<GameCreatingCore.GamePathing.PatrolCommand>() {
-						new OnlyWalkCommand(new Vector2(17, 17), 
+						new OnlyWalkCommand(new Vector2(17, 16), 
 							false, GameCreatingCore.GamePathing.GameActions.TurnSideEnum.ShortestPrefereClockwise),
 						new OnlyWalkCommand(new Vector2(-17, 17), 
 							false, GameCreatingCore.GamePathing.GameActions.TurnSideEnum.ShortestPrefereClockwise)
@@ -46,7 +53,7 @@ public class LevelProviderDummy : LevelProvider
 				)
 			},
 			new List<(GameCreatingCore.GamePathing.IActiveGameActionProvider, Vector2)>(),
-			new List<GameCreatingCore.GamePathing.IActiveGameActionProvider>(),
+			availables,
 			new Vector2(-17, -17),
 			new LevelGoal(
 				new Vector2(17, 17),

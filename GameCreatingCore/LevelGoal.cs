@@ -1,3 +1,4 @@
+using GameCreatingCore.GamePathing;
 using UnityEngine;
 
 namespace GameCreatingCore {
@@ -17,5 +18,8 @@ namespace GameCreatingCore {
 		public override string ToString() {
 			return $"Goal: {Position}; {Radius}";
 		}
+
+		public bool IsAchieved(LevelState levelState)
+			=> (levelState.playerState.Position - Position).sqrMagnitude < Radius * Radius;
 	}
 }

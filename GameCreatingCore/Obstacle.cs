@@ -29,40 +29,21 @@ namespace GameCreatingCore {
 			}
 		}
 
-		public bool ContainsPoint(Vector2 point)
-			=> ContainsPoint(point, Shape, BoundingBox);
+		public bool ContainsPoint(Vector2 point, bool isBoundaryInside)
+			=> ContainsPoint(point, Shape, BoundingBox, isBoundaryInside);
 
-		public static bool ContainsPoint(Vector2 point, IReadOnlyList<Vector2> shape)
-			=> ContainsPoint(point, shape, GetBoundingBox(shape));
+		public static bool ContainsPoint(Vector2 point, IReadOnlyList<Vector2> shape, bool isBoundaryInside)
+			=> ContainsPoint(point, shape, GetBoundingBox(shape), isBoundaryInside);
 
 		// from https://codereview.stackexchange.com/questions/108857/point-inside-polygon-check
-		public static bool ContainsPoint(Vector2 point, IReadOnlyList<Vector2> shape, Rect boundingBox) {
+		public static bool ContainsPoint(Vector2 point, IReadOnlyList<Vector2> shape, Rect boundingBox, bool isBoundaryInside) {
 			if(!IsInBoundingBox(point, boundingBox)) {
 				return false;
 			}
-			return IsInPolygon(point, shape);
-			int polygonLength = shape.Count, i=0;
-			bool inside = false;
-			// x, y for tested point.
-			float pointX = point.x, pointY = point.y;
-			// start / end point for the current polygon segment.
-			float startX, startY, endX, endY;
-			Vector2 endPoint = shape[polygonLength-1];           
-			endX = endPoint.x; 
-			endY = endPoint.y;
-			while (i<polygonLength) {
-				startX = endX;           startY = endY;
-				endPoint = shape[i++];
-				endX = endPoint.x;       endY = endPoint.y;
-				//
-				inside ^= ( endY > pointY ^ startY > pointY ) /* ? pointY inside [startY;endY] segment ? */
-						&& /* if so, test if it is under the segment */
-						( (pointX - endX) < (pointY - endY) * (startX - endX) / (startY - endY) ) ;
-			}
-			return inside;
+			return IsInPolygon(point, shape, isBoundaryInside);
 		}
 
-		public static bool IsInBoundingBox(Vector2 point, Rect boundingBox) {
+		private static bool IsInBoundingBox(Vector2 point, Rect boundingBox) {
 			return point.x > boundingBox.x && point.x < boundingBox.x + boundingBox.width
 				&& point.y > boundingBox.y && point.y < boundingBox.y + boundingBox.height;
 		}
@@ -90,7 +71,7 @@ namespace GameCreatingCore {
 
 			for(int i = 0; i < points.Count - 2; i++) {
 				var average = (points[i] + points[i + 2]) / 2;
-				if(!ContainsPoint(average, points, boundingBox))
+				if(!ContainsPoint(average, points, boundingBox, true))
 					return false;
 			}
 			return true;
@@ -98,29 +79,47 @@ namespace GameCreatingCore {
 
 		//from https://stackoverflow.com/questions/39853481/is-point-inside-polygon
 		//even with explanation there
-		public static bool IsInPolygon(Vector2 testPoint, IReadOnlyList<Vector2> vertices)
+		public static bool IsInPolygon(Vector2 testPoint, IReadOnlyList<Vector2> vertices, bool boundaryIsIn)
 		{
 			if( vertices.Count < 3 ) 
 				return false;
 			bool isInPolygon = false;
 			var lastVertex = vertices[vertices.Count - 1];
+			bool lastSame = false;
+			bool lastLeft = false;
 			foreach( var vertex in vertices)
 			{
-				if( IsBetween(testPoint.y, lastVertex.y, vertex.y ) )
+				if((!lastSame) && IsBetween(testPoint.y, lastVertex.y, vertex.y ))
 				{
-					double t = ( testPoint.y - lastVertex.y ) / ( vertex.y - lastVertex.y );
-					double x = t * ( vertex.x - lastVertex.x ) + lastVertex.x;
-					if( x >= testPoint.x ) 
+					float t = ( testPoint.y - lastVertex.y ) / ( vertex.y - lastVertex.y );
+					float x = t * ( vertex.x - lastVertex.x ) + lastVertex.x;
+					if(x > testPoint.x) 
 						isInPolygon = !isInPolygon;
+					else if(FloatEquality.AreEqual(x, testPoint.x))
+						return boundaryIsIn;
+					lastLeft = true;
 				}
-				else
+				else if(!lastLeft)
 				{
-					if( testPoint.y == lastVertex.y && testPoint.x < lastVertex.x && vertex.y > testPoint.y ) 
+					if(FloatEquality.AreEqual(testPoint.y, lastVertex.y) && 
+						FloatEquality.AreEqual(testPoint.y, vertex.y) && 
+						IsBetween(testPoint.x, vertex.x, lastVertex.x))
+						return boundaryIsIn;
+					if(FloatEquality.AreEqual(testPoint.y, vertex.y) && testPoint.x < vertex.x
+						&& !FloatEquality.LessOrEqual(lastVertex.y, testPoint.y)) {
 						isInPolygon = !isInPolygon;
-					if( testPoint.y == vertex.y && testPoint.x < vertex.x && lastVertex.y > testPoint.y ) 
+						lastSame = true;
+					}
+					if((!lastSame) && FloatEquality.AreEqual(testPoint.y, lastVertex.y)
+						&& testPoint.x < lastVertex.x && vertex.y > testPoint.y) {
 						isInPolygon = !isInPolygon;
-					if(testPoint.y == lastVertex.y && testPoint.y == vertex.y && IsBetween(testPoint.x, vertex.x, lastVertex.x))
-						return true;
+						lastSame = true;
+					}
+					else
+						lastSame = false;
+				} else {
+					lastSame = false;
+					lastLeft = false;
 				}
 
 				lastVertex = vertex;
@@ -129,9 +128,9 @@ namespace GameCreatingCore {
 			return isInPolygon;
 		}
 
-		public static bool IsBetween(double x, double a, double b )
+		public static bool IsBetween(float x, float a, float b )
 		{
-			return ( x - a ) * ( x - b ) < 0;
+			return !FloatEquality.MoreOrEqual(( x - a ) * ( x - b ), 0);
 		}
 	}
 

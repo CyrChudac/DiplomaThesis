@@ -63,16 +63,22 @@
     <Compile Include="Assets\EvolutionaryAlgo\LevelTester.cs" />
     <Compile Include="Assets\Scripts\LevelStateDealer\GameRunner.cs" />
     <Compile Include="Assets\Scripts\PlayerProvider.cs" />
+    <Compile Include="Assets\Scripts\MinimapSetter.cs" />
     <Compile Include="Assets\Scripts\ObstacleMaterial.cs" />
+    <Compile Include="Assets\Scripts\UnityEnemyRepresentation.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\EvolutionaryAlgo\DebugLogWriter.cs" />
     <Compile Include="Assets\Scripts\UnityObstacle.cs" />
     <Compile Include="Assets\Scripts\UnityLevelRepresentation.cs" />
     <Compile Include="Assets\Scripts\AngleDirectionTester.cs" />
+    <Compile Include="Assets\Scripts\TestShapeDisplayer.cs" />
+    <Compile Include="Assets\Scripts\ViewconesManager.cs" />
     <Compile Include="Assets\Scripts\EnemyWithPropsProvider.cs" />
     <Compile Include="Assets\Scripts\UnityStaticGameRepresentation.cs" />
-    <Compile Include="Assets\Scripts\LevelScriptableObjProvider.cs" />
+    <Compile Include="Assets\Scripts\LevelScriptableObjRandomProvider.cs" />
     <Compile Include="Assets\Scripts\NavMeshSettings.cs" />
+    <Compile Include="Assets\Scripts\EnemyKiller.cs" />
+    <Compile Include="Assets\Scripts\UnitySkillRepr.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyAlarmController.cs" />
     <Compile Include="Assets\Scripts\LevelProviderDummy.cs" />
@@ -81,6 +87,7 @@
     <Compile Include="Assets\Scripts\EnemyDummyProvider.cs" />
     <Compile Include="Assets\EvolutionaryAlgo\EnemyMutator.cs" />
     <Compile Include="Assets\Scripts\RotationManager.cs" />
+    <Compile Include="Assets\Scripts\LevelScriptableObjSequentialProvider.cs" />
     <Compile Include="Assets\Scripts\ViewConeMaintainer.cs" />
     <Compile Include="Assets\EvolutionaryAlgo\ObstaclesMutator.cs" />
     <Compile Include="Assets\Scripts\NavmeshAgent2D.cs" />
@@ -92,9 +99,29 @@
     <Compile Include="Assets\Scripts\LevelProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\GameCreationCore\GameCreatingCore.dll" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\EvolutionaryAlgo\Base\EvolAlgoBase.dll" />
-    <None Include="Assets\Resources\ObstacleMaterials\Custom-lit-shader.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -346,6 +373,9 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\2022.3.11f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="GameCreatingCore">
+      <HintPath>Assets\GameCreationCore\GameCreatingCore.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
@@ -357,9 +387,6 @@
     </Reference>
     <Reference Include="EvolAlgoBase">
       <HintPath>Assets\EvolutionaryAlgo\Base\EvolAlgoBase.dll</HintPath>
-    </Reference>
-    <Reference Include="GameCreatingCore">
-      <HintPath>Assets\GameCreationCore\GameCreatingCore.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>C:\Program Files\Unity\2022.3.11f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>

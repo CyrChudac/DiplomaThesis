@@ -21,7 +21,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         public override string ToString()
         {
             var b = base.ToString();
-            b = b[0..(b.Length - 2)] + $";{Score}" + b[b.Length - 1];
+            b = b[0..(b.Length - 1)] + $"; {(int)Score}" + b[b.Length - 1];
             return b;
         }
     }

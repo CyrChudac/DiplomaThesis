@@ -15,6 +15,9 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
             First = first;
             Second = second;
             EdgeInfo = info;
+            if (FloatEquality.AreEqual(first.Position, second.Position)) {
+				throw new NotSupportedException($"This program does not support loop edges ({first}->{second})");
+            }
         }
 
 		public override string ToString() {

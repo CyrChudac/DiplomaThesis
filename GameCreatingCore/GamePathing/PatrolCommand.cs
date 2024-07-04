@@ -42,12 +42,7 @@ namespace GameCreatingCore.GamePathing
             this.TurningSide = turningSide;
         }
 
-        private IGameAction? _action = null;
-
-        public IGameAction Action => _action
-            ?? throw new NotSupportedException("Accessing enemy action without setting its value.");
-
-        public void SetAction(int enemyIndex, Vector2 currentPos, StaticGameRepresentation staticGameRepresentation,
+        public IGameAction GetAction(int enemyIndex, Vector2 currentPos, StaticGameRepresentation staticGameRepresentation,
             StaticNavGraph navGraph, LevelRepresentation level, bool backwards) {
             
             this._staticGameRepresentation = staticGameRepresentation;
@@ -56,7 +51,7 @@ namespace GameCreatingCore.GamePathing
             TurnSideEnum turnStyle = backwards ? TurningSide.Opposite() : TurningSide;
             var wa = new WalkAlongPath(path, enemyIndex, false, Running, TurnWhileMoving, mr, turnStyle);
             var inner = InnerGetAction(enemyIndex, level);
-            _action = new ChainedAction(new List<IGameAction>(2) { wa, inner });
+            return new ChainedAction(new List<IGameAction>(2) { wa, inner });
         }
 
         /// <summary>

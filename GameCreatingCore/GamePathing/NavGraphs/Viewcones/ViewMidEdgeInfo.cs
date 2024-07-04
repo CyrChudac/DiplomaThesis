@@ -14,7 +14,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
         /// </summary>
         public bool Traversable { get; }
         /// <summary>
-        /// Is this edge inside of the viewcone or on the outer edge?
+        /// Signifies, whether this edge is inside of the viewcone. The outer edge is excluded.
         /// </summary>
         public bool IsInMidViewcone { get; }
 
@@ -27,6 +27,11 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
             Traversable = traversable;
             IsInMidViewcone = isInMidViewcone;
             AlertingIncrease = alertingIncrease;
+			if(!FloatEquality.AreEqual(alertingIncrease, 0)) {
+				if(!(IsInMidViewcone || IsEdgeOfRemoved)) {
+					throw new Exception("Edge with an alerting ratio should always in the middle of a viewcone.");
+				}
+			}
         }
     }
 }

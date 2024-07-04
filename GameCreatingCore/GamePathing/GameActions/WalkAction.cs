@@ -16,31 +16,37 @@ namespace GameCreatingCore.GamePathing.GameActions
     public abstract class WalkAction : IGameAction
     {
         protected Vector2 Position { get; }
-        MovementSettingsProcessed MovementSettings { get; }
-        bool Running { get; }
+        protected MovementSettingsProcessed MovementSettings { get; }
+        protected bool Running { get; }
 
         public int? EnemyIndex { get; }
 
         public bool IsIndependentOfCharacter => false;
-        public bool IsCancelable => true;
+        public bool IsCancelable { get; }
 
-        private bool _done = false;
-        public virtual bool Done => _done;
+        //the action must have beeen already called (by TimeUntilCancelable definition)
+        //so we can access _leftoverTime directly
+		public virtual float TimeUntilCancelable => IsCancelable ? 0 : _leftoverTime!.Value;
+        public virtual bool Done { get; private set; } = false;
 
         private float? _leftoverTime = null;
-        public virtual float LeftoverPlayerTime => _leftoverTime
-            ?? throw new NotSupportedException();
 
         /// <param name="enemyIndex">Null if player action.</param>
         internal WalkAction(MovementSettingsProcessed movementSettings, Vector2 position,
-            int? enemyIndex, bool running = false)
+            int? enemyIndex, bool running = false, bool isCancelable = true)
         {
 
             this.EnemyIndex = enemyIndex;
             MovementSettings = movementSettings;
             Running = running;
             Position = position;
+            this.IsCancelable = isCancelable;
         }
+        
+		public void Reset() {
+            _leftoverTime = null;
+            Done = false;
+		}
 
         public LevelStateTimed CharacterActionPhase(LevelStateTimed input)
         {
@@ -57,7 +63,7 @@ namespace GameCreatingCore.GamePathing.GameActions
                     new LevelStateTimed(input.ChangeEnemy(EnemyIndex.Value, position: res.Pos), res.LeftoverTime));
             }
             
-            _done = res.LeftoverWalkTime == 0;
+            Done = FloatEquality.AreEqual(res.LeftoverWalkTime, 0);
             _leftoverTime = res.LeftoverWalkTime;
 
             return result;
@@ -93,5 +99,17 @@ namespace GameCreatingCore.GamePathing.GameActions
         {
             return input;
         }
-    }
+        
+		public override string ToString() {
+			return $"{this.GetType().Name}: {Position}";
+		}
+
+        public abstract IGameAction Duplicate();
+
+        protected T SetDuplicateInner<T>(T action) where T : WalkAction {
+            action._leftoverTime = _leftoverTime;
+            action.Done = Done;
+            return action;
+        }
+	}
 }

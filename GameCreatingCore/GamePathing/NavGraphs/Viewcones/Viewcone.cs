@@ -41,18 +41,37 @@ namespace GameCreatingCore.GamePathing.NavGraphs.Viewcones {
         /// <param name="resultingRatio">When we get to <paramref name="to"/>, this is the final alerting ratio.</param>
         public bool CanGoFromTo(Vector2 from, Vector2 to, out float resultingRatio, float initialRatio = 0)
             =>CanGoFromTo(from, to, (from - to).magnitude, out resultingRatio, initialRatio);
+        
+        /// <summary>
+        /// When traveling between two points (<paramref name="from"/> -> <paramref name="to"/>) within the viewcone,
+        /// is the detection slow enough to not get cought?
+        /// </summary>
+        /// <param name="initialRatio">It's possible, that when starting on <paramref name="from"/>, the 
+        /// initial detection ratio is non-zero.</param>
+        /// <param name="resultingRatio">When we get to <paramref name="to"/>, this is the final alerting ratio.</param>
         public bool CanGoFromTo(Vector2 from, Vector2 to, float theirDistance, 
             out float resultingRatio, float initialRatio = 0) {
 
             resultingRatio = initialRatio + AlertingRatioIncrease(theirDistance);
             
-            var startingLen = (StartPos - from).magnitude;
-            var endingLen = (StartPos - to).magnitude;
-
-            bool s = startingLen / FullLength > initialRatio;
-            bool e = endingLen / FullLength > resultingRatio;
+            bool s = IsAlertOkOn(from, initialRatio);
+            bool e = IsAlertOkOn(to, resultingRatio);
             return s && e;
         }
+
+        /// <summary>
+        /// When assuming that the enemy sees the player and the alerting ratio=<paramref name="alert"/> and player is on 
+        /// <paramref name="position"/>. Is the player still unnoticed by the enemy?.
+        /// </summary>
+        public bool IsAlertOkOn(Vector2 position, float alert)
+            =>  IsAlertOkForDistance((StartPos - position).magnitude, alert);
+
+        /// <summary>
+        /// When assuming that the enemy sees the player and the alerting ratio=<paramref name="alert"/> and player is on
+        /// <paramref name="distance"/> from the enemy. Is the player still unnoticed by the enemy?.
+        /// </summary>
+        public bool IsAlertOkForDistance(float distance, float alert)
+            =>  distance / FullLength > alert;
 
         public float AlertingRatioIncrease(float walkedDistance)
             => walkedDistance / EnemyTypeInfo.AlertingDistance;

@@ -21,5 +21,11 @@ namespace GameCreatingCore.GamePathing.GameActions
         {
             return walkResult;
         }
-    }
+
+
+		public override IGameAction Duplicate() {
+			var result = new OnlyWalkAction(MovementSettings, Position, EnemyIndex, Running);
+            return SetDuplicateInner(result);
+		}
+	}
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using GameCreatingCore.GamePathing.GameActions;
+using GameCreatingCore.StaticSettings;
 using UnityEngine;
 
 namespace GameCreatingCore.GamePathing
@@ -13,6 +14,10 @@ namespace GameCreatingCore.GamePathing
 		/// <returns>The path. Null if it doesn't exist.</returns>
 		List<IGameAction>? GetPath(
 			StaticSettings.StaticGameRepresentation staticGameRepresentation,
+			LevelRepresentation levelRepresentation);
+
+		List<List<IGameAction>>? GetFullPathsTree(
+			StaticGameRepresentation staticGameRepresentation,
 			LevelRepresentation levelRepresentation);
 	}
 }

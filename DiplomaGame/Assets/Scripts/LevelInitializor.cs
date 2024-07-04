@@ -12,41 +12,58 @@ public class LevelInitializor : MonoBehaviour
     [SerializeField]
     private GameRunner gameRunner;
     [SerializeField]
+    private GameController gameController;
+
+    [Header("Obstacles")]
+    [SerializeField]
+    private Material changeableMaterial;
+    [SerializeField]
+    private Texture2D BlankTexture;
+    [SerializeField]
+    private Texture2D EnemyVisionModifiedTexture;
+    [SerializeField]
+    private Texture2D EnemyWalkModifiedTexture;
+    [SerializeField]
+    private Color friendlyWalkableColor;
+    [SerializeField]
+    private Color friendlyUNWalkableColor;
+    [SerializeField]
+    private int obstacleSortingOrder;
+    [SerializeField]
+    private float outerMargin = 300f;
+
+    [Header("Other")]
+    [SerializeField]
     private EnemyProvider enemyProvider;
-    [SerializeField]
-    private List<ObstacleMaterial> materials;
-    [SerializeField]
-    private Material defaultMaterial;
     [SerializeField]
     private PlayerProvider playerProvider;
     [SerializeField]
     private GameObject goal;
     [SerializeField]
-    private List<NavMeshSurface> surfacesToBake;
-    [SerializeField]
-    private float outerMargin = 300f;
-    [SerializeField]
     private CameraMovement camMovement;
     [SerializeField]
-    private GameController gameController;
+    private LevelProvider levelProvider;
+
+    public LevelRepresentation currentLevel;
 
     // Start is called before the first frame update
     void Start()
     {
-        var lr = gameRunner.levelProvider.GetLevel();
-        foreach(var o in lr.Obstacles) {
-            CreateObstacle(o, false);
+        currentLevel = levelProvider.GetLevel(true);
+        var lr = currentLevel;
+        var farOut = CalcFarOuter(lr.OuterObstacle.Shape);
+        foreach(var o in lr.Obstacles.Where(o =>
+            o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable
+            || o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable
+            || o.Effects.EnemyVisionEffect == VisionObstacleEffect.NonSeeThrough)) {
+            CreateObstacle(o, false, farOut);
         }
-        CreateObstacle(lr.OuterObstacle, true);
+        CreateObstacle(lr.OuterObstacle, true, farOut);
 
         var statRepr = gameController.GetStaticGameRepr();
         for(int i = 0; i < NavMesh.GetSettingsCount(); i++) {
             var set = NavMesh.GetSettingsByIndex(i);
             set.agentRadius = statRepr.StaticMovementSettings.CharacterMaxRadius / 2;
-        }
-
-        foreach(var s in surfacesToBake) {
-            s.BuildNavMeshAsync();
         }
 
         CreateEnemies(lr.Enemies);
@@ -56,20 +73,21 @@ public class LevelInitializor : MonoBehaviour
 
         var g = Instantiate(goal, transform);
         g.transform.position = lr.Goal.Position;
-        g.transform.localScale *= lr.Goal.Radius;
+        g.transform.localScale *= lr.Goal.Radius * 2;
 
         camMovement.SetBounds(lr.OuterObstacle.BoundingBox);
+        camMovement.transform.position = new Vector3(lr.FriendlyStartPos.x, lr.FriendlyStartPos.y, camMovement.transform.position.z);
     }
 
     void CreateEnemies(IEnumerable<Enemy> enemies) {
         foreach(var e in enemies) {
             var go = enemyProvider.GetEnemy(e.Type);
             go.transform.position = e.Position;
-            go.transform.rotation = Quaternion.Euler(0, 0, e.Rotation);
+            go.transform.rotation = Quaternion.Euler(0, 0, -e.Rotation);
         }
     }
 
-    GameObject CreateObstacle(Obstacle obstacle, bool outside) {
+    GameObject CreateObstacle(Obstacle obstacle, bool outside, Rect farOut) {
         var go = new GameObject("obstacle");
 
         go.transform.SetParent(transform);
@@ -79,26 +97,33 @@ public class LevelInitializor : MonoBehaviour
         pc.SetPath(0, obstacle.Shape.ToArray());
 
         System.Func<Vector2[], GameObject, PolygonCollider2D> pcFun = 
-            outside ? GetOuterObstacleShape : GetObstacleShape;
+            outside ? ((vs, o) => GetOuterObstacleShape(vs, o, farOut)) : GetObstacleShape;
 
         var mf = go.AddComponent<MeshFilter>();
-        mf.mesh = PolygonToMesh(pcFun(obstacle.Shape.ToArray(), gameObject));
+        mf.mesh = PolygonToMeshWithUVs(pcFun(obstacle.Shape.ToArray(), gameObject), farOut);
 
         var mr = go.AddComponent<MeshRenderer>();
+        mr.material = changeableMaterial;
+        mr.material.SetColor("_Color", obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Walkable ?
+            friendlyWalkableColor : friendlyUNWalkableColor);
 
-        var mater = materials
-            ?.Where(m => m.FriendlyWalkEffect == obstacle.Effects.FriendlyWalkEffect &&
-                 m.EnemyWalkEffect == obstacle.Effects.EnemyWalkEffect &&
-                 m.FriendlyVision == obstacle.Effects.FriendlyVisionEffect &&
-                 m.EnemyVision == obstacle.Effects.EnemyVisionEffect)
-            .FirstOrDefault();
-        mr.material = mater?.Material ?? defaultMaterial;
+        bool addNonSeeThrough = (obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Walkable
+            && obstacle.Effects.EnemyVisionEffect == VisionObstacleEffect.NonSeeThrough)
+            || (obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable
+            && obstacle.Effects.EnemyVisionEffect == VisionObstacleEffect.SeeThrough);
+        mr.material.SetTexture("_Texture1", addNonSeeThrough ? EnemyVisionModifiedTexture : BlankTexture);
+        
+        bool addUNWalkable = (obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Walkable
+            && obstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable)
+            || (obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable
+            && obstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Walkable);
+        mr.material.SetTexture("_Texture2", addUNWalkable ? EnemyWalkModifiedTexture : BlankTexture);
+        mr.sortingOrder = obstacleSortingOrder;
         for(int i = 0; i < obstacle.Shape.Count; i++) {
             var child = new GameObject(i.ToString());
             child.transform.SetParent(go.transform, true);
             child.transform.position = obstacle.Shape[i];
         }
-
         AddObstacleEffects(obstacle, go, (g) => pcFun(obstacle.Shape.ToArray(), g));
 
         return go;
@@ -143,6 +168,18 @@ public class LevelInitializor : MonoBehaviour
         return mesh;
     }
 
+    public Mesh PolygonToMeshWithUVs(PolygonCollider2D polygon, Rect farOut) {
+        var mesh = PolygonToMesh(polygon);
+        var uvs = new Vector2[mesh.vertices.Length];
+        for(int i = 0; i < mesh.vertices.Length; i++) {
+            float x = (mesh.vertices[i].x - farOut.xMin) / (farOut.width);
+            float y = (mesh.vertices[i].y - farOut.yMin) / (farOut.height);
+            uvs[i] = new Vector2(x, y);
+        }
+        mesh.uv = uvs;
+        return mesh;
+    }
+
     public PolygonCollider2D GetObstacleShape(Vector2[] obstacleShape, GameObject go) {
         var pc = go.AddComponent<PolygonCollider2D>();
         pc.pathCount = 1;
@@ -150,8 +187,22 @@ public class LevelInitializor : MonoBehaviour
         return pc;
     }
 
-    public PolygonCollider2D GetOuterObstacleShape(Vector2[] obstacleShape, GameObject go) { 
+    public PolygonCollider2D GetOuterObstacleShape(Vector2[] obstacleShape, GameObject go) 
+        => GetOuterObstacleShape(obstacleShape, go, CalcFarOuter(obstacleShape));
+    private PolygonCollider2D GetOuterObstacleShape(Vector2[] obstacleShape, GameObject go, Rect farOutRect) { 
         var pc = go.AddComponent<PolygonCollider2D>();
+        pc.pathCount = 2;
+        pc.SetPath(0, new Vector2[] {
+            new Vector2(farOutRect.xMin, farOutRect.yMin),
+            new Vector2(farOutRect.xMin, farOutRect.yMax),
+            new Vector2(farOutRect.xMax, farOutRect.yMax),
+            new Vector2(farOutRect.xMax, farOutRect.yMin),
+        });
+        pc.SetPath(1, obstacleShape);
+        return pc;
+    }
+
+    Rect CalcFarOuter(IReadOnlyList<Vector2> obstacleShape) {
         float xMin = float.MaxValue, xMax = float.MinValue, yMin = float.MaxValue, yMax = float.MinValue;
         foreach(var vec in obstacleShape) {
             xMin = Mathf.Min(xMin, vec.x);
@@ -159,14 +210,9 @@ public class LevelInitializor : MonoBehaviour
             yMin = Mathf.Min(yMin, vec.y);
             yMax = Mathf.Max(yMax, vec.y);
         }
-        pc.pathCount = 2;
-        pc.SetPath(0, new Vector2[] {
-            new Vector2(xMin - outerMargin, yMin - outerMargin),
-            new Vector2(xMin - outerMargin, yMax + outerMargin),
-            new Vector2(xMax + outerMargin, yMax + outerMargin),
-            new Vector2(xMax + outerMargin, yMin - outerMargin),
-        });
-        pc.SetPath(1, obstacleShape);
-        return pc;
+        return new Rect(xMin - outerMargin,
+            yMin - outerMargin,
+            xMax - xMin + 2 * outerMargin,
+            yMax - yMin + 2 * outerMargin);
     }
 }

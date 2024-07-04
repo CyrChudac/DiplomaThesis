@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameDifficulty: 1
   movementSettings:
-    Speed: 10
+    Speed: 15
     CharacterMaxRadius: 4
   viewconeDescriptions:
   - enemyType: 0
     enemySettings:
       viewconeRepresentation:
-        Length: 30
+        Length: 40
         Angle: 60
         WiggleAngle: 0
         WiggleTime: 1
-        AlertingTimeModifier: 4
+        AlertingTimeModifier: 1.5
         DisalertingTimeModifier: 6
         AlertedLengthModifier: 2
         AlertLengthChangeSpeedIn: 0.6
@@ -32,13 +32,13 @@ MonoBehaviour:
         AlertedWiggleAngle: 0
         AlertedWiggleTime: 1
       movementRepresentation:
-        WalkSpeedModifier: 1
+        WalkSpeedModifier: 0.8
         RunSpeedModifier: 1
         RunStartTime: 0
         RunEndTime: 0
   playerSettings:
     movementRepresentation:
-      WalkSpeedModifier: 1.6
+      WalkSpeedModifier: 1.2
       RunSpeedModifier: 1
       RunStartTime: 0
       RunEndTime: 0

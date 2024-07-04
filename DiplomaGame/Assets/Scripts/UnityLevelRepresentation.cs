@@ -1,5 +1,6 @@
 using GameCreatingCore;
 using GameCreatingCore.GamePathing;
+using GameCreatingCore.GamePathing.GameActions;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,9 +17,9 @@ public class UnityLevelRepresentation : ScriptableObject
 	[SerializeField]
 	public List<Enemy> Enemies;
 	[SerializeField]
-	public List<IActiveGameActionProvider> AvailableSkills;
+	public List<UnitySkillRepr> AvailableSkills;
 	[SerializeField]
-	public List<(IActiveGameActionProvider, Vector2)> SkillsToPickup;
+	public List<UnitySkillReprGrounded> SkillsToPickup;
 	[SerializeField]
 	public Vector2 FriendlyStartPos;
 	[SerializeField]
@@ -29,9 +30,19 @@ public class UnityLevelRepresentation : ScriptableObject
 			Obstacles.Select(o => o.ToObstacle()).ToList(),
 			OuterObstacle.ToObstacle(),
 			Enemies,
-			SkillsToPickup,
-			AvailableSkills,
+			SkillsToPickup?.Select(x => (x.unitySkillRepr.GetActionProvider(), x.groundedAt)).ToList(),
+			AvailableSkills?.Select(x => x.GetActionProvider()).ToList(),
 			FriendlyStartPos,
 			Goal);
 	}
+}
+
+public enum SkillType {
+	Kill
+}
+
+[System.Serializable]
+public class UnitySkillReprGrounded {
+	public UnitySkillRepr unitySkillRepr;
+	public Vector2 groundedAt;
 }

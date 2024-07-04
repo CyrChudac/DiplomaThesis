@@ -31,29 +31,9 @@ public class ViewconeCreator : ViewConeMaintainer
     [Tooltip("The minimal distance from the player when the viewcone is displayed.")]
     [SerializeField] private float displayStartDistance;
 
-    [Header("Events")]
-
-    [SerializeField] private bool vocalEvents = false;
-    [SerializeField] private UnityEvent<GameObject> onSeen; 
-    [SerializeField] private UnityEvent<GameObject> onCaught; 
-    [SerializeField] private UnityEvent onNotSeenAnymore;
-    [SerializeField] private UnityEvent onNoLongerCaught;
-
-    float suspitionRatio = 0;
-    bool seen = false;
-    bool caught = false;
+    public float suspitionRatio = 0;
 
 	protected override void Start() {
-		onSeen.AddListener((o) => seen = true);
-		onCaught.AddListener((o) => caught = true);
-		onNotSeenAnymore.AddListener(() => seen = false);
-		onNoLongerCaught.AddListener(() => caught = false);
-        if(vocalEvents) {
-            onSeen.AddListener((o) => Debug.Log("seen"));
-            onCaught.AddListener((o) => Debug.Log("caught"));
-            onNotSeenAnymore.AddListener(() => Debug.Log("UN seen"));
-            onNoLongerCaught.AddListener(() => Debug.Log("UN caught"));
-        }
 
         var mid = new MiddleViewPart(this);
         ViewconeParts = new IViewconePartSpecifier[] {
@@ -63,43 +43,6 @@ public class ViewconeCreator : ViewConeMaintainer
         };
         base.Start();
 	}
-
-	protected override void Update()
-    {
-        if(seen || caught) {
-            suspitionRatio = Mathf.Min(1, suspitionRatio + Time.deltaTime/timeUntilFullView);
-        } else {
-            suspitionRatio = Mathf.Max(0, suspitionRatio - Time.deltaTime/timeUntilFullView);
-        }
-        base.Update();
-    }
-
-    bool inMidLine = false;
-    bool inDangerPart = false;
-    private void OnMiddleLineEnter(GameObject o) {
-        if(!(inMidLine || inDangerPart)) {
-            onCaught.Invoke(o);
-        }
-        inMidLine = true;
-    }
-    private void OnMiddleLineLeft() {
-        if(!inDangerPart) {
-            onNoLongerCaught.Invoke();
-        }
-        inMidLine = false;
-    }
-    private void OnDangerEnter(GameObject o) {
-        if(!(inMidLine || inDangerPart)) {
-            onCaught.Invoke(o);
-        }
-        inDangerPart = true;
-    }
-    private void OnDangerLeft() {
-        if(!inMidLine) {
-            onNoLongerCaught.Invoke();
-        }
-        inDangerPart = false;
-    }
 
     abstract class ViewPart : IViewconePartSpecifier {
         protected readonly ViewconeCreator creator;
@@ -124,24 +67,12 @@ public class ViewconeCreator : ViewConeMaintainer
 
 		public abstract string Name { get; }
 		public abstract float Length { get; }
-
-        public abstract void OnEnteredBy(GameObject by);
-
-        public abstract void OnLeftBy(GameObject by);
 	}
 
     class OkViewPart : ViewPart {
 		public OkViewPart(ViewconeCreator creator) : base(creator) {}
 
 		protected override Color Color => creator.okView;
-
-		public override void OnEnteredBy(GameObject by) {
-            creator.onSeen.Invoke(by);
-		}
-
-		public override void OnLeftBy(GameObject by) {
-            creator.onNotSeenAnymore.Invoke();
-		}
 
 		public override string Name => "good view";
 
@@ -152,14 +83,6 @@ public class ViewconeCreator : ViewConeMaintainer
 		public MiddleViewPart(ViewconeCreator creator) : base(creator) {}
 
 		protected override Color Color => creator.middleLine;
-
-		public override void OnEnteredBy(GameObject by) {
-            creator.OnMiddleLineEnter(by);
-		}
-
-		public override void OnLeftBy(GameObject by) {
-            creator.OnMiddleLineLeft();
-		}
 
 		public override string Name => "mid line view";
 
@@ -177,14 +100,6 @@ public class ViewconeCreator : ViewConeMaintainer
         }
 
 		protected override Color Color => creator.badView;
-
-		public override void OnEnteredBy(GameObject by) {
-            creator.OnDangerEnter(by);
-		}
-
-		public override void OnLeftBy(GameObject by) {
-            creator.OnDangerLeft();
-		}
 
 		public override string Name => "danger view";
 

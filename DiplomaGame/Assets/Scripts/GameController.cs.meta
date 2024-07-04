@@ -3,8 +3,12 @@ guid: d07c0e67846bc2a4a81ae2cde750b45a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
+  defaultReferences:
+  - gameOverScreen: {fileID: 5245553649211265568, guid: 092e7f6bebb9c0c439abcc3f5357fe9a, type: 3}
+  - gameWonScreen: {fileID: 5245553649211265568, guid: 4b586ed5eb86ad4498439b055b418e72, type: 3}
+  - canvas: {instanceID: 0}
+  - staticGameRepr: {instanceID: 0}
+  executionOrder: -50
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

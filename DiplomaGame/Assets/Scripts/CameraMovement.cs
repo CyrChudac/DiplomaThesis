@@ -36,18 +36,22 @@ public class CameraMovement : MonoBehaviour
         MouseAffect(
             Input.mousePosition.x,
             doNotMoveInWindowedMode ? 0 : float.MinValue,
-            Screen.width * mouseMarginToMove, Vector3.left);
+            Screen.width * mouseMarginToMove, Vector3.left,
+            false);
         MouseAffect(
             Input.mousePosition.x, Screen.width * (1 - mouseMarginToMove),
             doNotMoveInWindowedMode ? Screen.width : float.MaxValue, 
-            Vector3.right);
+            Vector3.right,
+            true);
         
         MouseAffect(Input.mousePosition.y, 
             doNotMoveInWindowedMode ? 0 : float.MinValue,
-            Screen.height * mouseMarginToMove, Vector3.down);
+            Screen.height * mouseMarginToMove, Vector3.down,
+            false);
         MouseAffect(Input.mousePosition.y, Screen.height * (1 - mouseMarginToMove), 
             doNotMoveInWindowedMode ? Screen.height : float.MaxValue, 
-            Vector3.up);
+            Vector3.up,
+            true);
 
         target.position = new Vector3(
             Mathf.Clamp(target.position.x, bounds.x, bounds.x + bounds.width),
@@ -55,9 +59,19 @@ public class CameraMovement : MonoBehaviour
             target.position.z);
     }
 
-    void MouseAffect(float mousePos, float min, float max, Vector3 direction) {
+    void MouseAffect(float mousePos, float min, float max, Vector3 direction, bool endOnMax) {
         if(mousePos >= min && mousePos <= max) {
-            target.position += direction * movementSpeed * mouseMovementSpeedModifier * Time.deltaTime;
+            var val = (mousePos - min) / (max - min);
+            if(!endOnMax) {
+                val = 1 - val;
+            }
+            val *= 1.5f;
+            if(val > 1)
+                val = 1;
+            else
+                //val = 1 - (1 - val) * (1 - val);
+                val = val * val;
+            target.position += direction * movementSpeed * mouseMovementSpeedModifier * Time.deltaTime * val;
         }
     }
 }

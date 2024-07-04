@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Diagnostics;
+using System.Collections;
 
 namespace GameCreatingCore.GamePathing.NavGraphs {
-	internal class PriorityQueue<TKey, TValue> {
+	internal class PriorityQueue<TKey, TValue> : IEnumerable<(TKey, TValue)>{
 		private readonly SortedDictionary<TKey, Queue<TValue>> _queue;
 		
 		[DebuggerNonUserCode]
@@ -62,5 +63,20 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
 		
 		[DebuggerNonUserCode]
 		public bool Any() => Count > 0;
+
+		public override string ToString() {
+			return $"{nameof(PriorityQueue<TKey, TValue>)}: {Count}";
+		}
+
+		public IEnumerator<(TKey, TValue)> GetEnumerator() {
+			foreach(var p in _queue) {
+				foreach(var v in p.Value) {
+					yield return (p.Key, v);
+				}
+			}
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+			=> GetEnumerator();
 	}
 }

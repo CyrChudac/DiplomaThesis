@@ -51,13 +51,30 @@ namespace GameCreatingCore.GamePathing.NavGraphs
                 }
                 seen.Add(curr.Position);
             }
+            if(final == null)
+                return null;
             var result = ReconstructPath(final);
             result.Reverse();
             return result;
         }
-
+        
         public static List<Vector2>? GetPath<T>(this Graph<T> g, Vector2 from,
             Func<Vector2, Vector2, bool> canConnect) where T : ScoredNode{
+            var best = GetBestStraight(g, from, canConnect);
+            if(best == null) 
+                return null;
+            return ReconstructPath(best);
+        }
+        public static float? GetPathScore<T>(this Graph<T> g, Vector2 from,
+            Func<Vector2, Vector2, bool> canConnect) where T : ScoredNode{
+            var best = GetBestStraight(g, from, canConnect);
+            if(best == null) 
+                return null;
+            return best.Score + Vector2.Distance(from, best.Position);
+        }
+
+        private static T? GetBestStraight<T>(this Graph<T> g, Vector2 from,
+            Func<Vector2, Vector2, bool> canConnect) where T : ScoredNode { 
 
             var to = g.vertices.FirstOrDefault(v => v.Previous == null);
             if(to == null) {
@@ -65,7 +82,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs
             }
 
             if(canConnect(from, to.Position)) {
-                return new List<Vector2>() { to.Position };
+                return to;
             }
 
             int index = -1;
@@ -86,8 +103,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs
                 return null;
             }
 
-            var result = ReconstructPath(g.vertices[index]);
-            return result;
+            return g.vertices[index];
         }
 
         static List<Vector2> ReconstructPath(ScoredNode? node) {

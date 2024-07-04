@@ -4,6 +4,7 @@ using UnityEngine;
 using GameCreatingCore;
 using System.Linq;
 using System;
+using GameCreatingCore.GamePathing.NavGraphs;
 
 //works with all obstacles as rectangles
 public class ObstaclesMutator : MonoBehaviour
@@ -45,11 +46,12 @@ public class ObstaclesMutator : MonoBehaviour
     [SerializeField]
     private float minObstacleOneAxisWidth = 5f;
     public Obstacle MutateOuterObstacle(Obstacle previous, EvolAlgoUtils utils, 
-        ICollection<Vector2> enemyPositions, ICollection<Vector2> playerPositions) {
+        IReadOnlyCollection<Vector2> enemyPositions, IReadOnlyCollection<Vector2> playerPositions,
+        float characterRadius) {
 
         var newoo = OffsetObstMutation(previous, utils, offsetOuterObstacleMax);
         int i = 0;
-        while(!ContainsAllItShould(newoo, enemyPositions, playerPositions)) {
+        while(!ContainsAllItShould(newoo, enemyPositions, playerPositions, characterRadius)) {
             newoo = OffsetObstMutation(previous, utils, offsetOuterObstacleMax);
             i++;
             if(i == 1000) {
@@ -60,12 +62,12 @@ public class ObstaclesMutator : MonoBehaviour
     }
 
     public List<Obstacle> MutateObsts(List<Obstacle> prev, EvolAlgoUtils utils, Obstacle outerObstacle,
-        ICollection<Vector2> enemyPositions, ICollection<Vector2> playerPositions) {
+        ICollection<Vector2> enemyPositions, ICollection<Vector2> playerPositions, float characterRadius) {
         var outer = EnlargeOuterObstacle(outerObstacle, utils, 0.25f);
         var result = new List<Obstacle>(prev);
         if(utils.RandomFloat() < addObstacleProbCurve.Evaluate(prev.Count)) {
             Obstacle toAdd = RandomObstacle(utils, outer, minInitObstacleArea, maxInitObstacleArea, minObstacleOneAxisWidth);
-            while(IsObstacleWrong(toAdd, enemyPositions, playerPositions, outerObstacle)) {
+            while(IsObstacleWrong(toAdd, enemyPositions, playerPositions, outerObstacle, characterRadius)) {
                 toAdd = RandomObstacle(utils, outer, minInitObstacleArea, maxInitObstacleArea, minObstacleOneAxisWidth);
             }
             result.Add(toAdd);
@@ -76,7 +78,7 @@ public class ObstaclesMutator : MonoBehaviour
         for(int i = 0; i < result.Count; i++) {
             if(utils.RandomFloat() < mutationProb) {
                 var toChange = MutateObst(result[i], utils);
-                while(IsObstacleWrong(toChange, enemyPositions, playerPositions, outerObstacle)) {
+                while(IsObstacleWrong(toChange, enemyPositions, playerPositions, outerObstacle, characterRadius)) {
                     toChange = MutateObst(result[i], utils);
                 }
                 result[i] = toChange;
@@ -87,23 +89,23 @@ public class ObstaclesMutator : MonoBehaviour
 
     
     private bool IsObstacleWrong(Obstacle o, ICollection<Vector2> enemyPositions,
-        ICollection<Vector2> playerPositions, Obstacle outerObstacle) {
-
+        ICollection<Vector2> playerPositions, Obstacle outerObstacle, float characterRadius) {
+        o = ObstaclesInflator.InflateNormal(o, characterRadius);
         return ContainsWhatItShouldnt(o, enemyPositions, playerPositions)
-            || (!o.Shape.Any(p => outerObstacle.ContainsPoint(p)));
+            || (!o.Shape.Any(p => outerObstacle.ContainsPoint(p, true)));
     }
 
     private bool ContainsWhatItShouldnt(Obstacle o, ICollection<Vector2> enemyPositions,
         ICollection<Vector2> playerPositions) {
-        //TODO: o = Inflate(o);
-        return (o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.Any(ep => o.ContainsPoint(ep)))
-            || (o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.Any(ep => o.ContainsPoint(ep)));
+        return (o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.Any(ep => o.ContainsPoint(ep, true)))
+            || (o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.Any(ep => o.ContainsPoint(ep, true)));
     }
     
-    private bool ContainsAllItShould(Obstacle o, ICollection<Vector2> enemyPositions,
-        ICollection<Vector2> playerPositions) {
-        return (o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.All(ep => o.ContainsPoint(ep)))
-            || (o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.All(ep => o.ContainsPoint(ep)));
+    private bool ContainsAllItShould(Obstacle o, IReadOnlyCollection<Vector2> enemyPositions,
+        IReadOnlyCollection<Vector2> playerPositions, float characterRadius) {
+        o = ObstaclesInflator.InflateOuterObst(o, characterRadius);
+        return (o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable && enemyPositions.All(ep => o.ContainsPoint(ep, false)))
+            || (o.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable && playerPositions.All(ep => o.ContainsPoint(ep, false)));
     }
 
     private Obstacle RandomObstacle(EvolAlgoUtils utils, Rect inArea, float minSize, float maxSize, float minAxisSize) {

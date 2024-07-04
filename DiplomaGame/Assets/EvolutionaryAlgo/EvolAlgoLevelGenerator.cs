@@ -10,6 +10,9 @@ using Unity.Mathematics;
 using Unity.Collections.LowLevel.Unsafe;
 using GameCreatingCore.GamePathing;
 using Unity.VisualScripting;
+using GameCreatingCore.GamePathing.GameActions;
+using GameCreatingCore.GamePathing.NavGraphs;
+using GameCreatingCore.StaticSettings;
 
 public class EvolAlgoLevelGenerator : MonoBehaviour {
     [SerializeField] private int popSize = 100;
@@ -24,6 +27,7 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
     [SerializeField] private ObstaclesMutator obstaclesEval;
     [SerializeField] private LevelTester levelTester;
     [SerializeField] private PlayGroundBounds bounds;
+    [SerializeField] private GameController gameController;
     [SerializeField] private string saveDirectory = "Levels/";
     [Header("mutation probabilities")]
     [Tooltip("The probablity of mutation occuring.")]
@@ -37,6 +41,14 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
     [Tooltip("Since the final playground is random, this specifies what how narrow it could be considering the bounds.")]
     [Range(0,1)]
     [SerializeField] private float boundsMinimalModifier = 0.3f;
+
+    [SerializeField] private float killDistance = 3f;
+    [SerializeField] private float killTime = 1.2f;
+
+    [Range(0,1)]
+    [SerializeField] private float rulletWheelSelectionEquate = 0.2f;
+
+    
 
     const int randomSeed = -1;
     [Tooltip("-1 for a random seed.")]
@@ -63,7 +75,7 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 Debug.Log(s);
             }
         }
-
+        StaticGameRepresentation gameRules = gameController.GetStaticGameRepr();
         EvolAlgoParameters<LevelRepresentation> pars =
         new EvolAlgoParameters<LevelRepresentation>(
             popSize,
@@ -81,17 +93,17 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
             new Mutator<LevelRepresentation>(
                 mutateProb,
                 utils,
-                i => Mutation(i, utils)
+                i => Mutation(i, utils, gameRules.StaticMovementSettings.CharacterMaxRadius)
             ),
             new Selection<LevelRepresentation>(
                 previousPopulationBias,
                 (int)(elitism * popSize),
                 utils,
-                new RuletWheelSelection(0.001f)
+                new RuletWheelSelection(rulletWheelSelectionEquate)
             ),
             GenerationsEndingPredicate.Get(generations),
             InitiatePop(utils),
-            levelTester.Score,
+            ScoreAndSaveFail,
             Plot
             );
         EvolutionaryAlgo<LevelRepresentation> evolAlgo =
@@ -107,12 +119,23 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
         return new EvolAlgoUtils(new SystemRandomGenerator(r));
     }
 
+    private float ScoreAndSaveFail(LevelRepresentation ind) {
+        try {
+            return levelTester.Score(ind);
+        }catch (Exception) {
+            var dir = GetDirectory();
+            dir += "Fail/";
+            EnsureDirectoryExists(dir, '\\', '/');
+            SaveLevels(Enumerable.Empty<LevelRepresentation>().Append(ind), dir);
+            throw;
+        }
+    }
+
     private string GetDirectory() {
         var time = System.DateTime.Now;
         string lastDir = $"{time.Year % 1000}.{time.Month}.{time.Day}.{time.Hour}.{time.Minute}";
         return $"{saveDirectory}{lastDir}/";
     }
-
 
     private void EnsureDirectoryExists(string dir, params char[] separators) {
         string[] dirs = new string[1];
@@ -144,6 +167,19 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 .Select(o => UnityObstacle.FromObstacle(o))
                 .ToList();
             asset.OuterObstacle = UnityObstacle.FromObstacle(lvl.OuterObstacle);
+            List<UnitySkillReprGrounded> toPickUp = new List<UnitySkillReprGrounded>();
+            foreach(var pair in lvl.SkillsToPickup) {
+                toPickUp.Add(new UnitySkillReprGrounded() {
+                    groundedAt = pair.Item2,
+                    unitySkillRepr = UnitySkillRepr.FromProvider(pair.Item1)
+                });
+            }
+            asset.SkillsToPickup = toPickUp;
+            List<UnitySkillRepr> usables = new List<UnitySkillRepr>();
+            foreach(var provider in lvl.SkillsStartingWith) {
+                usables.Add(UnitySkillRepr.FromProvider(provider));
+            }
+            asset.AvailableSkills = usables;
             string path = $"{dir}{i}.asset";
             AssetDatabase.CreateAsset(asset, path);
             i++;
@@ -194,7 +230,8 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                     VisionObstacleEffect.NonSeeThrough)),
                 new List<Enemy>(),
                 new List<(IActiveGameActionProvider, Vector2)>(),
-                new List<IActiveGameActionProvider>(),
+                new List<IActiveGameActionProvider>() 
+                    { new GameCreatingCore.GamePathing.GameActions.KillActionProvider(killTime, killDistance)},
                 start + goalChangeOffset,
                 new LevelGoal(
                     end - goalChangeOffset,
@@ -210,6 +247,12 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
             cre.Enemies = lr.Enemies;
             cre.FriendlyStartPos = lr.FriendlyStartPos;
             cre.Goal = lr.Goal;
+            cre.SkillsToPickup = new List<UnitySkillReprGrounded>();
+            cre.AvailableSkills = new List<UnitySkillRepr>() { new UnitySkillRepr() { 
+                maxUseDistance = killDistance,
+                nonCancelTime = killTime,
+                type = SkillType.Kill
+            } };
             created.Add(cre);
 #endif
             yield return lr;
@@ -227,7 +270,7 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
         return parents;
     }
 
-    private LevelRepresentation Mutation(LevelRepresentation ind, EvolAlgoUtils utils) {
+    private LevelRepresentation Mutation(LevelRepresentation ind, EvolAlgoUtils utils, float characterRadius) {
         var sum = mutateObstsProb + mutateEnemiesProb + mutateOuterObstProb;
         var curr = utils.RandomInt(sum);
         T DetermineMutation<T>(T input, int prob, Func<T, T> mutateFunc) {
@@ -256,25 +299,26 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
 
         var outerObst = DetermineMutation(ind.OuterObstacle, 
             mutateOuterObstProb, 
-            oo => obstaclesEval.MutateOuterObstacle(oo, utils, enemyPoints, playerPositions));
+            oo => obstaclesEval.MutateOuterObstacle(oo, utils, enemyPoints, playerPositions, characterRadius));
         var obsts = DetermineMutation(ind.Obstacles,
             mutateObstsProb, 
-            t => obstaclesEval.MutateObsts(t, utils, outerObst, enemyPoints, playerPositions));
+            t => obstaclesEval.MutateObsts(t, utils, outerObst, enemyPoints, playerPositions, characterRadius));
 
         var enemyObsts = obsts
             .Where(o => o.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable)
+            .Select(o => ObstaclesInflator.InflateNormal(o, characterRadius))
             .ToList();
 
         var enemies = DetermineMutation(ind.Enemies, 
             mutateEnemiesProb,
-            t => enemyEval.MutateEnems(t, utils, outerObst, enemyObsts));
+            t => enemyEval.MutateEnems(t, utils, ObstaclesInflator.InflateOuterObst(outerObst, characterRadius), enemyObsts));
         
         return new LevelRepresentation(
             obsts,
             outerObst,
             enemies,
-            new List<(IActiveGameActionProvider, Vector2)>(),
-            new List<IActiveGameActionProvider>(),
+            ind.SkillsToPickup,
+            ind.SkillsStartingWith,
             ind.FriendlyStartPos,
             ind.Goal);
     }

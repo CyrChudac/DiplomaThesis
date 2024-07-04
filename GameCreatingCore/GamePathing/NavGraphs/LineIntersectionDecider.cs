@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GameCreatingCore.GamePathing.NavGraphs {
 	//from https://stackoverflow.com/questions/4543506/algorithm-for-intersection-of-2-lines
-    internal class LineIntersectionDecider
+    public class LineIntersectionDecider
     {
         /// <param name="tolerance">The maximal slope diffence between 2 lines to consider them paralel.</param>
         /// <param name="overlapIsIntersection">When true, two overlaping lines will return their intersection; 
@@ -246,6 +246,21 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
             }
         }
 
+        //from https://forum.unity.com/threads/how-do-i-find-the-closest-point-on-a-line.340058/
+        public static Vector2 NearestPointOnLine(Vector2 lineStart, Vector2 lineEnd, Vector2 point)
+        {
+            var lineDir = (lineEnd - lineStart).normalized;//this needs to be a unit vector
+            var v = point - lineStart;
+            var d = Vector3.Dot(v, lineDir);
+            var res = lineStart + lineDir * d;
+            if(IsInsideLine(lineStart, lineEnd, res))
+                return res;
+            if((res - lineStart).sqrMagnitude < (res * lineEnd).sqrMagnitude)
+                return lineStart;
+            else
+                return lineEnd;
+        }
+        
         /// <summary>
         /// If there are 2 lines on the same axis, what is the first point of their overlap.
         /// Returns one of the arguments given the first overlap point.
@@ -273,6 +288,9 @@ namespace GameCreatingCore.GamePathing.NavGraphs {
         }
 
         
+        private static bool IsInsideLine(Vector2 Lf, Vector2 Le, Vector2 point)
+            => IsInsideLine(Lf, Le, point.x, point.y);
+
         // Returns true if given vector2(x,y) is inside the given line segment 
         private static bool IsInsideLine(Vector2 Lf, Vector2 Le, float x, float y)
         {

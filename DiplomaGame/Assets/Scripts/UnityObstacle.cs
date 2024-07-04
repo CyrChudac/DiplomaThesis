@@ -11,13 +11,13 @@ public class UnityObstacle
 	[SerializeField]
 	public List<Vector2> Shape;
 	[SerializeField]
-	public WalkObstacleEffect FriendlyWalkEffect;
+	public WalkObstacleEffect FriendlyWalkEffect = WalkObstacleEffect.Unwalkable;
 	[SerializeField]
-	public WalkObstacleEffect EnemyWalkEffect;
+	public WalkObstacleEffect EnemyWalkEffect = WalkObstacleEffect.Unwalkable;
 	[SerializeField]
-	public VisionObstacleEffect FriendlyVisionEffect;
+	public VisionObstacleEffect FriendlyVisionEffect = VisionObstacleEffect.NonSeeThrough;
 	[SerializeField]
-	public VisionObstacleEffect EnemyVisionEffect;
+	public VisionObstacleEffect EnemyVisionEffect = VisionObstacleEffect.NonSeeThrough;
 
 	
 	public UnityObstacle(List<Vector2> shape, WalkObstacleEffect friendlyWalkEffect, WalkObstacleEffect enemyWalkEffect, VisionObstacleEffect friendlyVisionEffect, VisionObstacleEffect enemyVisionEffect) {

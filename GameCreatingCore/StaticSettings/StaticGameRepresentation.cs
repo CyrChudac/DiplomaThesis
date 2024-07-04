@@ -10,7 +10,7 @@ namespace GameCreatingCore.StaticSettings
         private IDictionary<EnemyType, EnemySettings> _dict;
         public StaticGameRepresentation(
             IDictionary<EnemyType, EnemySettings> dict, 
-            int gameDiff, 
+            float gameDiff, 
             StaticMovementSettings movementSettings,
             PlayerSettings playerSettings)
         {
@@ -28,7 +28,7 @@ namespace GameCreatingCore.StaticSettings
         public PlayerSettingsProcessed PlayerSettings => playerSettings.ToProcessed(movementSettings);
         public StaticMovementSettingsProcessed StaticMovementSettings => movementSettings.ToProcessed();
 
-        public int GameDifficulty { get; }
+        public float GameDifficulty { get; }
 
         private StaticMovementSettings movementSettings;
     }

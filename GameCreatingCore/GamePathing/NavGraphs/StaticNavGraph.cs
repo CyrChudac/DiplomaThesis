@@ -15,19 +15,6 @@ namespace GameCreatingCore.GamePathing.NavGraphs
     /// </summary>
     public class StaticNavGraph
     {
-        //myšlenka:
-        //	zapamatuju si statickej graf prostředí se vzdálenostmi od cíle (ten je taky statický)
-        //	pak iteruju po čase, vždy připočtu do grafu pohledy enemáků
-        //	a dám jim heuristicky nižší prioritu
-        //	naopak cíli a vojákům dám prioritu vyšší
-        //	v tom spočtu nejkratší cestu
-        //	pak se posunu o kus po nejkratší cestě a opakuju
-        //	pokud skončím v pohledu, přidávám dobu, po jakou tam jsem (přibližnou) do počítadla
-        //	failnu, pokud je doba moc dlouhá (pokud jsem v takový části toho pohledu,
-        //	že tam po té době enemy už vidí
-        //		nějak je potřeba zařídit, že výstupem je cesta a akce, který se staly
-        //		(průchod pohledem, zabití vojáka...)
-        
         private readonly List<Obstacle> obstacles;
         private readonly Obstacle outerObstacle;
         private readonly LevelGoal levelGoal;
@@ -83,28 +70,37 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         }
 
         private List<Obstacle>? _enemyObstacles = null;
-        private List<Obstacle> EnemyObstacles => _enemyObstacles
+        public IReadOnlyList<Obstacle> EnemyObstacles => _enemyObstacles
             ?? throw new InvalidOperationException();
 
         private List<Obstacle>? _playerObstacles;
-        private List<Obstacle> PlayerObstacles => _playerObstacles
+        public IReadOnlyList<Obstacle> PlayerObstacles => _playerObstacles
             ?? throw new InvalidOperationException();
 
         public bool CanEnemyGetToStraight(Vector2 from, Vector2 to)
             => CanGetToStraight(from, to, EnemyObstacles);
         public List<Vector2> GetEnemyPath(Vector2 from, Vector2 to) 
-            => EnemyNavGraph.GetPath(from, to, CanEnemyGetToStraight);
+            => EnemyNavGraph.GetPath(from, to, (f, t) => CanEnemyGetToStraight(f, t) && !IsLineInsideEnemyObstacle(f, t));
 
-        public bool IsInPlayerObstacle(Vector2 vec)
-            => PlayerObstacles.Any(o => o.ContainsPoint(vec));
+        public bool IsInPlayerObstacle(Vector2 vec, bool isBoundaryInside)
+            => PlayerObstacles.Any(o => o.ContainsPoint(vec, isBoundaryInside));
         public bool CanPlayerGetToStraight(Vector2 from, Vector2 to)
             => CanGetToStraight(from, to, PlayerObstacles);
         public bool CanPlayerGetToStraight<T>(T from, T to) where T : Node
             => CanPlayerGetToStraight(from.Position, to.Position);
         public List<Vector2>? GetEnemylessPlayerPath(Vector2 from)
             => PlayerStaticNavGraph.GetPath(from, CanPlayerGetToStraight);
+        public float? GetEnemylessPlayerPathLength(Vector2 from)
+            => PlayerStaticNavGraph.GetPathScore(from, CanPlayerGetToStraight);
         public List<Vector2>? GetEnemylessPlayerPath(Vector2 from, Vector2 to)
-            => PlayerStaticNavGraph.GetPath(from, to, CanPlayerGetToStraight);
+            => PlayerStaticNavGraph.GetPath(from, to, (f, t) => CanPlayerGetToStraight(f, t) && !IsLineInsidePlayerObstacle(f, t));
+        public int? InWhichPlayerObstacle(Vector2 vec, bool isBoundaryInside) {
+            for(int i = 0; i < PlayerObstacles.Count; i++) {
+                if(PlayerObstacles[i].ContainsPoint(vec, isBoundaryInside))
+                    return i;
+            }
+            return null;
+        }
 
         private Graph<ScoredNode> ComputeScoredNavGraph(Func<Obstacle, bool> whatToInclude) {
             var graph = ComputeNavGraph(whatToInclude);
@@ -129,7 +125,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs
             for(int k = 0; k < graph.vertices.Count; k++) {
                 if(CanGetToStraight(levelGoal.Position, graph.vertices[k].Position, obsts)) {
                     float dist = Vector2.Distance(g.Position, graph.vertices[k].Position);
-                    dist = Math.Max(0, dist - levelGoal.Radius);
+                    //dist = Math.Max(0, dist - levelGoal.Radius);
                     var n = new ScoredNode(dist, 0, g, graph.vertices[k].Position);
                     que.Enqueue(dist, n);
                     edges.Add(new Edge<ScoredNode>(g, n, dist));
@@ -189,29 +185,35 @@ namespace GameCreatingCore.GamePathing.NavGraphs
             for(int i = 0; i < dueObsts.Count; i++) {
                 var o = dueObsts[i];
                 for(int j = 0; j < o.Shape.Count; j++) {
-                    if(!outerObstacle.ContainsPoint(o.Shape[j]))
+                    if(!outerObstacle.ContainsPoint(o.Shape[j], false))
                         continue;
                     Node f = new Node(o.Shape[j]);
                     nodes.Add(f);
                     for(int L = j + 1; L < o.Shape.Count; L++) {
-                        if(!outerObstacle.ContainsPoint(o.Shape[L]))
+                        if(!outerObstacle.ContainsPoint(o.Shape[L], false))
+                            continue;
+                        if(IsLineInsideAnyObstacle(o.Shape[j], o.Shape[L], dueObsts))
                             continue;
                         if(CanGetToStraight(o.Shape[j], o.Shape[L], consideredObsts) 
-                            && (AreNeighboring(j, L, o) || (! IsInsideObstacle(o.Shape[j], o.Shape[L], o)))) {
+                            && (AreNeighboring(j, L, o) || (! IsLineInsideObstacle(o.Shape[j], o.Shape[L], o)))) {
                             Node s = new Node(o.Shape[L]);
                             float dist = Vector2.Distance(o.Shape[L], o.Shape[j]);
                             edges.Add(new Edge<Node>(f, s, dist));
                             edges.Add(new Edge<Node>(s, f, dist));
                         }
                     }
-                    for(int k = i + 1; k < consideredObsts.Count; k++) {
-                        var o2 = consideredObsts[k];
-                        if(o2.ContainsPoint(o.Shape[j]))
+                    for(int k = i + 1; k < dueObsts.Count; k++) {
+                        var o2 = dueObsts[k];
+                        if(o2.ContainsPoint(o.Shape[j], true))
                             break;
                         for(int L = 0; L < o2.Shape.Count; L++) {
-                            if(!outerObstacle.ContainsPoint(o2.Shape[L]))
+                            if(!outerObstacle.ContainsPoint(o2.Shape[L], false))
                                 continue;
-                            if(o.ContainsPoint(o2.Shape[L]))
+                            if(o.ContainsPoint(o2.Shape[L], true))
+                                continue;
+                            if(IsLineInsideAnyObstacle(o.Shape[j], o2.Shape[L], dueObsts))
+                                continue;
+                            if(IsLineInsideObstacle(o.Shape[j], o2.Shape[L], o2))
                                 continue;
                             if(CanGetToStraight(o.Shape[j], o2.Shape[L], consideredObsts)) {
                                 Node s = new Node(o2.Shape[L]);
@@ -223,22 +225,6 @@ namespace GameCreatingCore.GamePathing.NavGraphs
                     }
                 }
             }
-            if(whatToInclude(outerObstacle)) {
-                for(int i = 0; i < outerObstacle.Shape.Count; i++) {
-                    Node f = new Node(outerObstacle.Shape[i]);
-                    nodes.Add(f);
-                    for(int j = i+1; j < outerObstacle.Shape.Count; j++) {
-                        //different if than above - we want the IsInsideObstacle to be true
-                        if(CanGetToStraight(outerObstacle.Shape[i], outerObstacle.Shape[j], consideredObsts) 
-                            && IsInsideObstacle(outerObstacle.Shape[i], outerObstacle.Shape[j], outerObstacle)) {
-                            Node s = new Node(outerObstacle.Shape[j]);
-                            float dist = Vector2.Distance(outerObstacle.Shape[i], outerObstacle.Shape[j]);
-                            edges.Add(new Edge<Node>(f, s, dist));
-                            edges.Add(new Edge<Node>(s, f, dist));
-                        }
-                    }
-                }
-            }
             return new Graph<Node>(nodes, edges, true);
         }
         
@@ -246,7 +232,7 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         /// Makes sure that none of the the <paramref name="obstacles"/> block the straight path 
         /// <paramref name="from"/> -> <paramref name="to"/>.
         /// </summary>
-        private bool CanGetToStraight(Vector2 from, Vector2 to, List<Obstacle> obstacles)
+        private bool CanGetToStraight(Vector2 from, Vector2 to, IReadOnlyList<Obstacle> obstacles)
             => CanGetToStraight(from, to, obstacles.Select(o => o.Shape));
 
         public bool CanGetToStraight<T>(T from, T to, IEnumerable<IReadOnlyList<Vector2>> obstacles) where T : Node
@@ -256,9 +242,11 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         /// Finds out if none of the the <paramref name="obstacles"/> block the straight path 
         /// <paramref name="from"/> -> <paramref name="to"/>.
         /// </summary>
-        public bool CanGetToStraight(Vector2 from, Vector2 to, IEnumerable<IReadOnlyList<Vector2>> obstacles) {
+        public bool CanGetToStraight(Vector2 from, Vector2 to, IEnumerable<IReadOnlyList<Vector2>> obstacles, 
+            bool overlapIsIntersection = false) {
+
             foreach(var o in obstacles) {
-                if(!CanGetToStraight(from, to, o))
+                if(!CanGetToStraight(from, to, o, overlapIsIntersection))
                     return false;
             }
             return true;
@@ -267,14 +255,14 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         /// <summary>
         /// Does the <paramref name="shape"/> block the straight path <paramref name="from"/> -> <paramref name="to"/>?
         /// </summary>
-        protected bool CanGetToStraight(Vector2 from, Vector2 to, IReadOnlyList<Vector2> shape) { 
+        protected bool CanGetToStraight(Vector2 from, Vector2 to, IReadOnlyList<Vector2> shape, bool overlapIsIntersection = false) { 
             for(int i = 0; i < shape.Count; i++) {
                 var next = (i + 1) % shape.Count;
                 if(shape[i] != from
                     && shape[next] != from
                     && shape[i] != to
                     && shape[next] != to
-                    && LineIntersectionDecider.HasIntersection(from, to, shape[i], shape[next], false, false))
+                    && LineIntersectionDecider.HasIntersection(from, to, shape[i], shape[next], overlapIsIntersection, false))
 
                     return false;
             }
@@ -299,13 +287,31 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         internal bool IsLineInsideEnemyObstacle(Vector2 from, Vector2 to) {
             return IsLineInsideAnyObstacle(from, to, EnemyObstacles);
         }
-
-        private bool IsLineInsideAnyObstacle(Vector2 from, Vector2 to, List<Obstacle> obsts) {
+        
+        public bool IsLineInsideAnyObstacle(Vector2 from, Vector2 to, IReadOnlyList<Obstacle> obsts) {
             foreach(var o in obsts) {
-                if(IsInsideObstacle(from, to, o))
+                if(IsLineInsideObstacle(from, to, o))
                     return true;
             }
             return false;
+        }
+
+        public bool IsLineInsideAnyObstacle(Vector2 from, Vector2 to, IEnumerable<IReadOnlyList<Vector2>> obsts) {
+            foreach(var o in obsts) {
+                if(IsLineInsideObstacle(from, to, o))
+                    return true;
+            }
+            return false;
+        }
+        
+        /// <summary>
+        /// Considering it is possible to go <paramref name="from"/> -> <paramref name="to"/> straight
+        /// while they are both on the border of the same obstacle, does the path go in the inside of the obstacle?
+        /// - false possible only for a) adjecent points in the shape; b) the shape is convex
+        /// </summary>
+        public bool IsLineInsideObstacle(Vector2 from, Vector2 to, Obstacle obstacle) {
+            var mid = (from + to) / 2;
+            return obstacle.ContainsPoint(mid, false);
         }
 
         /// <summary>
@@ -313,9 +319,9 @@ namespace GameCreatingCore.GamePathing.NavGraphs
         /// while they are both on the border of the same obstacle, does the path go in the inside of the obstacle?
         /// - false possible only for a) adjecent points in the shape; b) the shape is convex
         /// </summary>
-        protected bool IsInsideObstacle(Vector2 from, Vector2 to, Obstacle obstacle) {
+        public bool IsLineInsideObstacle(Vector2 from, Vector2 to, IReadOnlyList<Vector2> obstacle) {
             var mid = (from + to) / 2;
-            return obstacle.ContainsPoint(mid);
+            return Obstacle.IsInPolygon(mid, obstacle, false);
         }
 
         /// <summary>

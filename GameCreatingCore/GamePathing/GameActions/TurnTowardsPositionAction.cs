@@ -37,9 +37,16 @@ namespace GameCreatingCore.GamePathing.GameActions
         public bool Done => _done;
 
         public bool IsCancelable => true;
+		public float TimeUntilCancelable => 0;
 
         private bool started = false;
         private bool shouldTurn = true;
+        
+		public void Reset() {
+			started = false;
+            shouldTurn = true;
+            _done = false;
+		}
 
         public LevelStateTimed CharacterActionPhase(LevelStateTimed input)
         {
@@ -88,15 +95,26 @@ namespace GameCreatingCore.GamePathing.GameActions
                 pos = input.playerState.Position;
                 currRotation = input.playerState.Rotation;
             }
-            if(pos == position)
+            if(FloatEquality.AreEqual(pos, position))
                 return input;
             var angle = Vector2Utils.AngleTowards(pos, position);
+            
+            LevelState result;
+            if(FloatEquality.AreEqual(angle, currRotation)) {
+                if(EnemyIndex.HasValue) {
+                    result = input.ChangeEnemy(EnemyIndex.Value, rotation: angle);
+                } else {
+                    result = input.ChangePlayer(rotation: angle);
+                }
+                return new LevelStateTimed(result, input.Time);
+            }
 
             var side = ComputeTurnDirection(turnSide, currRotation, angle);
 
             var maxChange = Math.Min(movementSettings.TurningSpeed * input.Time, 360);
 
             float actualChange;
+            bool done = true;
 
             if(side == TurnSideEnum.Anticlockwise) {
                 if(currRotation + maxChange - 360 > angle) {
@@ -109,6 +127,7 @@ namespace GameCreatingCore.GamePathing.GameActions
                     actualChange = maxChange;
                     currRotation += maxChange;
                     currRotation %= 360;
+                    done = false;
                 }
             }else if (side == TurnSideEnum.Clockwise) {
                 if(currRotation - maxChange + 360 < angle) {
@@ -122,16 +141,17 @@ namespace GameCreatingCore.GamePathing.GameActions
                     currRotation -= maxChange;
                     if(currRotation < 0)
                         currRotation += 360;
+                    done = false;
                 }
             } else {
                 throw new NotImplementedException($"{nameof(TurnSideEnum)} with value '{side}' is not implemented.");
             }
 
-            float leftoverTime = input.Time - actualChange / movementSettings.TurningSpeed;
-            if(FloatEquality.Equals(leftoverTime, 0)) {
+            float leftoverTime;
+            if(done)
+                leftoverTime = input.Time - actualChange / movementSettings.TurningSpeed;
+            else
                 leftoverTime = 0;
-            }
-            LevelState result;
             if(EnemyIndex.HasValue) {
                 result = input.ChangeEnemy(EnemyIndex.Value, rotation: currRotation);
             } else {
@@ -171,13 +191,18 @@ namespace GameCreatingCore.GamePathing.GameActions
         private bool RemoveLowerPriorityTurning(LevelStateTimed input, out LevelStateTimed stateWithRemoved) {
             List<IGameAction> inAction = new List<IGameAction>();
             foreach(var p in input.skillsInAction) {
-                if(p is TurnTowardsPositionAction) {
-                    TurnTowardsPositionAction ttpa = (TurnTowardsPositionAction)p;
-                    if(ttpa.Priority < Priority)
-                        continue;
-                    else {
-                        stateWithRemoved = input;
-                        return false;
+                var test = p;
+                while(test is IWithInnerActions)
+                    test = (test as IWithInnerActions)!.CurrentInnerAction;
+                if(test is TurnTowardsPositionAction && test.EnemyIndex == EnemyIndex) {
+                    TurnTowardsPositionAction ttpa = (TurnTowardsPositionAction)test;
+                    if(ttpa != this) {
+                        if(ttpa.Priority <= Priority)
+                            continue;
+                        else {
+                            stateWithRemoved = input;
+                            return false;
+                        }
                     }
                 }
                 inAction.Add(p);
@@ -185,7 +210,19 @@ namespace GameCreatingCore.GamePathing.GameActions
             stateWithRemoved = new LevelStateTimed(input.Change(skillsInAction: inAction), input.Time);
             return true;
         }
-    }
+
+		public override string ToString() {
+			return $"{nameof(TurnTowardsPositionAction)}: {position}";
+		}
+
+		public IGameAction Duplicate() {
+			var result = new TurnTowardsPositionAction(EnemyIndex, movementSettings, IsIndependentOfCharacter, Priority, position, turnSide);
+            result.started = started;
+            result.shouldTurn = shouldTurn;
+            result._done = _done;
+            return result;
+		}
+	}
 
     public enum TurnSideEnum {
         ShortestPrefereClockwise,

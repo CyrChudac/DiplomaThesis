@@ -9,7 +9,7 @@ using System.Linq;
 
 public class UnityStaticGameRepresentation : ScriptableObject
 {
-	public int gameDifficulty = 0;
+	public float gameDifficulty = 1;
 
     public StaticMovementSettings movementSettings;
 

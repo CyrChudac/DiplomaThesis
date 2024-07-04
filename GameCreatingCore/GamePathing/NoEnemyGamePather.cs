@@ -11,10 +11,11 @@ namespace GameCreatingCore.GamePathing
     public class NoEnemyGamePather : IGamePathSolver {
 
 		private readonly bool inflateObstacles;
+		private StaticNavGraph? staticNavGraph;
 
-
-		public NoEnemyGamePather(bool inflateObstacles) {
+		public NoEnemyGamePather(bool inflateObstacles, StaticNavGraph? staticNavGraph = null) {
 			this.inflateObstacles = inflateObstacles;
+			this.staticNavGraph = staticNavGraph;
 		}
 
 		public List<IGameAction>? GetPath(
@@ -29,7 +30,7 @@ namespace GameCreatingCore.GamePathing
 					levelRepresentation, staticGameRepresentation.StaticMovementSettings);
 			}
 
-			var graph = new StaticNavGraph(levelRepresentation, false).Initialized();
+			var graph = staticNavGraph ?? new StaticNavGraph(levelRepresentation, false).Initialized();
 
 			var points = graph.GetEnemylessPlayerPath(levelRepresentation.FriendlyStartPos);
 
@@ -38,6 +39,15 @@ namespace GameCreatingCore.GamePathing
 				.Select(p => new OnlyWalkAction(movS, p, null))
 				.Cast<IGameAction>()
 				.ToList();
+		}
+		
+		public List<List<IGameAction>>? GetFullPathsTree(
+			StaticGameRepresentation staticGameRepresentation,
+			LevelRepresentation levelRepresentation) {
+			var p = GetPath(staticGameRepresentation, levelRepresentation);
+			if(p == null)
+				return null;
+			return new List<List<IGameAction>>() { p };
 		}
 	}
 } 

@@ -7,9 +7,10 @@ using GameCreatingCore.GamePathing;
 
 public abstract class LevelProvider : MonoBehaviour
 {
-    public LevelRepresentation GetLevel()
-        => BackwardsCompatibleLevel(GetLevelInner());
-    protected abstract LevelRepresentation GetLevelInner();
+    public LevelRepresentation GetLevel(bool vocal)
+        => BackwardsCompatibleLevel(GetLevelInner(vocal));
+
+    protected abstract LevelRepresentation GetLevelInner(bool vocal);
 
     private LevelRepresentation BackwardsCompatibleLevel(LevelRepresentation level) {
         var enemies = level.Enemies.ToList();

@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 0
+  m_EditorClassIdentifier: 
+  Obstacles:
+  - Shape:
+    - {x: -24.221622, y: -15.6318655}
+    - {x: -15.708307, y: -15.6318655}
+    - {x: -15.708307, y: -2.2728224}
+    - {x: -24.221622, y: -2.2728224}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  - Shape:
+    - {x: 49.46084, y: 19.800014}
+    - {x: 60.97709, y: 19.800014}
+    - {x: 60.97709, y: 35.90215}
+    - {x: 49.46084, y: 35.90215}
+    FriendlyWalkEffect: 0
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 0
+  OuterObstacle:
+    Shape:
+    - {x: -18.627583, y: -19.021631}
+    - {x: -18.627583, y: 33.848053}
+    - {x: 56.904507, y: 33.848053}
+    - {x: 56.904507, y: -19.021631}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: 46.233326, y: 24.613953}
+    Rotation: 8
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: 4.2428074, y: 10.847497}
+    Rotation: 184
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: 18.77176, y: 29.793747}
+    Rotation: 106
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands:
+      - rid: 8224445002736206077
+      - rid: 8224445002736206079
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
+  SkillsToPickup: []
+  FriendlyStartPos: {x: -13.0665245, y: -13.460573}
+  Goal:
+    Position: {x: 51.34345, y: 28.286995}
+    Radius: 5.5610576
+  references:
+    version: 2
+    RefIds:
+    - rid: 8224445002736206077
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: 18.77176, y: 29.793747}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+        waitTime: 3.1537552
+    - rid: 8224445002736206079
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: 10.036155, y: 30.739544}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+        waitTime: 2.0987816

@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using GameCreatingCore;
+using GameCreatingCore.LevelRepresentationData;
 
 [System.Serializable]
 public class UnityEnemyRepresentation
@@ -18,9 +16,4 @@ public class UnityEnemyRepresentation
 [System.Serializable]
 public class UnityPathRepr {
 	public bool cyclic;
-}
-
-[System.Serializable]
-public class UnityCommandRepr {
-	
 }

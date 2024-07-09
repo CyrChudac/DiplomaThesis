@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.UIElements;
-using GameCreatingCore.GamePathing.NavGraphs.Viewcones;
+using GameCreatingCore.LevelSolving.Viewcones;
 
 [CustomEditor(typeof(LevelTester))]
 public class LevelTesterEditor : Editor

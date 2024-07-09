@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 0
+  m_EditorClassIdentifier: 
+  Obstacles:
+  - Shape:
+    - {x: -12.66551, y: -10.892775}
+    - {x: 2.7179728, y: -10.892775}
+    - {x: 2.7179728, y: -6.2933555}
+    - {x: -12.66551, y: -6.2933555}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 0
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  - Shape:
+    - {x: -21.72934, y: -24.272131}
+    - {x: 15.677166, y: -24.272131}
+    - {x: 15.677166, y: -18.023052}
+    - {x: -21.72934, y: -18.023052}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  - Shape:
+    - {x: -34.1967, y: 9.328169}
+    - {x: 3.076809, y: 9.328169}
+    - {x: 3.076809, y: 13.457444}
+    - {x: -34.1967, y: 13.457444}
+    FriendlyWalkEffect: 0
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  OuterObstacle:
+    Shape:
+    - {x: -30.144646, y: -26.606926}
+    - {x: -30.144646, y: 28.251112}
+    - {x: 56.77396, y: 28.251112}
+    - {x: 56.77396, y: -26.606926}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: 48.889526, y: -4.532652}
+    Rotation: 46
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: 34.350304, y: 6.0139456}
+    Rotation: 141
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands:
+      - rid: 8224445053145186437
+  - Position: {x: 40.29998, y: -14.145565}
+    Rotation: 116
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: -10.786292, y: -8.802}
+    Rotation: 294
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: -2.8079064, y: -2.081274}
+    Rotation: 86
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands:
+      - rid: 8224445053145186439
+      - rid: 8224445053145186441
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
+  SkillsToPickup: []
+  FriendlyStartPos: {x: -25.890696, y: -22.352976}
+  Goal:
+    Position: {x: 52.52001, y: 23.997162}
+    Radius: 4.2539496
+  references:
+    version: 2
+    RefIds:
+    - rid: 8224445053145186437
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: 37.59379, y: 6.913685}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+        waitTime: 3.623115
+    - rid: 8224445053145186439
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: -2.353469, y: -4.062903}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+        waitTime: 3.070289
+    - rid: 8224445053145186441
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: 0.56704783, y: -4.7236843}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+        waitTime: 1.3418791

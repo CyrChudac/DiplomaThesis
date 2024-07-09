@@ -1,8 +1,4 @@
-using GameCreatingCore.GamePathing;
-using GameCreatingCore.GamePathing.GameActions;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using GameCreatingCore.GameActions;
 using UnityEngine;
 
 [System.Serializable]
@@ -33,4 +29,14 @@ public class UnitySkillRepr {
             throw new System.Exception($"Skill of type {provider.GetType().Name} has no unity saving implemented.");
         }
 	}
+}
+
+public enum SkillType {
+	Kill
+}
+
+[System.Serializable]
+public class UnitySkillReprGrounded {
+	public UnitySkillRepr unitySkillRepr;
+	public Vector2 groundedAt;
 }

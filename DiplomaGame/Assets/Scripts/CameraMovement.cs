@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField]
-    private Transform target;
+    public Camera cameraToMove;
     [SerializeField]
     private float movementSpeed = 10;
     [SerializeField]
@@ -29,8 +26,8 @@ public class CameraMovement : MonoBehaviour
     // in other words no collider and only important for visualization. - no need for fixed update
     void Update()
     {
-        target.position += Vector3.right * Input.GetAxis(horizontalAxis) * movementSpeed * keysMovementSpeedModifier * Time.deltaTime;
-        target.position += Vector3.up * Input.GetAxis(verticalAxis) * movementSpeed * keysMovementSpeedModifier * Time.deltaTime;
+        cameraToMove.transform.position += Vector3.right * Input.GetAxis(horizontalAxis) * movementSpeed * keysMovementSpeedModifier * Time.deltaTime;
+        cameraToMove.transform.position += Vector3.up * Input.GetAxis(verticalAxis) * movementSpeed * keysMovementSpeedModifier * Time.deltaTime;
 
 
         MouseAffect(
@@ -53,10 +50,10 @@ public class CameraMovement : MonoBehaviour
             Vector3.up,
             true);
 
-        target.position = new Vector3(
-            Mathf.Clamp(target.position.x, bounds.x, bounds.x + bounds.width),
-            Mathf.Clamp(target.position.y, bounds.y, bounds.y + bounds.height),
-            target.position.z);
+        cameraToMove.transform.position = new Vector3(
+            Mathf.Clamp(cameraToMove.transform.position.x, bounds.x, bounds.x + bounds.width),
+            Mathf.Clamp(cameraToMove.transform.position.y, bounds.y, bounds.y + bounds.height),
+            cameraToMove.transform.position.z);
     }
 
     void MouseAffect(float mousePos, float min, float max, Vector3 direction, bool endOnMax) {
@@ -71,7 +68,7 @@ public class CameraMovement : MonoBehaviour
             else
                 //val = 1 - (1 - val) * (1 - val);
                 val = val * val;
-            target.position += direction * movementSpeed * mouseMovementSpeedModifier * Time.deltaTime * val;
+            cameraToMove.transform.position += direction * movementSpeed * mouseMovementSpeedModifier * Time.deltaTime * val;
         }
     }
 }

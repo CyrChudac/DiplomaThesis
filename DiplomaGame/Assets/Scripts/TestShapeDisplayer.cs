@@ -20,7 +20,20 @@ public class TestShapeDisplayer : MonoBehaviour
 
     [ContextMenu("Set From Input String")]
     public void FromString() {
-        var lines = inputString.Split("), (");
+        string value = inputString;
+        if(value.StartsWith('\"')){
+            value = value[1..];
+        }
+        if(value.StartsWith('(')){
+            value = value[1..];
+        }
+        if(value.EndsWith('\"')){
+            value = value[..^1];
+        }
+        if(value.EndsWith(')')){
+            value = value[..^1];
+        }
+        var lines = value.Split("), (");
         var list = new List<Vector2>();
         foreach(var x in lines) {
             var both = x.Split(", ");

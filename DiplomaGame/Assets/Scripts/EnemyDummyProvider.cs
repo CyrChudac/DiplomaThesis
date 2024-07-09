@@ -1,4 +1,4 @@
-using GameCreatingCore;
+using GameCreatingCore.LevelRepresentationData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +6,8 @@ using UnityEngine;
 public class EnemyDummyProvider : EnemyProvider
 {
 	[SerializeField]
-	private EnemyController enemy;
-	public override EnemyController GetEnemy(EnemyType type) {
+	private EnemyObject enemy;
+	public override EnemyObject GetEnemy(EnemyType type) {
 		var result = Instantiate(enemy);
 		return result;
 	}

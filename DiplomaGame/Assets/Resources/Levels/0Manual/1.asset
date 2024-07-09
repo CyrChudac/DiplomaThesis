@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Obstacles:
   - Shape:
-    - {x: 15, y: -5}
-    - {x: 15, y: 0}
-    - {x: -15, y: 0}
-    - {x: -15, y: -5}
+    - {x: 0, y: 10}
+    - {x: 0, y: 40}
+    - {x: 4, y: 40}
+    - {x: 4, y: 10}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   - Shape:
-    - {x: 25, y: -20}
-    - {x: 25, y: -15}
-    - {x: -25, y: -15}
-    - {x: -25, y: -20}
-    FriendlyWalkEffect: 0
-    EnemyWalkEffect: 1
+    - {x: -25, y: 10}
+    - {x: -25, y: 40}
+    - {x: 0.1, y: 40}
+    - {x: 0.1, y: 10}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 0
     FriendlyVisionEffect: 1
-    EnemyVisionEffect: 1
+    EnemyVisionEffect: 0
   OuterObstacle:
     Shape:
     - {x: -25, y: -28}
@@ -42,33 +42,22 @@ MonoBehaviour:
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies:
-  - Position: {x: -12, y: 20}
-    Rotation: 162
+  - Position: {x: -20, y: 26.4}
+    Rotation: 230
     Type: 0
     Path:
       Cyclic: 0
       Commands: []
-  - Position: {x: -20, y: -2.5}
-    Rotation: 90
+  - Position: {x: 3, y: -7}
+    Rotation: 122
     Type: 0
     Path:
       Cyclic: 0
-      Commands:
-      - rid: 8224444920432427157
-      - rid: 8224444920432427159
-      - rid: 8224444920432427161
-      - rid: 8224444920432427163
-  - Position: {x: 20, y: -2.5}
-    Rotation: 90
-    Type: 0
-    Path:
-      Cyclic: 0
-      Commands:
-      - rid: 8224444922342146709
-      - rid: 8224444922342146711
-      - rid: 8224444922342146713
-      - rid: 8224444922342146715
-  AvailableSkills: []
+      Commands: []
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
   SkillsToPickup: []
   FriendlyStartPos: {x: -22, y: -25}
   Goal:
@@ -76,72 +65,4 @@ MonoBehaviour:
     Radius: 3
   references:
     version: 2
-    RefIds:
-    - rid: 8224444920432427157
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: -20, y: -2.5}
-        Running: 0
-        TurnWhileMoving: 0
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-        waitTime: 2
-    - rid: 8224444920432427159
-      type: {class: OnlyWalkCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: -20, y: -10}
-        Running: 0
-        TurnWhileMoving: 1
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-    - rid: 8224444920432427161
-      type: {class: OnlyWalkCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: 20, y: -10}
-        Running: 0
-        TurnWhileMoving: 1
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-    - rid: 8224444920432427163
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: 20, y: -2.5}
-        Running: 0
-        TurnWhileMoving: 0
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-        waitTime: 2
-    - rid: 8224444922342146709
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: 20, y: -2.5}
-        Running: 0
-        TurnWhileMoving: 0
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-        waitTime: 2
-    - rid: 8224444922342146711
-      type: {class: OnlyWalkCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: 20, y: -10}
-        Running: 0
-        TurnWhileMoving: 1
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-    - rid: 8224444922342146713
-      type: {class: OnlyWalkCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: -20, y: -10}
-        Running: 0
-        TurnWhileMoving: 1
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-    - rid: 8224444922342146715
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: -20, y: -2.5}
-        Running: 0
-        TurnWhileMoving: 0
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-        waitTime: 2
+    RefIds: []

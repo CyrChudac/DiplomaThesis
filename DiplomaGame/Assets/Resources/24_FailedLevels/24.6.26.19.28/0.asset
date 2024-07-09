@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 0
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -45.81096, y: 1.7872642}
+    - {x: -45.81096, y: 22.6664}
+    - {x: 5.367546, y: 22.6664}
+    - {x: 5.367546, y: 1.7872642}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: -13.488812, y: 15.301327}
+    Rotation: 83
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands:
+      - rid: 8003427101913382935
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 1.2
+    maxUseDistance: 3
+  SkillsToPickup: []
+  FriendlyStartPos: {x: -44.340904, y: 3.2573178}
+  Goal:
+    Position: {x: 3.8974924, y: 21.196348}
+    Radius: 1.4700536
+  references:
+    version: 2
+    RefIds:
+    - rid: 8003427101913382935
+      type: {class: OnlyWalkCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: -10.044261, y: 15.749422}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0

@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using GameCreatingCore;
 using UnityEditor;
 using System.Linq;
-using UnityEngine.SocialPlatforms;
+using GameCreatingCore.LevelRepresentationData;
 
 public class LevelScriptableObjRandomProvider : LevelProvider
 {
@@ -18,8 +15,9 @@ public class LevelScriptableObjRandomProvider : LevelProvider
 	private int seed = 42;
     [SerializeField]
     private bool showMessage = true;
-	protected override LevelRepresentation GetLevelInner(bool vocal) { 
-        int seed = Random.Range(0, int.MaxValue);
+	protected override LevelRepresentation GetLevelInner(bool vocal) {
+#if UNITY_EDITOR
+		int seed = Random.Range(0, int.MaxValue);
         if(vocal && this.showMessage)
             Debug.Log($"Initializing level using seed " + seed);
 		var r = new System.Random(seed);
@@ -45,5 +43,8 @@ public class LevelScriptableObjRandomProvider : LevelProvider
 			}
 		}
 		return res.GetLevelRepresentation();
+#else
+		throw new System.NotSupportedException("Loading level files by path is only supported in the editor.");
+#endif
 	}
 }

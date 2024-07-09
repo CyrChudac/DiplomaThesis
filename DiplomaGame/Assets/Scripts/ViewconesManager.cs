@@ -7,7 +7,7 @@ public class ViewconesManager : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private bool allowMoreDisplayed = false;
 
-    public List<EnemyController> Enemies { get; } = new List<EnemyController>();
+    public List<EnemyObject> Enemies { get; } = new List<EnemyObject>();
 
     // Update is called once per frame
     void Update()
@@ -15,13 +15,13 @@ public class ViewconesManager : MonoBehaviour
         if(Input.GetMouseButtonDown(1)) {
             var hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if(hit.collider != null){
-                var e = hit.collider.GetComponent<EnemyController>();
+                var e = hit.collider.GetComponent<EnemyObject>();
                 ShowOrHideEnemyViewcone(e);
             }
         }
     }
 
-	public void ShowEnemyViewcone(EnemyController e) {
+	public void ShowEnemyViewcone(EnemyObject e) {
         if(e == null && e.killer.Dead)
             return;
         if(!allowMoreDisplayed)
@@ -32,7 +32,7 @@ public class ViewconesManager : MonoBehaviour
 		
 	}
     
-	public void ShowOrHideEnemyViewcone(EnemyController e) {
+	public void ShowOrHideEnemyViewcone(EnemyObject e) {
         if(e == null || e.killer.Dead)
             return;
         bool curr = e.viewcone.displayViewcone;

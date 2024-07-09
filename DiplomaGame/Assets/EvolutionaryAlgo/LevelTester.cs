@@ -1,21 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameCreatingCore.GamePathing;
 using GameCreatingCore;
 using System.Linq;
 using UnityEditor;
-using GameCreatingCore.GamePathing.GameActions;
-using GameCreatingCore.GamePathing.NavGraphs;
-using GameCreatingCore.GamePathing.NavGraphs.Viewcones;
+using GameCreatingCore.GameActions;
+using GameCreatingCore.LevelSolving.Viewcones;
+using GameCreatingCore.LevelSolving;
+using GameCreatingCore.LevelRepresentationData;
 using System;
 using Unity.VisualScripting;
 using GameCreatingCore.StaticSettings;
+using GameCreatingCore.LevelStateData;
 
 [ExecuteAlways]
 public class LevelTester : MonoBehaviour {
     IGamePathSolver pather;
     [Header("Scoring related")]
+    [Tooltip("Game controller provides static game representation and whether the obstacles are inflated.")]
     public GameController controller;
     public float pathTimeStep = 2.0f;
     public int innerViewconeRayCount = 6;
@@ -27,7 +29,15 @@ public class LevelTester : MonoBehaviour {
     public float levelSolveTime = 20;
     [Min(1)]
     public float viewconesGraphDistances = 10;
-    public bool inflateObstacles = true;
+    public float killingNotUsedMultiplier = 0.8f;
+    public float killActionScoreAdd = 0.5f;
+    public float throughViewconeActionScoreAdd = 0.3f;
+    public float pickupActionScoreAdd = 0.2f;
+    public float genericActionScoreAdd = 0.1f;
+    public float defaultObstaclkesScoringCount = 20.0f;
+    [Range(0, 10)]
+    [Tooltip("How many second does the character stand still before it starts to find path.")]
+    public float initialPathWait = 2f;
 
     [Header("Visualization only")]
     public bool visualize = true;
@@ -63,22 +73,44 @@ public class LevelTester : MonoBehaviour {
     private float Score(List<IGameAction> path, LevelRepresentation levelRepresentation) {
         if(path == null)
             return 0;
-        float result = 0;
-
+        float actionScore = 0;
+        bool hasKill = false;
         foreach(var action in ExpandAllInner(path)) {
-            if(action is KillGameAction)
-                result += 3;
-            else if(action is WalkThroughViewConePlayerAction)
-                result += 2;
+            if(action is KillGameAction) {
+                actionScore += killActionScoreAdd;
+                hasKill = true;
+            } else if(action is WalkThroughViewConePlayerAction)
+                actionScore += throughViewconeActionScoreAdd;
+            else if(action is PickupAction)
+                actionScore += pickupActionScoreAdd;
             else if(!action.IsCancelable) {
                 Debug.Log($"new noncancelable action: {action.GetType()}");
-                result += 0.5f;
+                actionScore += genericActionScoreAdd;
             }
-
         }
-        return result + Mathf.Min(1, (path?.Count ?? 0) / (100.0f 
+        var pathScore = path!.Count / (defaultObstaclkesScoringCount 
             + levelRepresentation.Obstacles.Count 
-            + levelRepresentation.Enemies.Count * 3));
+            + levelRepresentation.Enemies.Count * 3);
+        
+        bool hasKillSkill = false;
+        foreach(var item in levelRepresentation.SkillsStartingWith) {
+            if(item is KillActionProvider) {
+                hasKillSkill = true;
+                break;
+            }
+        }
+        if(!hasKillSkill) {
+            foreach(var item in levelRepresentation.SkillsToPickup) {
+                if(item.action is KillActionProvider) {
+                    hasKillSkill = true;
+                    break;
+                }
+            }
+        }
+        float multiplier = 1;
+        if((!hasKill) && hasKillSkill)
+            multiplier = killingNotUsedMultiplier;
+        return actionScore + pathScore * multiplier;
     }
 
     private IEnumerable<IGameAction> ExpandAllInner(IEnumerable<IGameAction> actions) {
@@ -107,16 +139,17 @@ public class LevelTester : MonoBehaviour {
 
     private void ResetPather() {
         if(noEnemyPather) {
-            pather = new GameCreatingCore.GamePathing.NoEnemyGamePather(inflateObstacles);
+            pather = new NoEnemyGamePather(controller.InflatedObstacles);
         } else {
-            pather = new GameCreatingCore.GamePathing.FullGamePather(
+            pather = new FullGamePather(
                 innerViewconeRayCount: innerViewconeRayCount,
                 viewconesGraphDistances: viewconesGraphDistances,
                 timestepSize: pathTimeStep,
                 maximumLevelTime: levelSolveTime,
                 maxIterations: pathMaxIterations,
                 skillUsePointsCount: skillUsePointsCount,
-                inflateObstacles: inflateObstacles);
+                inflateObstacles: controller.InflatedObstacles,
+                initialWait: 2); 
         }
     }
 
@@ -126,6 +159,7 @@ public class LevelTester : MonoBehaviour {
     public LevelRepresentation level;
     private StaticNavGraph staticNavGraph;
     private List<(List<Vector2> Path, Vector2 PlayerPos)> paths;
+    private List<Graph<Node>> viewcones;
 
     private bool firstValidate = true;
     private bool firstValidateEnd = true;
@@ -133,16 +167,19 @@ public class LevelTester : MonoBehaviour {
     private void OnValidate() {
         if(!visualize)
             return;
+#if UNITY_EDITOR
         if(firstValidate) {
             Debug.Log("first validate initiated");
             firstValidate = false;
         }
+#endif
+        viewcones = new List<Graph<Node>>();
         ResetPather();
         var staticGameRepr = controller.GetStaticGameRepr();
         var startinglevel = testProvider.GetLevel(false);
 
-        if(inflateObstacles)
-            level = ObstaclesInflator.InflateAllInLevel(level, staticGameRepr.StaticMovementSettings);
+        if(controller.InflatedObstacles)
+            level = ObstaclesInflator.InflateAllInLevel(startinglevel, staticGameRepr.StaticMovementSettings);
         else
             level = startinglevel;
         staticNavGraph = new StaticNavGraph(level, true).Initialized();
@@ -151,16 +188,18 @@ public class LevelTester : MonoBehaviour {
             viewconesGraphDistances,
             skillUsePointsCount);
 
-        state = LevelState.GetInitialLevelState(level, staticGameRepr, staticNavGraph); 
+        state = GameSimulator.GetInitialLevelState(level, staticGameRepr, staticNavGraph); 
         
         paths = new List<(List<Vector2>, Vector2)>();
         if(showPathToGoal && testProvider != null) {
             List<List<IGameAction>> preActions;
-            if(pathMinGenerated == 0 && pathGeneratedCount == 1)
-                preActions = new List<List<IGameAction>>() {
-                    pather.GetPath(staticGameRepr, startinglevel)
-                };
-            else
+            if(pathMinGenerated == 0 && pathGeneratedCount == 1) {
+                var p = pather.GetPath(staticGameRepr, startinglevel);
+                preActions = new List<List<IGameAction>>();
+                if(p != null) {
+                    preActions.Add(p);
+                }
+            } else
                 preActions = pather.GetFullPathsTree(staticGameRepr, startinglevel) ?? new List<List<IGameAction>>();
             foreach(var a in preActions.Skip(pathMinGenerated).Take(pathGeneratedCount)) {
                 paths.Add(GetPath(a, staticGameRepr));
@@ -176,10 +215,19 @@ public class LevelTester : MonoBehaviour {
         if(!noEnemyPather) {
             graphWithViewcones = targetGraph.GetScoredNavGraph(state);
         }
+
+        if(viewconeVisualization == ViewconeVisualization.Graph || viewconeVisualization == ViewconeVisualization.CutoffGraphs) {
+            viewcones = targetGraph.GetViewConeGraphs(state, false, 
+                viewconeVisualization == ViewconeVisualization.CutoffGraphs, removeNonTraversableEdgesFromGraph)
+                .ToList();
+        }
+        
+#if UNITY_EDITOR
         if(firstValidateEnd) {
             Debug.Log("first validate terminated");
             firstValidateEnd = false;
-        } 
+        }
+#endif
     }
 
     private (List<Vector2>, Vector2) GetPath(List<IGameAction> actions, StaticGameRepresentation staticGameRepr) {
@@ -227,9 +275,7 @@ public class LevelTester : MonoBehaviour {
         DrawGoal(level);
         DrawOuter(level.OuterObstacle);
         DrawObstacles(level.Obstacles);
-        for(int i = 0; i < level.Enemies.Count; i++) {
-            DrawEnemy(level.Enemies[i], state.enemyStates[i]);
-        }
+        DrawEnemies(level.Enemies, state.enemyStates);
         DrawNavGraph(targetGraph, staticNavGraph, state);
         DrawViewcones(targetGraph, state);
         DrawPlayerAndPath(state);
@@ -253,7 +299,7 @@ public class LevelTester : MonoBehaviour {
     }
 
     private void DrawGoal(LevelRepresentation lvl) {
-        Gizmos.color = Color.Lerp(Color.yellow, Color.white, 0.8f);
+        Gizmos.color = SetAlpha(Color.Lerp(Color.yellow, Color.white, 0.8f), 0.75f);
         Gizmos.DrawSphere(lvl.Goal.Position, lvl.Goal.Radius);
     }
     
@@ -279,26 +325,30 @@ public class LevelTester : MonoBehaviour {
         }
     }
 
-    private void DrawEnemy(Enemy enemy, EnemyState state) {
-        Gizmos.color = new Color(1, 0.1f, 0.1f, 0.5f);
-        Gizmos.DrawSphere(state.Position, 2);
-        if(enemy.Path != null && enemy.Path.Commands != null && showEnemyPatrols) {
-            if(enemy.Position != enemy.Path.Commands[0].Position) {
-                Gizmos.color = new Color(1, 0.2f, 0.2f, 0.25f);
-                Gizmos.DrawLine(enemy.Position, enemy.Path.Commands[0].Position);
-            }
-            Gizmos.color = new Color(1, 0, 0, 1);
-            for(int i = 0; i < enemy.Path.Commands.Count - 1; i++) {
-                Gizmos.DrawLine(enemy.Path.Commands[i].Position, enemy.Path.Commands[i + 1].Position);
-            }
-            if(enemy.Path.Cyclic) {
-                Gizmos.color = new Color(1, 0.25f, 0, 1);
-                Gizmos.DrawLine(enemy.Path.Commands[enemy.Path.Commands.Count - 1].Position, enemy.Path.Commands[0].Position);
+    private void DrawEnemies(IReadOnlyList<Enemy> enemies, IReadOnlyList<EnemyState> states) {
+        foreach(var state in states) {
+            Gizmos.color = new Color(1, 0.1f, 0.1f, 0.5f);
+            Gizmos.DrawSphere(state.Position, 2);
+            var offset = Vector2Utils.VectorFromAngle(state.Rotation);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(state.Position + offset.normalized, 0.5f);
+        }
+        foreach(var enemy in enemies) {
+            if(enemy.Path != null && enemy.Path.Commands != null && showEnemyPatrols) {
+                if(enemy.Position != enemy.Path.Commands[0].Position) {
+                    Gizmos.color = new Color(1, 0.2f, 0.2f, 0.25f);
+                    Gizmos.DrawLine(enemy.Position, enemy.Path.Commands[0].Position);
+                }
+                Gizmos.color = new Color(1, 0, 0, 1);
+                for(int i = 0; i < enemy.Path.Commands.Count - 1; i++) {
+                    Gizmos.DrawLine(enemy.Path.Commands[i].Position, enemy.Path.Commands[i + 1].Position);
+                }
+                if(enemy.Path.Cyclic) {
+                    Gizmos.color = new Color(1, 0.25f, 0, 1);
+                    Gizmos.DrawLine(enemy.Path.Commands[enemy.Path.Commands.Count - 1].Position, enemy.Path.Commands[0].Position);
+                }
             }
         }
-        var offset = Vector2Utils.VectorFromAngle(state.Rotation);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(state.Position + offset.normalized, 0.5f);
     }
 
     private void DrawNavGraph(ViewconeNavGraph navGraph, StaticNavGraph staticNavGraph, LevelState state) {
@@ -362,15 +412,12 @@ public class LevelTester : MonoBehaviour {
                 }
             }
         } else if(viewconeVisualization == ViewconeVisualization.Graph || viewconeVisualization == ViewconeVisualization.CutoffGraphs){
-            var views = viewconeNavGraph.GetViewConeGraphs(state, false, 
-                viewconeVisualization == ViewconeVisualization.CutoffGraphs, removeNonTraversableEdgesFromGraph)
-                .ToList();
             var sc = Color.Lerp(Color.green, Color.yellow, 0.5f);
             var dc = Color.Lerp(Color.green, Color.black, 0.5f);
-            for(int i = 0; i < views.Count; i++) {
+            for(int i = 0; i < viewcones.Count; i++) {
                 if(showSpecificViewcone != -1 && showSpecificViewcone != i)
                     continue;
-                DrawGraph(views[i], e => sc, e => dc);
+                DrawGraph(viewcones[i], e => sc, e => dc);
             }
         } else { 
             throw new System.NotImplementedException($"Viecone visualization with value {viewconeVisualization} not implemented.");

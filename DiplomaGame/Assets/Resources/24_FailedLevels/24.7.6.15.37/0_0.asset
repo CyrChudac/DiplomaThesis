@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 0_0
+  m_EditorClassIdentifier: 
+  Obstacles:
+  - Shape:
+    - {x: -13.158258, y: 1.8527032}
+    - {x: 23.959658, y: 1.8527032}
+    - {x: 23.959658, y: 6.8272486}
+    - {x: -13.158258, y: 6.8272486}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 0
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  OuterObstacle:
+    Shape:
+    - {x: -25.529558, y: -21.179617}
+    - {x: -25.529558, y: 25.249586}
+    - {x: 44.01879, y: 25.249586}
+    - {x: 44.01879, y: -21.179617}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: -0.2708996, y: -4.5434217}
+    Rotation: 3
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: 24.361996, y: -12.313364}
+    Rotation: 6
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
+  SkillsToPickup: []
+  FriendlyStartPos: {x: -21.149326, y: -16.799385}
+  Goal:
+    Position: {x: 39.638557, y: 20.869354}
+    Radius: 4.3802323
+  references:
+    version: 2
+    RefIds: []

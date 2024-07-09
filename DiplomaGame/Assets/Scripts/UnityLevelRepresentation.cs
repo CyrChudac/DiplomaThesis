@@ -1,6 +1,4 @@
-using GameCreatingCore;
-using GameCreatingCore.GamePathing;
-using GameCreatingCore.GamePathing.GameActions;
+using GameCreatingCore.LevelRepresentationData;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,19 +28,9 @@ public class UnityLevelRepresentation : ScriptableObject
 			Obstacles.Select(o => o.ToObstacle()).ToList(),
 			OuterObstacle.ToObstacle(),
 			Enemies,
-			SkillsToPickup?.Select(x => (x.unitySkillRepr.GetActionProvider(), x.groundedAt)).ToList(),
+			SkillsToPickup?.Select(x => new PickupableActionProvider(x.unitySkillRepr.GetActionProvider(), x.groundedAt)).ToList(),
 			AvailableSkills?.Select(x => x.GetActionProvider()).ToList(),
 			FriendlyStartPos,
 			Goal);
 	}
-}
-
-public enum SkillType {
-	Kill
-}
-
-[System.Serializable]
-public class UnitySkillReprGrounded {
-	public UnitySkillRepr unitySkillRepr;
-	public Vector2 groundedAt;
 }

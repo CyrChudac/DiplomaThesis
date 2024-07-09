@@ -25,7 +25,7 @@ MonoBehaviour:
     EnemyVisionEffect: 1
   Enemies:
   - Position: {x: 0, y: -5}
-    Rotation: 165
+    Rotation: 172
     Type: 0
     Path:
       Cyclic: 0

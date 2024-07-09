@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 3
+  m_EditorClassIdentifier: 
+  Obstacles:
+  - Shape:
+    - {x: -7.996121, y: -16.472773}
+    - {x: 2.108358, y: -16.472773}
+    - {x: 2.108358, y: -2.59266}
+    - {x: -7.996121, y: -2.59266}
+    FriendlyWalkEffect: 0
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  - Shape:
+    - {x: -58.30356, y: -2.4209442}
+    - {x: -36.338005, y: -2.4209442}
+    - {x: -36.338005, y: 6.478015}
+    - {x: -58.30356, y: 6.478015}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  - Shape:
+    - {x: -26.76952, y: 3.4643674}
+    - {x: -19.475767, y: 3.4643674}
+    - {x: -19.475767, y: 26.223667}
+    - {x: -26.76952, y: 26.223667}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  - Shape:
+    - {x: -46.417057, y: 3.6284788}
+    - {x: -6.770462, y: 3.6284788}
+    - {x: -6.770462, y: 9.801672}
+    - {x: -46.417057, y: 9.801672}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 0
+  - Shape:
+    - {x: -41.159863, y: -14.6811285}
+    - {x: -32.587463, y: -14.6811285}
+    - {x: -32.587463, y: 2.5553446}
+    - {x: -41.159863, y: 2.5553446}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  - Shape:
+    - {x: -62.380566, y: -27.01663}
+    - {x: -47.553448, y: -27.01663}
+    - {x: -47.553448, y: -21.99774}
+    - {x: -62.380566, y: -21.99774}
+    FriendlyWalkEffect: 0
+    EnemyWalkEffect: 0
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  OuterObstacle:
+    Shape:
+    - {x: -49.292763, y: -22.563383}
+    - {x: -49.292763, y: 28.277918}
+    - {x: 30.489779, y: 28.277918}
+    - {x: 30.489779, y: -22.563383}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: 5.181555, y: -5.8814564}
+    Rotation: 313
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: 17.88024, y: -8.600099}
+    Rotation: 36
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: -16.496403, y: -7.7925577}
+    Rotation: 281
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
+  SkillsToPickup: []
+  FriendlyStartPos: {x: -44.209427, y: -17.480045}
+  Goal:
+    Position: {x: 25.40644, y: 23.19458}
+    Radius: 5.083337
+  references:
+    version: 2
+    RefIds: []

@@ -1,7 +1,6 @@
-using GameCreatingCore;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameCreatingCore.LevelRepresentationData;
 
 public class LevelScriptableObjSequentialProvider : LevelProvider
 {

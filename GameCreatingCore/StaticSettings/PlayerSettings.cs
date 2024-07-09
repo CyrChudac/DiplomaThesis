@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace GameCreatingCore.StaticSettings {
-	 //this way we only support one settings for all playable characters
-	 //TODO: how to change it?
 	[Serializable]
 	public class PlayerSettings {
 		[SerializeField]

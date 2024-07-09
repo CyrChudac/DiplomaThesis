@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using GameCreatingCore;
 using NavMeshPlus.Components;
-using Unity.VisualScripting;
 using UnityEngine.AI;
+using GameCreatingCore.LevelRepresentationData;
 
 public class LevelInitializor : MonoBehaviour
 {
@@ -27,8 +26,9 @@ public class LevelInitializor : MonoBehaviour
     private Color friendlyWalkableColor;
     [SerializeField]
     private Color friendlyUNWalkableColor;
+    [Tooltip("Obstacles take different sorting orders given their importance, reserve up to 10 numbers below this for obstacles.")]
     [SerializeField]
-    private int obstacleSortingOrder;
+    private int obstacleSortingOrderMax;
     [SerializeField]
     private float outerMargin = 300f;
 
@@ -76,7 +76,14 @@ public class LevelInitializor : MonoBehaviour
         g.transform.localScale *= lr.Goal.Radius * 2;
 
         camMovement.SetBounds(lr.OuterObstacle.BoundingBox);
-        camMovement.transform.position = new Vector3(lr.FriendlyStartPos.x, lr.FriendlyStartPos.y, camMovement.transform.position.z);
+        Vector2 camPosition = (lr.FriendlyStartPos + lr.OuterObstacle.BoundingBox.center) / 2;
+        if(lr.OuterObstacle.BoundingBox.height * 1.1f < camMovement.cameraToMove.orthographicSize * 2) {
+            camPosition = new Vector2(camPosition.x, lr.OuterObstacle.BoundingBox.center.y);
+        }
+        if(lr.OuterObstacle.BoundingBox.width * 1.1f < camMovement.cameraToMove.orthographicSize * 2 * camMovement.cameraToMove.aspect) {
+            camPosition = new Vector2(lr.OuterObstacle.BoundingBox.center.x, camPosition.y);
+        }
+        camMovement.transform.position = new Vector3(camPosition.x, camPosition.y, camMovement.transform.position.z);
     }
 
     void CreateEnemies(IEnumerable<Enemy> enemies) {
@@ -113,12 +120,14 @@ public class LevelInitializor : MonoBehaviour
             && obstacle.Effects.EnemyVisionEffect == VisionObstacleEffect.SeeThrough);
         mr.material.SetTexture("_Texture1", addNonSeeThrough ? EnemyVisionModifiedTexture : BlankTexture);
         
-        bool addUNWalkable = (obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Walkable
-            && obstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable)
-            || (obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable
+        bool addUNWalkable = 
+            //(obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Walkable
+            //&& obstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Unwalkable)
+            //|| //this seems logical, but they player actually doesn't need to see where the enemy cannot go
+            (obstacle.Effects.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable
             && obstacle.Effects.EnemyWalkEffect == WalkObstacleEffect.Walkable);
         mr.material.SetTexture("_Texture2", addUNWalkable ? EnemyWalkModifiedTexture : BlankTexture);
-        mr.sortingOrder = obstacleSortingOrder;
+        mr.sortingOrder = GetSortingOrder(obstacle.Effects, outside);
         for(int i = 0; i < obstacle.Shape.Count; i++) {
             var child = new GameObject(i.ToString());
             child.transform.SetParent(go.transform, true);
@@ -127,6 +136,16 @@ public class LevelInitializor : MonoBehaviour
         AddObstacleEffects(obstacle, go, (g) => pcFun(obstacle.Shape.ToArray(), g));
 
         return go;
+    }
+
+    private int GetSortingOrder(ObstacleEffect obstacleEffect, bool isOutsideObstacle) {
+        if(isOutsideObstacle)
+            return obstacleSortingOrderMax;
+        int val = obstacleSortingOrderMax - 1;
+        val -= (obstacleEffect.FriendlyWalkEffect == WalkObstacleEffect.Unwalkable ? 0 : 4);
+        val -= (obstacleEffect.EnemyVisionEffect == VisionObstacleEffect.NonSeeThrough ? 0 : 2);
+        val -= (obstacleEffect.EnemyWalkEffect == WalkObstacleEffect.Unwalkable ? 0 : 1);
+        return val;
     }
 
     void AddObstacleEffects(Obstacle obstacle, GameObject go, 

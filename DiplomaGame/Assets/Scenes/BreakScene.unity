@@ -155,16 +155,15 @@ MonoBehaviour:
   canvas: {fileID: 1273334766}
   gameWinTimeBeforeSceneLoad: 0.4
   gameLoseTimeBeforeSceneLoad: 10
-  gameOverScreen: {fileID: 5245553649211265568, guid: 092e7f6bebb9c0c439abcc3f5357fe9a, type: 3}
-  gameWonScreen: {fileID: 5245553649211265568, guid: 4b586ed5eb86ad4498439b055b418e72, type: 3}
+  blackInPrefab: {fileID: 0}
   gameSceneName: GameScene
   breakSceneName: BreakScene
   finalSceneName: FinalScene
   levelBreaks: 
   explantions: []
   levelCount: 0
-  defaultLevelDone: 0
   staticGameRepr: {fileID: 11400000, guid: b4d88bd466d18f94d92f0c0ee3acfbc6, type: 2}
+  inflatedObstacles: 1
 --- !u!4 &251689589
 Transform:
   m_ObjectHideFlags: 0

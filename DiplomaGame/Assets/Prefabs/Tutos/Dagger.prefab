@@ -65,8 +65,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Kdy\u017E m\xE1\u0161 d\xFDku, m\u016F\u017Ee\u0161 nep\u0159\xE1tele
-    zab\xEDjet.\nTo, zda j\xED m\xE1\u0161, se m\u011Bn\xED level od levelu."
+  m_text: "Kdy\u017E m\xE1\u0161 d\xFDku, m\u016F\u017Ee\u0161 se nep\u0159\xE1tel
+    zbavovat.\nV n\u011Bkter\xFDch levelech j\xED bude\u0161 m\xEDt, v n\u011Bkter\xFDch
+    ne."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

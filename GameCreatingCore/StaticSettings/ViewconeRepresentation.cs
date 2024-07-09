@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace GameCreatingCore.StaticSettings {
@@ -18,18 +16,6 @@ namespace GameCreatingCore.StaticSettings {
         /// </summary>
         [SerializeField]
         public float Angle;
-
-        /// <summary>
-        /// In degrees.
-        /// </summary>
-        [SerializeField]
-        public float WiggleAngle;
-
-        /// <summary>
-        /// In seconds.
-        /// </summary>
-        [SerializeField]
-        public float WiggleTime;
         
         /// <summary>
         /// How many seconds does it take to spot the whole viewcone given the the game difficulity.
@@ -43,6 +29,9 @@ namespace GameCreatingCore.StaticSettings {
         [SerializeField]
         public float DisalertingTimeModifier;
 
+        /// <summary>
+        /// How long is the enemy viewcone when the enemy is alerted compared to when he is not.
+        /// </summary>
         [SerializeField]
         public float AlertedLengthModifier;
 
@@ -57,10 +46,6 @@ namespace GameCreatingCore.StaticSettings {
         /// </summary>
         [SerializeField]
         public float AlertLengthChangeSpeedOut;
-        [SerializeField]
-        public float AlertedWiggleAngle;
-        [SerializeField]
-        public float AlertedWiggleTime;
 
         public float ComputeLength(float alerting)
             => Length * (1 + alerting * (AlertedLengthModifier - 1));

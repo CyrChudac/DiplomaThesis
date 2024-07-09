@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using GameCreatingCore;
+using GameCreatingCore.LevelRepresentationData;
 using GameCreatingCore.StaticSettings;
 using System;
 using System.Linq;

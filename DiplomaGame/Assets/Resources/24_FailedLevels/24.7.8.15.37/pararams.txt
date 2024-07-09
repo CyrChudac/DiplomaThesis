@@ -1,0 +1,24 @@
+seed:
+223051
+mutation probability:
+0,35
+generations
+100
+population size
+100
+elitism
+1
+previous population bias:
+0,99
+offspring modifier:
+1
+crossover probability
+0,5
+mutate obsts:
+12
+mutate outer obst:
+0
+mutate enemies:
+2
+rullet wheel selection equate:
+0,001

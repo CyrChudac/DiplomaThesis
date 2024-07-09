@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 2
+  m_EditorClassIdentifier: 
+  Obstacles:
+  - Shape:
+    - {x: 22.83397, y: -0.80202323}
+    - {x: 38.288254, y: -0.80202323}
+    - {x: 38.288254, y: 10.411696}
+    - {x: 22.83397, y: 10.411696}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 0
+  - Shape:
+    - {x: 26.34483, y: 20.22527}
+    - {x: 33.653336, y: 20.22527}
+    - {x: 33.653336, y: 43.28585}
+    - {x: 26.34483, y: 43.28585}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  OuterObstacle:
+    Shape:
+    - {x: -40.53898, y: -12.057346}
+    - {x: -40.53898, y: 36.95055}
+    - {x: 49.590954, y: 36.95055}
+    - {x: 49.590954, y: -12.057346}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: 46.846577, y: 30.401695}
+    Rotation: 293
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands:
+      - rid: 8224445052988687023
+  - Position: {x: -17.914303, y: 13.940571}
+    Rotation: 262.7495
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: -12.977283, y: 10.149638}
+    Rotation: 134
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
+  SkillsToPickup: []
+  FriendlyStartPos: {x: -37.601505, y: -9.119874}
+  Goal:
+    Position: {x: 46.65348, y: 34.013077}
+    Radius: 2.937472
+  references:
+    version: 2
+    RefIds:
+    - rid: 8224445052988687023
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: 46.241333, y: 24.909899}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+        waitTime: 1.9328805

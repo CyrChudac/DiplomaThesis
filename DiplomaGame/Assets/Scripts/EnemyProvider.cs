@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using GameCreatingCore;
+using GameCreatingCore.LevelRepresentationData;
 
 public abstract class EnemyProvider : MonoBehaviour
 {
-	public abstract EnemyController GetEnemy(EnemyType type);
+	public abstract EnemyObject GetEnemy(EnemyType type);
 }

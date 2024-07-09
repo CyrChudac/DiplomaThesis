@@ -4,14 +4,11 @@ using EvolAlgoBase;
 using GameCreatingCore;
 using UnityEditor;
 using System.Linq;
-using UnityEngine.UIElements;
 using System;
-using Unity.Mathematics;
-using Unity.Collections.LowLevel.Unsafe;
 using GameCreatingCore.GamePathing;
 using Unity.VisualScripting;
-using GameCreatingCore.GamePathing.GameActions;
-using GameCreatingCore.GamePathing.NavGraphs;
+using GameCreatingCore.GameActions;
+using GameCreatingCore.LevelRepresentationData;
 using GameCreatingCore.StaticSettings;
 
 public class EvolAlgoLevelGenerator : MonoBehaviour {
@@ -21,14 +18,14 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
     [SerializeField] private int generations = 100;
     [SerializeField] private float crossProb = 0.5f;
     [SerializeField] private float previousPopulationBias = 0.99f;
-    [Range(0,1)]
-    [SerializeField] private float elitism = 0.1f;
+    [SerializeField] private int elitism = 1;
     [SerializeField] private EnemyMutator enemyEval;
     [SerializeField] private ObstaclesMutator obstaclesEval;
     [SerializeField] private LevelTester levelTester;
     [SerializeField] private PlayGroundBounds bounds;
     [SerializeField] private GameController gameController;
     [SerializeField] private string saveDirectory = "Levels/";
+    [SerializeField] private string saveFailsDirectory = "24_FailedLevels/";
     [Header("mutation probabilities")]
     [Tooltip("The probablity of mutation occuring.")]
     [SerializeField] private float mutateProb = 0.05f;
@@ -52,26 +49,30 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
 
     const int randomSeed = -1;
     [Tooltip("-1 for a random seed.")]
-    [SerializeField] private int seed = randomSeed;
+    public int seed = randomSeed;
+
+    [SerializeField]
+    private int usedSeed;
 
     [ContextMenu(nameof(CreateLevels))]
     public void CreateLevels() {
-        var dir = GetDirectory();
-        EnsureDirectoryExists(dir, '\\', '/');
 
         var utils = GetRandom();
         
     
         GenerationPercentsPlotter ploter = new GenerationPercentsPlotter(generations, generations, new DebugLogWriter(), false);
         int genPassed = 0;
+        List<string> generationScores = new List<string>();
         void Plot(IEnumerable<Scored<LevelRepresentation>> generation) {
             ploter.Plot(generation);
+            int gens = genPassed; //only to see the number while debugging
+            var s = string.Join(", ", generation
+                .Select(lr => lr.Score)
+                .OrderByDescending(lr => lr)
+                .Select(lr => lr.ToString().Replace(',', '.')));
+            generationScores.Add(s);
             genPassed++;
             if(genPassed == generations) {
-                var s = string.Join("; ", generation
-                    .Select(lr => lr.Score)
-                    .OrderByDescending(lr => lr)
-                    .Select(lr => lr.ToString()));
                 Debug.Log(s);
             }
         }
@@ -97,7 +98,7 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
             ),
             new Selection<LevelRepresentation>(
                 previousPopulationBias,
-                (int)(elitism * popSize),
+                elitism,
                 utils,
                 new RuletWheelSelection(rulletWheelSelectionEquate)
             ),
@@ -108,36 +109,78 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
             );
         EvolutionaryAlgo<LevelRepresentation> evolAlgo =
             new EvolutionaryAlgo<LevelRepresentation>(pars);
-        var result = evolAlgo.Run().ToList();
-        SaveLevels(result, dir);
+        string dir = null;
+        try {
+            var result = evolAlgo.Run().ToList();
+            dir = GetDirectory(saveDirectory);
+            EnsureDirectoryExists(dir, '\\', '/');
+            SaveLevels(result, dir);
+            SaveText(generationScores, dir + "scores.txt");
+        } finally {
+            if(dir == null)
+                dir = GetDirectory(saveFailsDirectory);
+            EnsureDirectoryExists(dir, '\\', '/');
+            SaveParameters(dir);
+        }
+    }
+
+    private void SaveParameters(string dir) {
+        SaveText(new object[] {
+                "seed:", usedSeed,
+                "mutation probability:", mutateProb,
+                "generations", generations,
+                "population size", popSize,
+                "elitism", elitism,
+                "previous population bias:", previousPopulationBias,
+                "offspring modifier:", offspringMod,
+                "crossover probability", crossProb,
+                "mutate obsts:", mutateObstsProb,
+                "mutate outer obst:", mutateOuterObstProb,
+                "mutate enemies:", mutateEnemiesProb,
+                "rullet wheel selection equate:", rulletWheelSelectionEquate,
+            }.Select(x => x.ToString()), 
+            dir + "pararams.txt");
+    }
+
+    private void SaveText(IEnumerable<string> scores, string path) {
+        var currDir = System.IO.Directory.GetCurrentDirectory();
+        currDir += "\\" + path;
+        currDir = currDir.Replace('\\', System.IO.Path.DirectorySeparatorChar);
+        currDir = currDir.Replace('/', System.IO.Path.DirectorySeparatorChar);
+        System.IO.File.WriteAllLines(currDir, scores);
     }
 
     private EvolAlgoUtils GetRandom() {
-        if(seed == randomSeed)
-            seed = (int)(UnityEngine.Random.value * 1_000_000);
-        System.Random r = new System.Random(seed);
+        usedSeed = this.seed;
+        if(usedSeed == randomSeed)
+            usedSeed = (int)(UnityEngine.Random.value * 1_000_000);
+        System.Random r = new System.Random(usedSeed);
         return new EvolAlgoUtils(new SystemRandomGenerator(r));
     }
 
     private float ScoreAndSaveFail(LevelRepresentation ind) {
         try {
             return levelTester.Score(ind);
-        }catch (Exception) {
-            var dir = GetDirectory();
-            dir += "Fail/";
-            EnsureDirectoryExists(dir, '\\', '/');
-            SaveLevels(Enumerable.Empty<LevelRepresentation>().Append(ind), dir);
-            throw;
+        }catch (Exception e) {
+            try {
+                var dir = GetDirectory(saveFailsDirectory);
+                EnsureDirectoryExists(dir, '\\', '/');
+                SaveLevels(Enumerable.Empty<LevelRepresentation>().Append(ind), dir);
+                throw;
+            }catch(Exception e2) {
+                throw new System.AggregateException(new Exception[] {e, e2});
+            }
         }
     }
 
-    private string GetDirectory() {
-        var time = System.DateTime.Now;
+    private string GetDirectory(string saveDirectory) {
+        var time = DateTime.Now;
         string lastDir = $"{time.Year % 1000}.{time.Month}.{time.Day}.{time.Hour}.{time.Minute}";
         return $"{saveDirectory}{lastDir}/";
     }
 
     private void EnsureDirectoryExists(string dir, params char[] separators) {
+#if UNITY_EDITOR
         string[] dirs = new string[1];
         char usedSep = separators[0];
         foreach(var sep in separators) {
@@ -154,9 +197,13 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 AssetDatabase.CreateFolder(pre, dirs[i]);
             }
         }
+#else
+        throw new NotSupportedException("Saving levels is only supported in the editor.");
+#endif
     }
 
     private void SaveLevels(IEnumerable<LevelRepresentation> levels, string dir) {
+#if UNITY_EDITOR
         int i = 0;
         foreach(var lvl in levels) {
             var asset = ScriptableObject.CreateInstance<UnityLevelRepresentation>();
@@ -168,10 +215,10 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 .ToList();
             asset.OuterObstacle = UnityObstacle.FromObstacle(lvl.OuterObstacle);
             List<UnitySkillReprGrounded> toPickUp = new List<UnitySkillReprGrounded>();
-            foreach(var pair in lvl.SkillsToPickup) {
+            foreach(var pickupable in lvl.SkillsToPickup) {
                 toPickUp.Add(new UnitySkillReprGrounded() {
-                    groundedAt = pair.Item2,
-                    unitySkillRepr = UnitySkillRepr.FromProvider(pair.Item1)
+                    groundedAt = pickupable.position,
+                    unitySkillRepr = UnitySkillRepr.FromProvider(pickupable.action)
                 });
             }
             asset.SkillsToPickup = toPickUp;
@@ -186,9 +233,14 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
         }
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+#else
+        throw new NotSupportedException("Saving levels is only supported in the editor.");
+#endif
     }
+
     [Header("Generated by the script, do not use.")]
     public List<UnityLevelRepresentation> created;
+
     private IEnumerable<LevelRepresentation> InitiatePop(EvolAlgoUtils utils) {
         created.Clear();
         while(true) {
@@ -209,7 +261,7 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 }
             }
             float radius = Mathf.Min(bounds.Rect.width * boundsMinimalModifier, bounds.Rect.height * boundsMinimalModifier);
-            radius = (0.05f + 0.1f * utils.RandomFloat()) * radius;
+            radius = (0.02f + 0.1f * utils.RandomFloat()) * radius;
 
             var goalChangeOffset =
                 //(end - start).normalized * radius * (float)Mathf.Sqrt(2);
@@ -229,16 +281,15 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                     VisionObstacleEffect.NonSeeThrough,
                     VisionObstacleEffect.NonSeeThrough)),
                 new List<Enemy>(),
-                new List<(IActiveGameActionProvider, Vector2)>(),
+                new List<PickupableActionProvider>(),
                 new List<IActiveGameActionProvider>() 
-                    { new GameCreatingCore.GamePathing.GameActions.KillActionProvider(killTime, killDistance)},
+                    { new KillActionProvider(killTime, killDistance)},
                 start + goalChangeOffset,
                 new LevelGoal(
                     end - goalChangeOffset,
                     radius
                 )
             );
-#if UNITY_EDITOR
             var cre = ScriptableObject.CreateInstance<UnityLevelRepresentation>();
             cre.Obstacles = lr.Obstacles
                 .Select(o => UnityObstacle.FromObstacle(o))
@@ -254,7 +305,6 @@ public class EvolAlgoLevelGenerator : MonoBehaviour {
                 type = SkillType.Kill
             } };
             created.Add(cre);
-#endif
             yield return lr;
         }
     }

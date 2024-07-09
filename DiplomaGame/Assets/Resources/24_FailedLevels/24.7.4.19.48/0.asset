@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 0
+  m_EditorClassIdentifier: 
+  Obstacles: []
+  OuterObstacle:
+    Shape:
+    - {x: -41.336006, y: -38.509235}
+    - {x: -41.336006, y: 21.74323}
+    - {x: 47.749634, y: 21.74323}
+    - {x: 47.749634, y: -38.509235}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: -23.865623, y: 6.0797796}
+    Rotation: 60.440807
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands:
+      - rid: 8224444939105993190
+  - Position: {x: 26.335365, y: 1.8394638}
+    Rotation: 138
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: 45.26089, y: -4.0304656}
+    Rotation: 339
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands:
+      - rid: 8224444939105993191
+      - rid: 8224444939105993192
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
+  SkillsToPickup: []
+  FriendlyStartPos: {x: -37.76644, y: -34.93967}
+  Goal:
+    Position: {x: 44.18007, y: 18.173666}
+    Radius: 3.5695648
+  references:
+    version: 2
+    RefIds:
+    - rid: 8224444939105993190
+      type: {class: OnlyWalkCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: -23.865623, y: 6.0797796}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+    - rid: 8224444939105993191
+      type: {class: OnlyWalkCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: 39.87182, y: -1.6023803}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+    - rid: 8224444939105993192
+      type: {class: OnlyWalkCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: 45.50219, y: -2.369382}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0

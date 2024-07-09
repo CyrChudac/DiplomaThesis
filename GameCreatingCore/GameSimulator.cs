@@ -1,15 +1,12 @@
-﻿using GameCreatingCore.GamePathing.GameActions;
-using GameCreatingCore.GamePathing.NavGraphs;
-using GameCreatingCore.GamePathing.NavGraphs.Viewcones;
+﻿using GameCreatingCore.GameActions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Reflection;
-using System.Text;
 using UnityEngine;
-using System.Net.Http.Headers;
 using GameCreatingCore.StaticSettings;
+using GameCreatingCore.LevelSolving.Viewcones;
+using GameCreatingCore.LevelRepresentationData;
+using GameCreatingCore.LevelStateData;
 
 namespace GameCreatingCore.GamePathing
 {
@@ -138,6 +135,33 @@ namespace GameCreatingCore.GamePathing
 
 			return lastState.Change(enemyStates: enems);
 		}
+		
+        public static LevelState GetInitialLevelState(LevelRepresentation levelRepresentation,
+            StaticGameRepresentation staticGameRepresentation, StaticNavGraph staticNavGraph)
+        {
+
+            List<EnemyState> enemies = levelRepresentation.Enemies
+                .Select((e, i) => new EnemyState(
+                    position: e.Position,
+                    rotation: e.Rotation,
+                    performingAction: null,
+                    alive: true,
+                    alerted: false,
+                    viewconeAlertLengthModifier: 0,
+                    timeOfPlayerInView: 0,
+                    currentPathAction: e.Path != null && e.Path.Commands.Count > 0 ? e.Path!.Commands[0]
+                        .GetAction(i, e.Position, staticGameRepresentation, staticNavGraph, levelRepresentation, false) : null,
+                    pathIndex: e.Path != null && e.Path.Commands.Count > 0 ? (int?)0 : null))
+                .ToList();
+
+            return new LevelState(
+                enemyStates: enemies,
+                playerState: new PlayerState(levelRepresentation.FriendlyStartPos, 0,
+                    levelRepresentation.SkillsStartingWith, null),
+                skillsInAction: new List<IGameAction>(),
+                Enumerable.Repeat<bool>(false, levelRepresentation.SkillsToPickup.Count).ToList()
+                );
+        }
 
 		LevelStateTimed UpdateAvailableSkills(LevelStateTimed state) {
 			List<IActiveGameActionProvider> skills = new List<IActiveGameActionProvider>();

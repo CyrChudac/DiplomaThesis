@@ -1,9 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameCreatingCore;
 using System.Linq;
-using GameCreatingCore.GamePathing;
+using GameCreatingCore.LevelRepresentationData;
+using GameCreatingCore.Commands;
+using GameCreatingCore.GameActions;
 
 public abstract class LevelProvider : MonoBehaviour
 {
@@ -38,7 +38,7 @@ public abstract class LevelProvider : MonoBehaviour
             level.Obstacles,
             level.OuterObstacle,
             enemies,
-            level.SkillsToPickup ?? new List<(IActiveGameActionProvider, Vector2)>(),
+            level.SkillsToPickup ?? new List<PickupableActionProvider>(),
             level.SkillsStartingWith ?? new List<IActiveGameActionProvider>(),
             level.FriendlyStartPos,
             level.Goal);

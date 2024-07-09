@@ -1,14 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameCreatingCore;
 using System.Linq;
 using System;
-using GameCreatingCore.GamePathing.NavGraphs;
+using GameCreatingCore.GamePathing;
+using GameCreatingCore.LevelRepresentationData;
 
 //works with all obstacles as rectangles
 public class ObstaclesMutator : MonoBehaviour
 {
+    [Range(0f, 1f)]
     [SerializeField]
     private float mutationProb = 0.07f;
     [SerializeField]

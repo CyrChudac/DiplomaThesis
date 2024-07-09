@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MinimapSetter : MonoBehaviour
@@ -16,9 +14,9 @@ public class MinimapSetter : MonoBehaviour
         minimapCamera.aspect = aspect;
         minimapCamera.orthographicSize = level.OuterObstacle.BoundingBox.height / 2;
         minimapCamera.transform.position = new Vector3(
-            level.OuterObstacle.BoundingBox.x + level.OuterObstacle.BoundingBox.width / 2,
-            level.OuterObstacle.BoundingBox.y + level.OuterObstacle.BoundingBox.height / 2,
-            -10
+            level.OuterObstacle.BoundingBox.center.x,
+            level.OuterObstacle.BoundingBox.center.y,
+            minimapCamera.transform.position.z
             );
 
         minimapTexture.width = (int)(minimapTexture.height * aspect);

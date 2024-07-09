@@ -90,8 +90,8 @@ MonoBehaviour:
     Path:
       Cyclic: 1
       Commands:
-      - rid: 8224444919512301933
-      - rid: 8224444919512301935
+      - rid: 8224445052292170626
+      - rid: 8224445052292170628
   AvailableSkills:
   - type: 0
     nonCancelTime: 0.4
@@ -104,8 +104,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 8224444919512301933
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
+    - rid: 8224445052292170626
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
       data:
         Position: {x: 15, y: 18}
         Running: 0
@@ -113,8 +113,8 @@ MonoBehaviour:
         TurningSide: 1
         ExecuteDuringMoving: 0
         waitTime: 2
-    - rid: 8224444919512301935
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
+    - rid: 8224445052292170628
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
       data:
         Position: {x: -15, y: 18}
         Running: 0

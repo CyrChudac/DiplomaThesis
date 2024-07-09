@@ -29,7 +29,7 @@ MonoBehaviour:
   FriendlyStartPos: {x: -15, y: 0}
   Goal:
     Position: {x: 20, y: 0}
-    Radius: 3
+    Radius: 1
   references:
     version: 2
     RefIds: []

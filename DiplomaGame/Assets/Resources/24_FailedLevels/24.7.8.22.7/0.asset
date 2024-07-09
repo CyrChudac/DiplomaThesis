@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
+  m_Name: 0
+  m_EditorClassIdentifier: 
+  Obstacles:
+  - Shape:
+    - {x: -41.40642, y: -32.411808}
+    - {x: -4.371708, y: -32.411808}
+    - {x: -4.371708, y: -27.922546}
+    - {x: -41.40642, y: -27.922546}
+    FriendlyWalkEffect: 0
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  - Shape:
+    - {x: -36.39022, y: 13.243003}
+    - {x: -28.942024, y: 13.243003}
+    - {x: -28.942024, y: 25.087074}
+    - {x: -36.39022, y: 25.087074}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 0
+  OuterObstacle:
+    Shape:
+    - {x: -42.10444, y: -37.24772}
+    - {x: -42.10444, y: 28.943317}
+    - {x: 48.63865, y: 28.943317}
+    - {x: 48.63865, y: -37.24772}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 1
+  Enemies:
+  - Position: {x: -19.081203, y: -15.557866}
+    Rotation: 52
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: 25.172533, y: 26.885687}
+    Rotation: 287
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands:
+      - rid: 8224445025149518096
+  - Position: {x: 30.97059, y: -12.903122}
+    Rotation: 146
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
+  SkillsToPickup: []
+  FriendlyStartPos: {x: -37.544025, y: -32.687305}
+  Goal:
+    Position: {x: 44.078236, y: 24.382902}
+    Radius: 4.560415
+  references:
+    version: 2
+    RefIds:
+    - rid: 8224445025149518096
+      type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
+      data:
+        Position: {x: 25.172533, y: 26.885687}
+        Running: 0
+        TurnWhileMoving: 0
+        TurningSide: 0
+        ExecuteDuringMoving: 0
+        waitTime: 3.7817483

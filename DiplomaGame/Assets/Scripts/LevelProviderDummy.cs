@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using GameCreatingCore;
-using GameCreatingCore.StaticSettings;
-using GameCreatingCore.GamePathing;
-using GameCreatingCore.GamePathing.GameActions;
+using GameCreatingCore.GameActions;
+using GameCreatingCore.LevelRepresentationData;
+using GameCreatingCore.Commands;
 
 public class LevelProviderDummy : LevelProvider
 {
@@ -44,15 +42,15 @@ public class LevelProviderDummy : LevelProvider
 					new Vector2(-17, 17),
 					180,
 					EnemyType.Basic,
-					new Path(false, new List<GameCreatingCore.GamePathing.PatrolCommand>() {
+					new Path(false, new List<PatrolCommand>() {
 						new OnlyWalkCommand(new Vector2(17, 16), 
-							false, GameCreatingCore.GamePathing.GameActions.TurnSideEnum.ShortestPrefereClockwise),
+							false, TurnSideEnum.ShortestPrefereClockwise),
 						new OnlyWalkCommand(new Vector2(-17, 17), 
-							false, GameCreatingCore.GamePathing.GameActions.TurnSideEnum.ShortestPrefereClockwise)
+							false, TurnSideEnum.ShortestPrefereClockwise)
 					})
 				)
 			},
-			new List<(GameCreatingCore.GamePathing.IActiveGameActionProvider, Vector2)>(),
+			new List<PickupableActionProvider>(),
 			availables,
 			new Vector2(-17, -17),
 			new LevelGoal(

@@ -24,7 +24,7 @@ MonoBehaviour:
         Angle: 60
         WiggleAngle: 0
         WiggleTime: 1
-        AlertingTimeModifier: 1.5
+        AlertingTimeModifier: 1.2
         DisalertingTimeModifier: 6
         AlertedLengthModifier: 2
         AlertLengthChangeSpeedIn: 0.6

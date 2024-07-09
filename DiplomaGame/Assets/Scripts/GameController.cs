@@ -1,3 +1,4 @@
+//#define DEBUG_UNITY_CCHUDAC
 using GameCreatingCore.StaticSettings;
 using System;
 using System.Collections;
@@ -14,9 +15,7 @@ public class GameController : MonoBehaviour
 	private float gameLoseTimeBeforeSceneLoad = 1f;
 	[Header("Only set the rest for the first instantiated GameController.")]
 	[SerializeField]
-	private GameObject gameOverScreen;
-	[SerializeField]
-	private GameObject gameWonScreen;
+	private GameObject blackInPrefab;
 	[SerializeField]
 	private string gameSceneName;
 	[SerializeField]
@@ -31,12 +30,17 @@ public class GameController : MonoBehaviour
 	[SerializeField] 
 	private int levelCount;
 
+#if DEBUG_UNITY_CCHUDAC
 	[SerializeField] 
 	private int defaultLevelDone;
+#endif
 
 	[SerializeField]
     private UnityStaticGameRepresentation staticGameRepr;
 	public StaticGameRepresentation GetStaticGameRepr() => staticGameRepr.ToGameDescription();
+	[SerializeField]
+	private bool inflatedObstacles = true;
+	public bool InflatedObstacles => inflatedObstacles;
 
 	[NonSerialized]
 	public int levelsDone;
@@ -53,12 +57,20 @@ public class GameController : MonoBehaviour
 		var ctrls = FindObjectsOfType<GameController>();
 		if(ctrls.Length == 1) {
 			DontDestroyOnLoad(gameObject);
-			levelsDone = defaultLevelDone; //TODO: change it back: PlayerPrefs.GetInt(levelsDoneName, 0);
+			levelsDone = 
+#if DEBUG_UNITY_CCHUDAC
+				defaultLevelDone;
+#else
+				PlayerPrefs.GetInt(levelsDoneName, 0);
+			if(levelsDone != 0) {
+				levelsDone--;
+				GameWon(0);
+			}
+#endif
 		} else if(ctrls.Length == 2){ 
 			var c = ctrls[0] == this ? ctrls[1] : ctrls[0];
 
-			gameOverScreen = c.gameOverScreen;
-			gameWonScreen = c.gameWonScreen;
+			blackInPrefab = c.blackInPrefab;
 			gameSceneName = c.gameSceneName;
 			breakSceneName = c.breakSceneName;
 			finalSceneName = c.finalSceneName;
@@ -66,7 +78,11 @@ public class GameController : MonoBehaviour
 			explantions = c.explantions;
 			levelCount = c.levelCount;
 			staticGameRepr = c.staticGameRepr;
+			inflatedObstacles = c.inflatedObstacles;
+			
+#if DEBUG_UNITY_CCHUDAC
 			defaultLevelDone = c.defaultLevelDone;
+#endif
 
 			levelsDone = c.levelsDone;
 
@@ -88,27 +104,29 @@ public class GameController : MonoBehaviour
 	bool isGameOver = false;
 	public void GameOver() {
 		if((!isGameOver) && !isGameWon) {
-			var gos = Instantiate(gameOverScreen);
-			gos.transform.position = Vector3.zero;
+			var gos = Instantiate(blackInPrefab, canvas);
+			gos.transform.localPosition = Vector3.zero;
 			isGameOver = true;
 			StartCoroutine(GameSceneCoroutine(gameLoseTimeBeforeSceneLoad, gameSceneName));
 		}
 	}
 
 	bool isGameWon = false;
-	public void GameWon() {
+	public void GameWon() => GameWon(null);
+	private void GameWon(float? forceTime) {
 		if((!isGameOver) && (!isGameWon)) {
-			var gws = Instantiate(gameWonScreen);
-			gws.transform.position = Vector3.zero;
+			var gws = Instantiate(blackInPrefab, canvas);
+			gws.transform.localPosition = Vector3.zero;
 			isGameWon = true;
 			levelsDone++;
 			PlayerPrefs.SetInt(levelsDoneName, levelsDone);
+			float time = forceTime ?? gameWinTimeBeforeSceneLoad;
 			if(levelCount <= levelsDone) {
-				StartCoroutine(GameSceneCoroutine(gameWinTimeBeforeSceneLoad, finalSceneName));
+				StartCoroutine(GameSceneCoroutine(time, finalSceneName));
 			}else if(levelBreaks.Contains(levelsDone)) {
-				StartCoroutine(GameSceneCoroutine(gameWinTimeBeforeSceneLoad, breakSceneName));
+				StartCoroutine(GameSceneCoroutine(time, breakSceneName));
 			} else {
-				StartCoroutine(GameSceneCoroutine(gameWinTimeBeforeSceneLoad, gameSceneName));
+				StartCoroutine(GameSceneCoroutine(time, gameSceneName));
 			}
 		}
 	}
@@ -121,6 +139,8 @@ public class GameController : MonoBehaviour
 	private void Update() {
 		if(Input.GetKey(KeyCode.Escape)) {
 			Quit();
+		}else if(Input.GetKey(KeyCode.R)) {
+			GameOver();
 		}
 	}
 
@@ -130,7 +150,12 @@ public class GameController : MonoBehaviour
 
 	public void ResetAndReload() {
 		ResetLevels();
-		levelsDone = defaultLevelDone;
+		levelsDone = 
+#if DEBUG_UNITY_CCHUDAC
+			defaultLevelDone;
+#else
+			0;
+#endif
 		GameOver();
 	}
 

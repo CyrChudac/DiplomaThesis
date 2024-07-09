@@ -1,13 +1,11 @@
 using GameCreatingCore;
 using GameCreatingCore.GamePathing;
-using GameCreatingCore.GamePathing.GameActions;
-using GameCreatingCore.GamePathing.NavGraphs;
-using GameCreatingCore.GamePathing.NavGraphs.Viewcones;
+using GameCreatingCore.GameActions;
+using GameCreatingCore.LevelSolving.Viewcones;
+using GameCreatingCore.LevelRepresentationData;
 using GameCreatingCore.StaticSettings;
-using System.Collections;
+using GameCreatingCore.LevelStateData;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameRunner : MonoBehaviour
@@ -15,10 +13,9 @@ public class GameRunner : MonoBehaviour
     public LevelInitializor levelInit;
     public GameController gameController;
     public int viewconeInnerRays = 100;
-    public List<EnemyController> enemies;
+    public List<EnemyObject> enemies;
     public HumanPlayerController player;
     public LevelRepresentation currentLevel;
-    public bool inflatedObstacles = true;
     public GameObject AttackAvailableIcon;
     public ViewconesManager viewconesManager;
 
@@ -43,7 +40,7 @@ public class GameRunner : MonoBehaviour
         staticNavGraph = new StaticNavGraph(currentLevel, true).Initialized();
         inflatedOuter = ObstaclesInflator.InflateOuterObst(currentLevel.OuterObstacle, statSett.StaticMovementSettings.CharacterMaxRadius);
         var rules = gameController.GetStaticGameRepr();
-        currentState = LevelState.GetInitialLevelState(currentLevel, rules, staticNavGraph);
+        currentState = GameSimulator.GetInitialLevelState(currentLevel, rules, staticNavGraph);
         gameSimulator = new GameSimulator(rules, currentLevel, staticNavGraph);
         viewconeNavGraph = new ViewconeNavGraph(currentLevel, staticNavGraph,
             gameController.GetStaticGameRepr(), viewconeInnerRays, 1, 1);
@@ -142,11 +139,11 @@ public class GameRunner : MonoBehaviour
             || !levelInit.currentLevel.OuterObstacle.ContainsPoint(destination, true)) {
             currentAction = null;
         } else {
-            if(inflatedObstacles) {
+            if(gameController.InflatedObstacles) {
                 destination = ChangeDestinationOutsideOfInflated(destination);
             }
             List<Vector2> path;
-            if(inflatedObstacles)
+            if(gameController.InflatedObstacles)
                 path = inflatedNavGraph.GetEnemylessPlayerPath(currentState.playerState.Position, destination);
             else
                 path = staticNavGraph.GetEnemylessPlayerPath(currentState.playerState.Position, destination);

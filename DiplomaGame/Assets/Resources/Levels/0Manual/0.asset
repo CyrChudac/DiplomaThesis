@@ -18,7 +18,7 @@ MonoBehaviour:
     - {x: 0, y: 40}
     - {x: 4, y: 40}
     - {x: 4, y: 10}
-    FriendlyWalkEffect: 0
+    FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
@@ -38,22 +38,17 @@ MonoBehaviour:
     Type: 0
     Path:
       Cyclic: 0
-      Commands:
-      - rid: 8224444922449625421
-      - rid: 8224444922449625423
-      - rid: 8224444922449625425
-      - rid: 8224444922449625427
+      Commands: []
   - Position: {x: 3, y: -7}
     Rotation: 122
     Type: 0
     Path:
       Cyclic: 0
-      Commands:
-      - rid: 8224444922426556705
-      - rid: 8224444922426556707
-      - rid: 8224444922426556709
-      - rid: 8224444922426556711
-  AvailableSkills: []
+      Commands: []
+  AvailableSkills:
+  - type: 0
+    nonCancelTime: 0.8
+    maxUseDistance: 3
   SkillsToPickup: []
   FriendlyStartPos: {x: -22, y: -25}
   Goal:
@@ -61,72 +56,4 @@ MonoBehaviour:
     Radius: 3
   references:
     version: 2
-    RefIds:
-    - rid: 8224444922426556705
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: 20, y: -2.5}
-        Running: 0
-        TurnWhileMoving: 0
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-        waitTime: 2
-    - rid: 8224444922426556707
-      type: {class: OnlyWalkCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: 20, y: -10}
-        Running: 0
-        TurnWhileMoving: 1
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-    - rid: 8224444922426556709
-      type: {class: OnlyWalkCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: -20, y: -10}
-        Running: 0
-        TurnWhileMoving: 1
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-    - rid: 8224444922426556711
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: -20, y: -2.5}
-        Running: 0
-        TurnWhileMoving: 0
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-        waitTime: 2
-    - rid: 8224444922449625421
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: -20, y: -2.5}
-        Running: 0
-        TurnWhileMoving: 0
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-        waitTime: 2
-    - rid: 8224444922449625423
-      type: {class: OnlyWalkCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: -20, y: -10}
-        Running: 0
-        TurnWhileMoving: 1
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-    - rid: 8224444922449625425
-      type: {class: OnlyWalkCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: 20, y: -10}
-        Running: 0
-        TurnWhileMoving: 1
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-    - rid: 8224444922449625427
-      type: {class: OnlyWaitCommand, ns: GameCreatingCore, asm: GameCreatingCore}
-      data:
-        Position: {x: 20, y: -2.5}
-        Running: 0
-        TurnWhileMoving: 0
-        TurningSide: 0
-        ExecuteDuringMoving: 0
-        waitTime: 2
+    RefIds: []

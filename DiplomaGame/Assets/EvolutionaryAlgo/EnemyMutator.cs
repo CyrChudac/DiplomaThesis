@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameCreatingCore;
-using GameCreatingCore.GamePathing;
+using GameCreatingCore.GameActions;
+using GameCreatingCore.LevelRepresentationData;
+using GameCreatingCore.Commands;
 using System;
-using static UnityEditor.PlayerSettings;
 using System.Linq;
-using UnityEngine.UIElements;
 
 public class EnemyMutator : MonoBehaviour
 {
@@ -133,7 +131,7 @@ public class EnemyMutator : MonoBehaviour
     /// Checks whether <paramref name="path"/> has the first position equal to <paramref name="prePos"/> and if so,
     /// sets it's first position to <paramref name="newPos"/>. In other words use after POS change.
     /// </summary>
-    private Path? EnemyPathCorrection(Path? path, Vector2 prePos, Vector2 newPos) {
+    private Path EnemyPathCorrection(Path? path, Vector2 prePos, Vector2 newPos) {
         if(path != null && path.Commands[0].Position == prePos)
             path.Commands[0].Position = newPos;
         return path;
@@ -143,13 +141,13 @@ public class EnemyMutator : MonoBehaviour
     /// Checks whether <paramref name="path"/> has the first position equal to <paramref name="prePos"/> and if so,
     /// sets it's first position of <paramref name="newPath"/> to <paramref name="prePos"/>. In other words use after PATH change.
     /// </summary>
-    private Path? EnemyPathCorrection(Path? path, Vector2 prePos, Path? newPath) {
+    private Path EnemyPathCorrection(Path? path, Vector2 prePos, Path? newPath) {
         if(path != null && newPath != null && path.Commands[0].Position == prePos)
             newPath.Commands[0].Position = prePos;
         return newPath;
     }
 
-    private Path? AddDeleteOrMutateEnemyPath(Path? previous, Vector2 position, EvolAlgoUtils utils, 
+    private Path AddDeleteOrMutateEnemyPath(Path? previous, Vector2 position, EvolAlgoUtils utils, 
         Obstacle outerObstacle, IEnumerable<Obstacle> obsts) {
 
         if(previous == null) {
@@ -158,7 +156,7 @@ public class EnemyMutator : MonoBehaviour
 
                 return EnemyPathMutation(
                     new Path(utils.RandomFloat() < _pathCyclicStartProb, new List<PatrolCommand>() {
-                        GetOnlyWalkCommand(pos)
+                        GetBasicCommand(pos, utils)
                     }), position, utils, outerObstacle, obsts);
             }
         } else {
@@ -183,9 +181,9 @@ public class EnemyMutator : MonoBehaviour
         return pos;
     }
 
-    private OnlyWalkCommand GetOnlyWalkCommand(Vector2 pos)
-        => new OnlyWalkCommand(pos, 
-            false, GameCreatingCore.GamePathing.GameActions.TurnSideEnum.ShortestPrefereClockwise);
+    private PatrolCommand GetBasicCommand(Vector2 pos, EvolAlgoUtils utils)
+        => new OnlyWaitCommand(pos, false,
+            false, TurnSideEnum.ShortestPrefereClockwise, utils.RandomFloat(1f, 4.5f));
 
     private Path? EnemyPathMutation(Path pre, Vector2 position, EvolAlgoUtils utils, 
         Obstacle outerObstacle, IEnumerable<Obstacle> obsts) {
@@ -205,7 +203,7 @@ public class EnemyMutator : MonoBehaviour
                     () => cmds[cmds.Count - 1].Position + utils.RandomNormVec(15, 15));
             }
             cmds.Add(
-                GetOnlyWalkCommand(pos));
+                GetBasicCommand(pos, utils));
         }
         for(int i = 0; i < cmds.Count; i++) {
             if(utils.RandomFloat() < _pathChangeCommandPosProb) {

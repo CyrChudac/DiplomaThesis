@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
-  m_Name: 0
+  m_Name: 0_24.7.8.19
   m_EditorClassIdentifier: 
   Obstacles:
   - Shape:
@@ -82,8 +82,8 @@ MonoBehaviour:
     Path:
       Cyclic: 0
       Commands:
-      - rid: 8224445053145186439
-      - rid: 8224445053145186441
+      - rid: 8224445099192353298
+      - rid: 8224445099192353300
   AvailableSkills:
   - type: 0
     nonCancelTime: 0.8
@@ -105,7 +105,7 @@ MonoBehaviour:
         TurningSide: 0
         ExecuteDuringMoving: 0
         waitTime: 3.623115
-    - rid: 8224445053145186439
+    - rid: 8224445099192353298
       type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
       data:
         Position: {x: -2.353469, y: -4.062903}
@@ -114,7 +114,7 @@ MonoBehaviour:
         TurningSide: 0
         ExecuteDuringMoving: 0
         waitTime: 3.070289
-    - rid: 8224445053145186441
+    - rid: 8224445099192353300
       type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
       data:
         Position: {x: 0.56704783, y: -4.7236843}

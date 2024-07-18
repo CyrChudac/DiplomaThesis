@@ -28,7 +28,7 @@ namespace GameCreatingCore.GameActions
         float TimeUntilCancelable { get; }
 
         /// <summary>
-        /// Which enemy is affected by this action? If null, it is the player.
+        /// Which enemy has initiated this action? If null, it is the player.
         /// </summary>
         int? EnemyIndex { get; }
 

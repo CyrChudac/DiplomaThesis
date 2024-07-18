@@ -5,8 +5,9 @@ using System.Text;
 using UnityEngine;
 using GameCreatingCore.GamePathing;
 
-namespace GameCreatingCore.LevelSolving.Viewcones {
-	internal class GraphScorer {
+namespace GameCreatingCore.LevelSolving.Viewcones
+{
+    internal class GraphScorer {
 
         readonly StaticNavGraph staticNavGraph;
 

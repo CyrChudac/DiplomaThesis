@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using GameCreatingCore.GamePathing;
 
-namespace GameCreatingCore.LevelSolving.Viewcones {
-	class ViewconeGraph : Graph<ViewNode, ViewMidEdgeInfo>
+namespace GameCreatingCore.LevelSolving.Viewcones
+{
+    class ViewconeGraph : Graph<ViewNode, ViewMidEdgeInfo>
     {
         public Viewcone Viewcone { get; }
         public int Index { get; }

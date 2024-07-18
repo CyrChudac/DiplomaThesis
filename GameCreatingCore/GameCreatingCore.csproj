@@ -10,11 +10,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>portable</DebugType>
-    <Optimize>False</Optimize>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <ItemGroup>

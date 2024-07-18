@@ -153,7 +153,7 @@ namespace GameCreatingCore.LevelSolving
             return result;
         }
 
-        LevelState DoInitialWait(LevelState state, GameSimulator simulator, IViewconesBearer viewGraph, out bool lost)
+        LevelState DoInitialWait(LevelState state, GameSimulator simulator, ViewconesCreator viewsCreator, out bool lost)
         {
             float usedTime = 0;
             lost = false;
@@ -161,7 +161,7 @@ namespace GameCreatingCore.LevelSolving
             {
                 float step = Math.Min(initialWait - usedTime, timestepSize);
                 usedTime += step;
-                state = simulator.Simulate(new LevelStateTimed(state, step), viewGraph, new List<IGameAction>());
+                state = simulator.Simulate(new LevelStateTimed(state, step), viewsCreator, new List<IGameAction>());
                 if (IsLost(state))
                 {
                     lost = true;
@@ -198,26 +198,6 @@ namespace GameCreatingCore.LevelSolving
                 var currNode = que.DequeueMin();
                 try
                 {
-                    if (enemDead != currNode.State.enemyStates.Where(e => !e.Alive).Count()
-                        || skillPicked != currNode.State.pickupableSkillsPicked.Where(p => p).Count())
-                    {
-
-                        var recurse = GetPartPathOrTree(playerMovementSettings, hasEnemyMovement, simulator,
-                            staticGraph, currNode, viewGraph, levelRepresentation, scoreHolderFunction, ref iterations);
-
-                        if (recurse.Winning != null)
-                        {
-                            return (recurse.Winning, que
-                                .Select(x => x.Item2)
-                                .Concat(recurse.AllButWin)
-                                .Concat(deadEnds)
-                                .ToList());
-                        }
-                        else
-                        {
-                            deadEnds.AddRange(recurse.AllButWin);
-                        }
-                    }
                     if (levelRepresentation.Goal.IsAchieved(currNode.State))
                     {
                         var res = new List<StateNode>();
@@ -285,7 +265,28 @@ namespace GameCreatingCore.LevelSolving
                         var actions = GetPossibleActions(nodes2.Select(x => x.Item2),
                             playerMovementSettings, n => scoreHolderFunction(n)?.GetPrevious(currGraph.vertices), currGraph);
                         var node = new StateNode(newState, currNode, thisTime, a, actions);
-                        que.Enqueue(score, node);
+                        if (enemDead != newState.enemyStates.Where(e => !e.Alive).Count()
+                            || skillPicked != newState.pickupableSkillsPicked.Where(p => p).Count())
+                        {
+
+                            var recurse = GetPartPathOrTree(playerMovementSettings, hasEnemyMovement, simulator,
+                                staticGraph, node, viewGraph, levelRepresentation, scoreHolderFunction, ref iterations);
+
+                            if (recurse.Winning != null)
+                            {
+                                return (recurse.Winning, que
+                                    .Select(x => x.Item2)
+                                    .Concat(recurse.AllButWin)
+                                    .Concat(deadEnds)
+                                    .ToList());
+                            }
+                            else
+                            {
+                                deadEnds.AddRange(recurse.AllButWin);
+                            }
+                        } else {
+                            que.Enqueue(score, node);
+                        }
                         added++;
                     }
                     if (added == 0)
@@ -303,8 +304,6 @@ namespace GameCreatingCore.LevelSolving
             //is reached or no action available... so no path was found, hence we return null
             return (null, deadEnds);
         }
-
-
 
         private bool IsLost(LevelState state) => state.enemyStates.Any(e => e.Alerted);
 

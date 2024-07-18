@@ -10,38 +10,53 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2f4a7c3a025bad499ee85f78a4e95e7, type: 3}
-  m_Name: 1
+  m_Name: 2_24.7.6.23
   m_EditorClassIdentifier: 
   Obstacles:
   - Shape:
-    - {x: 31.831694, y: -14.6485}
-    - {x: 49.283478, y: -14.6485}
-    - {x: 49.283478, y: -6.098281}
-    - {x: 31.831694, y: -6.098281}
-    FriendlyWalkEffect: 0
+    - {x: 22.83397, y: -0.80202323}
+    - {x: 38.288254, y: -0.80202323}
+    - {x: 38.288254, y: 10.411696}
+    - {x: 22.83397, y: 10.411696}
+    FriendlyWalkEffect: 1
+    EnemyWalkEffect: 1
+    FriendlyVisionEffect: 1
+    EnemyVisionEffect: 0
+  - Shape:
+    - {x: 26.34483, y: 20.22527}
+    - {x: 33.653336, y: 20.22527}
+    - {x: 33.653336, y: 43.28585}
+    - {x: 26.34483, y: 43.28585}
+    FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   OuterObstacle:
     Shape:
-    - {x: -22.153255, y: -31.304781}
-    - {x: -22.153255, y: 19.256374}
-    - {x: 49.576035, y: 19.256374}
-    - {x: 49.576035, y: -31.304781}
+    - {x: -40.53898, y: -12.057346}
+    - {x: -40.53898, y: 36.95055}
+    - {x: 49.590954, y: 36.95055}
+    - {x: 49.590954, y: -12.057346}
     FriendlyWalkEffect: 1
     EnemyWalkEffect: 1
     FriendlyVisionEffect: 1
     EnemyVisionEffect: 1
   Enemies:
-  - Position: {x: 15.969666, y: -19.757975}
-    Rotation: 322
+  - Position: {x: 46.846577, y: 30.401695}
+    Rotation: 293
     Type: 0
     Path:
       Cyclic: 0
       Commands:
-      - rid: 8224445052988686763
-  - Position: {x: -10.5597315, y: -15.097146}
-    Rotation: 215
+      - rid: 8224445099400495308
+  - Position: {x: -17.914303, y: 13.940571}
+    Rotation: 262.7495
+    Type: 0
+    Path:
+      Cyclic: 0
+      Commands: []
+  - Position: {x: -12.977283, y: 10.149638}
+    Rotation: 134
     Type: 0
     Path:
       Cyclic: 0
@@ -51,19 +66,19 @@ MonoBehaviour:
     nonCancelTime: 0.8
     maxUseDistance: 3
   SkillsToPickup: []
-  FriendlyStartPos: {x: -18.875683, y: -28.027208}
+  FriendlyStartPos: {x: -37.601505, y: -9.119874}
   Goal:
-    Position: {x: 46.298462, y: 15.978802}
-    Radius: 3.2775724
+    Position: {x: 46.65348, y: 34.013077}
+    Radius: 2.937472
   references:
     version: 2
     RefIds:
-    - rid: 8224445052988686763
+    - rid: 8224445099400495308
       type: {class: OnlyWaitCommand, ns: GameCreatingCore.Commands, asm: GameCreatingCore}
       data:
-        Position: {x: 21.506523, y: -13.3010025}
+        Position: {x: 46.241333, y: 24.909899}
         Running: 0
         TurnWhileMoving: 0
         TurningSide: 0
         ExecuteDuringMoving: 0
-        waitTime: 3.2519886
+        waitTime: 1.9328805

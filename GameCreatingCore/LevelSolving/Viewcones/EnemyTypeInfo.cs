@@ -2,7 +2,7 @@
 
 namespace GameCreatingCore.LevelSolving.Viewcones
 {
-    class EnemyTypeInfo
+    public class EnemyTypeInfo
     {
         public float Angle { get; }
         /// <summary>

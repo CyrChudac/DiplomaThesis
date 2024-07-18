@@ -5,7 +5,8 @@ using UnityEngine;
 using GameCreatingCore.GamePathing;
 using GameCreatingCore.LevelRepresentationData;
 
-namespace GameCreatingCore.LevelSolving.Viewcones {
+namespace GameCreatingCore.LevelSolving.Viewcones
+{
 
     internal class ViewconeCommonPartsRemover
     {

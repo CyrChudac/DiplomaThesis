@@ -41,6 +41,10 @@ public class LevelTester : MonoBehaviour {
 
     [Header("Visualization only")]
     public bool visualize = true;
+    public bool showInflatedObstacles = true;
+    public bool showEnemies = true;
+    public bool showPlayer = true;
+    public bool showGoal = true;
     public LevelProvider testProvider;
     public LevelInitializor initializor;
     public bool showObstacleNumbers = true;
@@ -163,7 +167,8 @@ public class LevelTester : MonoBehaviour {
 
     private bool firstValidate = true;
     private bool firstValidateEnd = true;
-
+    private IReadOnlyList<Obstacle> obstaclesToShow;
+    private Obstacle outerObstToShow;
     private void OnValidate() {
         if(!visualize)
             return;
@@ -177,11 +182,17 @@ public class LevelTester : MonoBehaviour {
         ResetPather();
         var staticGameRepr = controller.GetStaticGameRepr();
         var startinglevel = testProvider.GetLevel(false);
-
         if(controller.InflatedObstacles)
             level = ObstaclesInflator.InflateAllInLevel(startinglevel, staticGameRepr.StaticMovementSettings);
         else
             level = startinglevel;
+        if(!showInflatedObstacles) {
+            obstaclesToShow = startinglevel.Obstacles;
+            outerObstToShow = startinglevel.OuterObstacle;
+        } else {
+            obstaclesToShow = level.Obstacles;
+            outerObstToShow = level.OuterObstacle;
+        }
         staticNavGraph = new StaticNavGraph(level, true).Initialized();
         targetGraph = new ViewconeNavGraph(level, staticNavGraph, staticGameRepr,
             innerViewconeRayCount,
@@ -273,8 +284,8 @@ public class LevelTester : MonoBehaviour {
 #endif
 
         DrawGoal(level);
-        DrawOuter(level.OuterObstacle);
-        DrawObstacles(level.Obstacles);
+        DrawOuter(outerObstToShow);
+        DrawObstacles(obstaclesToShow);
         DrawEnemies(level.Enemies, state.enemyStates);
         DrawNavGraph(targetGraph, staticNavGraph, state);
         DrawViewcones(targetGraph, state);
@@ -282,6 +293,8 @@ public class LevelTester : MonoBehaviour {
     }
 
     private void DrawPlayerAndPath(LevelState state) {
+        if(!showPlayer)
+            return;
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(state.playerState.Position, 2);
         if(paths == null)
@@ -299,6 +312,8 @@ public class LevelTester : MonoBehaviour {
     }
 
     private void DrawGoal(LevelRepresentation lvl) {
+        if(!showGoal)
+            return;
         Gizmos.color = SetAlpha(Color.Lerp(Color.yellow, Color.white, 0.8f), 0.75f);
         Gizmos.DrawSphere(lvl.Goal.Position, lvl.Goal.Radius);
     }
@@ -326,6 +341,8 @@ public class LevelTester : MonoBehaviour {
     }
 
     private void DrawEnemies(IReadOnlyList<Enemy> enemies, IReadOnlyList<EnemyState> states) {
+        if(!showEnemies)
+            return;
         foreach(var state in states) {
             Gizmos.color = new Color(1, 0.1f, 0.1f, 0.5f);
             Gizmos.DrawSphere(state.Position, 2);

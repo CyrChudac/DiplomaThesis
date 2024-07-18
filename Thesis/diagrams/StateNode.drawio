@@ -1,0 +1,28 @@
+<mxfile host="app.diagrams.net" modified="2024-07-10T20:24:17.473Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0" etag="muabGfr8VHwzP4MIRtT8" version="24.6.4" type="device">
+  <diagram name="Stránka-1" id="OlbAEosT6huuaMdEdTcK">
+    <mxGraphModel dx="1050" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LmO1T2PpCEPKSTo8xhtL-1" value="StateNode" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="150" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="LmO1T2PpCEPKSTo8xhtL-2" value="LevelState State" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="LmO1T2PpCEPKSTo8xhtL-1">
+          <mxGeometry y="30" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LmO1T2PpCEPKSTo8xhtL-3" value="StateNode Previous" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="LmO1T2PpCEPKSTo8xhtL-1">
+          <mxGeometry y="60" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LmO1T2PpCEPKSTo8xhtL-5" value="List&amp;lt;IGameAction&amp;gt; Actions" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="LmO1T2PpCEPKSTo8xhtL-1">
+          <mxGeometry y="90" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LmO1T2PpCEPKSTo8xhtL-6" value="List&amp;lt;List&amp;lt;IGameAction&amp;gt;&amp;gt; PossibleActions" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="LmO1T2PpCEPKSTo8xhtL-1">
+          <mxGeometry y="120" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LmO1T2PpCEPKSTo8xhtL-4" value="float Time" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="LmO1T2PpCEPKSTo8xhtL-1">
+          <mxGeometry y="150" width="250" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -2659,7 +2659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9c885a13affe346a7249ef7e217f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mutationProb: 1
+  mutationProb: 0.5
   addObstacleProbCurve:
     serializedVersion: 2
     m_Curve:
@@ -6629,6 +6629,10 @@ MonoBehaviour:
   defaultObstaclkesScoringCount: 20
   initialPathWait: 2
   visualize: 1
+  showInflatedObstacles: 0
+  showEnemies: 0
+  showPlayer: 0
+  showGoal: 1
   testProvider: {fileID: 34035476}
   initializor: {fileID: 227880779}
   showObstacleNumbers: 0
@@ -6636,19 +6640,19 @@ MonoBehaviour:
   pathMinGenerated: 0
   pathGeneratedCount: 10
   showEnemyPatrols: 0
-  showNavGraph: 0
+  showNavGraph: 1
   graphEdgeEndMargin: 0
   navGraphVisualization: 0
   showNavGraphNumbers: 0
   scoreVisualization: 0
   showSpecificViewcone: -1
-  viewconeVisualization: 2
+  viewconeVisualization: 0
   removeNonTraversableEdgesFromGraph: 0
-  noEnemyPather: 0
+  noEnemyPather: 1
   navGraphTiming: 4
   secondsBetweenPathSteps: 0.107
-  outerAlpha: 0.09
-  obstaclesAlpha: 0.111
+  outerAlpha: 1
+  obstaclesAlpha: 1
   level:
     Obstacles: []
     Enemies:

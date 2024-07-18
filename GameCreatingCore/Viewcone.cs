@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GameCreatingCore.LevelSolving.Viewcones;
 using UnityEngine;
 
-namespace GameCreatingCore.LevelSolving.Viewcones {
+namespace GameCreatingCore
+{
 
     class Viewcone
     {
@@ -12,15 +14,17 @@ namespace GameCreatingCore.LevelSolving.Viewcones {
         public int EnemyIndex { get; }
         public float FullLength { get; }
         public EnemyTypeInfo EnemyTypeInfo { get; }
+        public bool EnemyDead { get; }
 
         public Viewcone(Vector2 startPos, IReadOnlyList<Vector2> endingPoints, int enemyindex,
-            EnemyTypeInfo enemyTypeInfo, float fullLength)
+            EnemyTypeInfo enemyTypeInfo, float fullLength, bool enemyDead)
         {
             StartPos = startPos;
             EndingPoints = endingPoints;
             EnemyIndex = enemyindex;
             EnemyTypeInfo = enemyTypeInfo;
             FullLength = fullLength;
+            EnemyDead = enemyDead;
         }
 
         /// <summary>

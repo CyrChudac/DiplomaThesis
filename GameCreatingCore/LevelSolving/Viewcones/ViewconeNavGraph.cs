@@ -11,17 +11,14 @@ using GameCreatingCore.LevelStateData;
 namespace GameCreatingCore.LevelSolving.Viewcones
 {
 
-    public class ViewconeNavGraph : IViewconesBearer 
+    public class ViewconeNavGraph : ViewconesCreator 
     {
-        private readonly IReadOnlyDictionary<EnemyType, EnemyTypeInfo> lengthsDict;
-        private readonly LevelRepresentation level;
-        private readonly int innerRays;
+        public readonly StaticNavGraph staticNavGraph;
+
         private readonly float viewconeTravelConsideredStep;
         private readonly StaticGameRepresentation staticgameRepr;
         private readonly int skillUsePointsAround;
 
-        public readonly StaticNavGraph staticNavGraph;
-        //private readonly ViewconePruningStyle ViewconePruning;
 
         private Dictionary<EnemyState, ViewconeGraph> _enemyViewconeDict
             = new Dictionary<EnemyState, ViewconeGraph>();
@@ -33,41 +30,16 @@ namespace GameCreatingCore.LevelSolving.Viewcones
         /// What is their length? 0 = viewcone length; 1 = minimal length within the triangle.</param>
         public ViewconeNavGraph(LevelRepresentation level, StaticNavGraph staticNavGraph,
             StaticGameRepresentation staticGameRepr, int innerRays, float viewconeTravelConsideredStep,
-            //ViewconePruningStyle viewconePruning,
-            int skillUsePointsAround,
-            float viewconeLengthMod = 0.5f)
+            int skillUsePointsAround, float viewconeLengthMod = 0.5f)
+            :base(level, staticGameRepr, innerRays, viewconeLengthMod)
         {
-            var playerSpeed = staticGameRepr.PlayerSettings.movementRepresentation.WalkSpeed;
-            var lenDic = new Dictionary<EnemyType, EnemyTypeInfo>();
-            foreach (var t in level.Enemies
-                    .Select(e => e.Type)
-                    .Distinct())
-            {
-                var es = staticGameRepr.GetEnemySettings(t);
-                var vr = es.viewconeRepresentation;
-                var alertTime = staticGameRepr.GameDifficulty * vr.AlertingTimeModifier - 0.25f;
-                var alertDistance = playerSpeed * alertTime;
-                var angleIncrease = AngleIncr(vr.Angle);
-                float GetLength(float alerted)
-                {
-                    var currLen = vr.ComputeLength(alerted);
-                    var minViewLength = currLen / (float)Math.Cos(Vector2Utils.DegreesToRadians(angleIncrease / 2));
-                    return currLen + (minViewLength - currLen) * viewconeLengthMod;
-                } 
-                lenDic.Add(t, new EnemyTypeInfo(GetLength, vr.Angle, alertDistance));
-            }
-            lengthsDict = lenDic;
 
             this.skillUsePointsAround = skillUsePointsAround;
-            this.level = level;
-            this.innerRays = innerRays;
             this.viewconeTravelConsideredStep = viewconeTravelConsideredStep;
             this.staticNavGraph = staticNavGraph;
-            //ViewconePruning = viewconePruning;
             staticgameRepr = staticGameRepr;
         }
 
-        float AngleIncr(float angle) => angle / (innerRays + 1);
 
         Dictionary<int, GraphWithViewcones> fullGraphsDict
             = new Dictionary<int, GraphWithViewcones>();
@@ -95,38 +67,6 @@ namespace GameCreatingCore.LevelSolving.Viewcones
             return views;
         }
 
-        /// <summary>
-        /// Gets the list of viewcones in the given <paramref name="state"/>.
-        /// </summary>
-        public List<List<Vector2>> GetRawViewcones(LevelState state)
-        {
-            List<List<Vector2>> viewcones = new List<List<Vector2>>();
-            for (int i = 0; i < state.enemyStates.Count; i++)
-            {
-                var es = state.enemyStates[i];
-                if(!es.Alive) {
-                    viewcones.Add(new List<Vector2>());
-                    continue;
-                }
-                Viewcone view;
-                if (!_enemyViewconeDict.TryGetValue(es, out var vg))
-                {
-                    var length = lengthsDict[level.Enemies[i].Type].GetLength(es.ViewconeAlertLengthModifier);
-                    view = EnemyToViewcone(level.Enemies[i].Type, i, es, innerRays, length);
-                }
-                else
-                {
-                    view = vg.Viewcone;
-                }
-                viewcones.Add(
-                    Enumerable.Empty<Vector2>()
-                        .Append(view.StartPos)
-                        .Concat(view.EndingPoints)
-                        .ToList()
-                    );
-            }
-            return viewcones;
-        }
 
         public IEnumerable<Graph<Node>> GetViewConeGraphs(LevelState state, bool computeEdges, 
             bool cutoffCommon, bool removeNoTraversables) 
@@ -157,8 +97,8 @@ namespace GameCreatingCore.LevelSolving.Viewcones
                 ViewconeGraph view;
                 if (!_enemyViewconeDict.TryGetValue(es, out view))
                 {
-                    var length = lengthsDict[level.Enemies[i].Type].GetLength(es.ViewconeAlertLengthModifier);
-                    var preview = EnemyToViewcone(level.Enemies[i].Type, i, es, innerRays, length);
+                    var length = GetViewconeLength(i, state);
+                    var preview = GetViewcone(state, i);
                     view = AddTraversePoints(preview, lengthsDict[level.Enemies[i].Type].AlertingDistance, length, i);
                     _enemyViewconeDict.Add(es, view);
                 }
@@ -262,76 +202,6 @@ namespace GameCreatingCore.LevelSolving.Viewcones
             var degIncrease = 360.0f / count;
             for(float i = 0; i < 360; i += degIncrease) {
                 result.Add(position + Vector2Utils.VectorFromAngle(i + startingAngle) * distance);
-            }
-            return result;
-        }
-
-
-        private Viewcone EnemyToViewcone(EnemyType type, int index, EnemyState state, int innerRays, float length)
-        {
-
-            var enemVisionObsts = level.Obstacles
-                .Append(level.OuterObstacle)
-                .Where(o => o.Effects.EnemyVisionEffect == VisionObstacleEffect.NonSeeThrough)
-                .ToList();
-
-            float firstAngle = 2;
-
-            var angle = lengthsDict[type].Angle;
-            var angleIncrease = AngleIncr(angle - 2 * firstAngle);
-            var startAngle = state.Rotation - angle / 2 + firstAngle;
-
-            List<Vector2> points = new List<Vector2>();
-            var vec = Vector2Utils.VectorFromAngle(startAngle - firstAngle);
-            var p = GetIntersectionWithObstacles(state.Position, vec, length, enemVisionObsts);
-            points.Add(p);
-            for (int i = 0; i < innerRays + 2; i++)
-            {
-                vec = Vector2Utils.VectorFromAngle(startAngle + angleIncrease * i);
-                p = GetIntersectionWithObstacles(state.Position, vec, length, enemVisionObsts);
-                if(!(i == 0 && FloatEquality.AreEqual(p, points[0])))
-                    points.Add(p);
-            }
-            vec = Vector2Utils.VectorFromAngle(state.Rotation + angle / 2);
-            p = GetIntersectionWithObstacles(state.Position, vec, length, enemVisionObsts);
-            if(!FloatEquality.AreEqual(p, points[^1]))
-                points.Add(p);
-            return new Viewcone(state.Position, points, index, lengthsDict[type], length);
-        }
-
-        /// <summary>
-        /// Finds the closest intersection with <paramref name="obstacles"/> from <paramref name="from"/> in the given <paramref name="direction"/>.
-        /// If there is no such intesection, return <paramref name="direction"/> * <paramref name="maxDistance"/>.
-        /// </summary>
-        /// <param name="direction">Is expected as a normalized vector.</param>
-        private Vector2 GetIntersectionWithObstacles(Vector2 from, Vector2 direction,
-            float maxDistance, IEnumerable<Obstacle> obstacles)
-        {
-
-            var end = from + direction * maxDistance;
-
-            var result = end;
-            var magn = maxDistance * maxDistance;
-
-            foreach (var obst in obstacles)
-            {
-                if(obst.Shape.Count == 0)
-                    continue;
-                var pre = obst.Shape[obst.Shape.Count - 1];
-                foreach (var p in obst.Shape)
-                {
-                    var i = LineIntersectionDecider.FindFirstIntersection(from, end, pre, p, true, true);
-                    if (i.HasValue)
-                    {
-                        var currMagn = (i - from).Value.sqrMagnitude;
-                        if (currMagn < magn)
-                        {
-                            magn = currMagn;
-                            result = i.Value;
-                        }
-                    }
-                    pre = p;
-                }
             }
             return result;
         }

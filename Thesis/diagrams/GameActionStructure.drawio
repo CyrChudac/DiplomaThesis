@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" modified="2024-07-10T12:50:14.311Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0" etag="8O84IXcEuUT5W2Orz8vE" version="24.6.4" type="device">
+  <diagram name="Stránka-1" id="1mq4VrUCZkD0CbIcO5gu">
+    <mxGraphModel dx="1050" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="EapHZU6w25Vdd2l38JXl-1" value="IGameAction" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="170" width="390" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-9" value="bool IsIndependentOfCharacter" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="30" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-8" value="bool Done" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="60" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-7" value="bool IsCancelable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="90" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-10" value="int? EnemyIndex" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="120" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-2" value="LevelStateTimed CharacterActionPhase(LevelStateTimed input)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="150" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-3" value="LevelStateTimed AutonomousActionPhase(LevelStateTimed input)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="180" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-4" value="IGameAction Duplicate()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="210" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-5" value="void Reset()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="240" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EapHZU6w25Vdd2l38JXl-6" value="..." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EapHZU6w25Vdd2l38JXl-1">
+          <mxGeometry y="270" width="390" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
